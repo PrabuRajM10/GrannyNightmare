@@ -27,6 +27,9 @@ public class PlayerStateMachine : StateMachine
     // cinemachine
     private float _cinemachineTargetYaw;
     private float _cinemachineTargetPitch;
+    
+    
+    private float _playerRotationTargetY;
 
 
     //public StateMachineBase CurrentState { get { return _currentState; } set { _currentState = value; } }
@@ -60,8 +63,11 @@ public class PlayerStateMachine : StateMachine
     [SerializeField] GameObject CinemachineCameraTarget;
     
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-    public float CameraAngleOverride = 0.0f;
+    [SerializeField] float CameraAngleOverride = 0.0f;
+
     private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
+    
+    public Vector3 CharacterCurrentMovementVector => _characterCurrentMovementVector;
 
     private void Awake()
     {
@@ -76,6 +82,8 @@ public class PlayerStateMachine : StateMachine
         _isCrouchingHash = Animator.StringToHash("IsCrouching");
         _isCrouchWalkingHash = Animator.StringToHash("IsCrouchWalking");
         _isKillingHash = Animator.StringToHash("Kill");
+        _PlayerMovementXHash = Animator.StringToHash("x");
+        _playerMovementZHash = Animator.StringToHash("z");
 
         _states = new StateMachineHandle(this);
         _currentState = _states.Idle();
@@ -102,13 +110,16 @@ public class PlayerStateMachine : StateMachine
     {
         HandleRotation();
         if(_currentState!=null)_currentState.OnUpdateState();
-        //if (!_isKilling)
-        //{
-        //    if (_isRunning && !_isCrouching) Move(runSpeed);
-        //    else if (_isCrouching) Move(crouchWalkSpeed);
-        //    else Move(walkSpeed);
-        //}
-        _characterController.Move(_characterCurrentMovementVector * Time.deltaTime * _movementSpeed);
+        
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * _characterCurrentMovementVector.z; // TransformDirection converts local direction to world space
+        Vector3 right = transform.TransformDirection(Vector3.right) * _characterCurrentMovementVector.x;
+
+        Vector3 moveDirection = (forward + right).normalized;
+        
+        animator.SetFloat(_PlayerMovementXHash , _characterCurrentMovementVector.x);
+        animator.SetFloat(_playerMovementZHash , _characterCurrentMovementVector.z);
+
+        _characterController.Move(moveDirection * Time.deltaTime * _movementSpeed);
     }
 
     private void LateUpdate()
@@ -147,6 +158,8 @@ public class PlayerStateMachine : StateMachine
         _characterCurrentMovementVector.x = _characterMoveInput.x;
         _characterCurrentMovementVector.z = _characterMoveInput.y;
         _isWalking = _characterMoveInput.x != 0 || _characterMoveInput.y != 0;
+        // _PlayerMovementXHash  = _characterMoveInput.x;
+        // _playerMovementZHash = _characterMoveInput.y;
     }
 
     void HandleInput_Look(InputAction.CallbackContext context)
@@ -173,7 +186,6 @@ public class PlayerStateMachine : StateMachine
     void HandleInput_Crouch(InputAction.CallbackContext context)
     {
         _isCrouching = !_isCrouching;
-        Debug.Log("HandleInput_Crouch  _isCrouching" + _isCrouching);
     }
 
     void HandleGravity()
@@ -184,18 +196,32 @@ public class PlayerStateMachine : StateMachine
 
     void HandleRotation()
     {
-        Vector3 positionToLook;
-
-        positionToLook.x = _characterMoveInput.x;
-        positionToLook.y = 0.0f;
-        positionToLook.z = _characterMoveInput.y;
-        Quaternion currentRot = transform.rotation;
-
-        if (_isWalking)
+        // Vector3 positionToLook;
+        //
+        // Debug.Log("[HandleRotation] look " + (_look.x , _look.y));
+        //
+        // positionToLook.x = _characterMoveInput.x;
+        // positionToLook.y = 0.0f;
+        // positionToLook.z = _characterMoveInput.y;
+        //
+        // if (_isWalking)
+        // {
+        //     Quaternion targetRot = Quaternion.LookRotation(positionToLook);
+        //     transform.rotation = Quaternion.Slerp(currentRot, targetRot, Time.deltaTime * rotationFactor);
+        // }
+        
+        if (_look.sqrMagnitude >= Threshold && !lockCameraPosition)
         {
-            Quaternion targetRot = Quaternion.LookRotation(positionToLook);
-            transform.rotation = Quaternion.Slerp(currentRot, targetRot, Time.deltaTime * rotationFactor);
+            //Don't multiply mouse input by Time.deltaTime;
+            float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+
+            _playerRotationTargetY += _look.x * deltaTimeMultiplier;
+            
         }
+        
+        // _playerRotationTargetY = ClampAngle(_playerRotationTargetY, float.MinValue, float.MaxValue);
+
+        transform.rotation = Quaternion.Euler(0,_playerRotationTargetY, 0.0f);
     }
 
 
@@ -212,6 +238,7 @@ public class PlayerStateMachine : StateMachine
 
             _cinemachineTargetYaw += _look.x * deltaTimeMultiplier;
             _cinemachineTargetPitch += _look.y * deltaTimeMultiplier;
+            
         }
 
         // clamp our rotations so our values are limited 360 degrees

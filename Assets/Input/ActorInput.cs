@@ -77,7 +77,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""17970437-ea31-45e3-86db-5f533ee5a97e"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -86,7 +86,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
+                    ""name"": ""Up"",
                     ""id"": ""d5db4ab8-adbe-4b71-b5cb-14a7ae60b0eb"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
@@ -97,7 +97,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""down"",
+                    ""name"": ""Down"",
                     ""id"": ""3b610646-f634-4304-8636-2afb4afbb70f"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
@@ -108,7 +108,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
+                    ""name"": ""Left"",
                     ""id"": ""5df00761-5c81-46da-a4f9-928e850dbfce"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
@@ -119,8 +119,8 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""c4be7d9a-ab77-42bb-abfa-69e4a7bf9e08"",
+                    ""name"": ""Right"",
+                    ""id"": ""af2dfab2-ee3e-4cf6-8449-2df3c7475786"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
