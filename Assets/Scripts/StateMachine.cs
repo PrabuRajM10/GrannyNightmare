@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    protected bool  _isWalking, _isRunning, _isCrouching, _isKilling , _canRest;
+    protected bool  _isWalking, _canRun, _isCrouching, _isKilling , _canRest , _isRunButtonPressed;
     [SerializeField] protected float walkSpeed, runSpeed, crouchWalkSpeed, rotationFactor = 1f, _movementSpeed , _restTime;
     protected StateMachineHandle _states;
-    protected int _isWalkinghash, _isRunninghash, _isCrouchingHash, _isCrouchWalkingHash,_PlayerMovementXHash , _playerMovementZHash, _isKillingHash ;
+    protected int _canRunhash, _isCrouchingHash, _isCrouchWalkingHash,_PlayerMovementXHash , _playerMovementZHash, _isKillingHash ;
     protected StateMachineBase _currentState;
     protected Animator animator;
 
     public StateMachineBase CurrentState { get { return _currentState; } set { _currentState = value; } }
-    public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
+    public bool CanRun { get { return _canRun; } set { _canRun = value; } }
     public bool IsWalking => _isWalking;
     public bool IsCrouching => _isCrouching;
     public bool IsKilling => _isKilling;
@@ -23,8 +23,7 @@ public class StateMachine : MonoBehaviour
     public float PlayerMovementZHash => _playerMovementZHash
 ; 
     public float CrouchWalkSpeed { get { return crouchWalkSpeed; } }
-    public int IsWalkinghash { get { return _isWalkinghash; } set { _isWalkinghash = value; } }
-    public int IsRunninghash { get { return _isRunninghash; } set { _isRunninghash = value; } }
+    public int CanRunhash { get { return _canRunhash; } set { _canRunhash = value; } }
     public int IsCrouchingHash { get { return _isCrouchingHash; } set { _isCrouchingHash = value; } }
     public int IsCrouchWalkingHash { get { return _isCrouchWalkingHash; } set { _isCrouchWalkingHash = value; } }
     public Animator CharacterAnimator => animator;

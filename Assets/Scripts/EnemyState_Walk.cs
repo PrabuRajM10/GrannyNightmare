@@ -15,13 +15,11 @@ public class EnemyState_Walk : StateMachineBase
     public override void OnEnterState()
     {
         Debug.Log("EnemyState_Walk OnEnterState");
-        _context.CharacterAnimator.SetBool(_context.IsWalkinghash, true);
     }
 
     public override void OnExitState()
     {
         Debug.Log("EnemyState_Walk OnExitState");
-        _context.CharacterAnimator.SetBool(_context.IsWalkinghash, false);
     }
 
     public override void OnUpdateState()

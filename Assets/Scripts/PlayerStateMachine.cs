@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
@@ -17,9 +18,10 @@ public class PlayerStateMachine : StateMachine
     CharacterController _characterController;
     Vector3 _characterCurrentMovementVector;
     Vector2 _characterMoveInput;
+    Vector2 smoothedInput;
     Vector2 _look;
-    //bool _isMovementPressed, _isRunning, _isCrouching, _isKilling;
-    //int _isWalkinghash, _isRunninghash, _isCrouchingHash, _isCrouchWalkingHash, _isKillingHash;
+    //bool _isMovementPressed, _canRun, _isCrouching, _isKilling;
+    //int _isWalkinghash, _canRunhash, _isCrouchingHash, _isCrouchWalkingHash, _isKillingHash;
     [SerializeField] Text killHint;
     Transform _playerTransform , _lockedEnemy;
     private const float Threshold = 0.01f;
@@ -30,10 +32,11 @@ public class PlayerStateMachine : StateMachine
     
     
     private float _playerRotationTargetY;
+    private int _sprintMultiplier = 2;
 
 
     //public StateMachineBase CurrentState { get { return _currentState; } set { _currentState = value; } }
-    //public bool IsRunning { get { return _isRunning; } set { _isRunning = value; } }
+    //public bool CanRun { get { return _canRun; } set { _canRun = value; } }
     //public bool IsMovementPressed{ get { return _isMovementPressed; } }
     //public bool IsCrouching { get { return _isCrouching; } }
     //public bool IsKilling { get { return _isKilling; } }
@@ -42,7 +45,7 @@ public class PlayerStateMachine : StateMachine
     //public float RunSpeed { get { return runSpeed; } }
     //public float CrouchWalkSpeed { get { return crouchWalkSpeed; } }
     //public int IsWalkinghash { get { return _isWalkinghash; } set { _isWalkinghash = value; } }
-    //public int IsRunninghash { get { return _isRunninghash; } set { _isRunninghash = value; } }
+    //public int CanRunhash { get { return _canRunhash; } set { _canRunhash = value; } }
     //public int IsCrouchingHash { get { return _isCrouchingHash; } set { _isCrouchingHash = value; } }
     //public int IsCrouchWalkingHash { get { return _isCrouchWalkingHash; } set { _isCrouchWalkingHash = value; } }
     //public int IsKillingHash { get { return _isKillingHash; } set { _isKillingHash = value; } }
@@ -65,6 +68,9 @@ public class PlayerStateMachine : StateMachine
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
     [SerializeField] float CameraAngleOverride = 0.0f;
 
+    [SerializeField] private float smoothTime = 1f;
+    [SerializeField] private Vector2 smoothVelocity;
+
     private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
     
     public Vector3 CharacterCurrentMovementVector => _characterCurrentMovementVector;
@@ -77,8 +83,6 @@ public class PlayerStateMachine : StateMachine
         _characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
-        _isWalkinghash = Animator.StringToHash("IsWalking");
-        _isRunninghash = Animator.StringToHash("IsRunning");
         _isCrouchingHash = Animator.StringToHash("IsCrouching");
         _isCrouchWalkingHash = Animator.StringToHash("IsCrouchWalking");
         _isKillingHash = Animator.StringToHash("Kill");
@@ -93,6 +97,7 @@ public class PlayerStateMachine : StateMachine
         _mainPlayerInput.PlayerMove.Move.canceled += context => HandleInput_Move(context);
         _mainPlayerInput.PlayerMove.Move.performed += context => HandleInput_Move(context);
         _mainPlayerInput.PlayerMove.Run.started += context => HandleInput_Run_OnStart(context);
+        // _mainPlayerInput.PlayerMove.Run.performed += context => HandleInput_Run(context);
         _mainPlayerInput.PlayerMove.Run.canceled += context => HandleInput_Run(context);
         _mainPlayerInput.PlayerMove.Crouch.canceled += context => HandleInput_Crouch(context);
         _mainPlayerInput.PlayerMove.Kill.started += context => HandleInput_Kill(context);
@@ -115,9 +120,17 @@ public class PlayerStateMachine : StateMachine
         Vector3 right = transform.TransformDirection(Vector3.right) * _characterCurrentMovementVector.x;
 
         Vector3 moveDirection = (forward + right).normalized;
+
+        Vector2 movementInput = _characterMoveInput * (_canRun ? _sprintMultiplier : 1);
+        smoothedInput.x = Mathf.SmoothDamp(smoothedInput.x, movementInput.x, ref smoothVelocity.x, smoothTime);
+        smoothedInput.y = Mathf.SmoothDamp(smoothedInput.y, movementInput.y, ref smoothVelocity.y, smoothTime);
+        smoothedInput.x = Mathf.Clamp(smoothedInput.x, -1, 2);
+        smoothedInput.y = Mathf.Clamp(smoothedInput.y, -1, 2);
         
-        animator.SetFloat(_PlayerMovementXHash , _characterCurrentMovementVector.x);
-        animator.SetFloat(_playerMovementZHash , _characterCurrentMovementVector.z);
+        animator.SetFloat(_PlayerMovementXHash , smoothedInput.x);
+        animator.SetFloat(_playerMovementZHash , smoothedInput.y);
+
+        var acceleration = _canRun ? _movementSpeed * _sprintMultiplier : _movementSpeed;
 
         _characterController.Move(moveDirection * Time.deltaTime * _movementSpeed);
     }
@@ -155,9 +168,19 @@ public class PlayerStateMachine : StateMachine
     void HandleInput_Move(InputAction.CallbackContext context)
     {
         _characterMoveInput = context.ReadValue<Vector2>();
+        Debug.Log("[] [HandleInput_Move] _characterMoveInput "+ (_characterMoveInput.x , _characterMoveInput.y , _isRunButtonPressed));
         _characterCurrentMovementVector.x = _characterMoveInput.x;
         _characterCurrentMovementVector.z = _characterMoveInput.y;
+        
         _isWalking = _characterMoveInput.x != 0 || _characterMoveInput.y != 0;
+        if (_characterMoveInput.y > 0 && _isRunButtonPressed)
+        {
+            _canRun = true;
+        }
+        else
+        {
+            _canRun = false;    
+        }
         // _PlayerMovementXHash  = _characterMoveInput.x;
         // _playerMovementZHash = _characterMoveInput.y;
     }
@@ -168,7 +191,9 @@ public class PlayerStateMachine : StateMachine
     }
     void HandleInput_Run(InputAction.CallbackContext context)
     {
-        _isRunning = context.ReadValueAsButton();
+        _isRunButtonPressed = context.ReadValueAsButton();
+        Debug.Log("[Run] [Canceled] _isRunButtonPressed " + _isRunButtonPressed);
+        _canRun = false;    
     }
 
     void HandleInput_Kill(InputAction.CallbackContext context)
@@ -180,7 +205,9 @@ public class PlayerStateMachine : StateMachine
     void HandleInput_Run_OnStart(InputAction.CallbackContext context)
     {
         _isCrouching = false;
-        _isRunning = context.ReadValueAsButton();
+        _isRunButtonPressed = context.ReadValueAsButton();
+        Debug.Log("[Run] [Start] _isRunButtonPressed " + _isRunButtonPressed);
+        if(_characterMoveInput.y > 0) _canRun = true;
     }
 
     void HandleInput_Crouch(InputAction.CallbackContext context)

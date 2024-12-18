@@ -21,8 +21,6 @@ public class EnemyStateMachine : StateMachine
         _currentState.OnEnterState();
         animator = GetComponent<Animator>();
 
-        _isWalkinghash = Animator.StringToHash("IsWalking");
-
     }
 
     private void Start()

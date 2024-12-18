@@ -16,9 +16,9 @@ public class PlayerControl : MonoBehaviour
     Animator animator;      
     Vector3 characterCurrentMovementVector;
     Vector2 characterMoveInput;
-    bool isMovementPressed , isRunning , isCrouching , isKilling;
+    bool isMovementPressed , CanRun , isCrouching , isKilling;
     [SerializeField] float rotationFactor = 1f;
-    int isWalkinghash , isRunninghash , isCrouchingHash , isCrouchWalkingHash , isKillingHash;
+    int isWalkinghash , CanRunhash , isCrouchingHash , isCrouchWalkingHash , isKillingHash;
     Transform lockedEnemy;
     [SerializeField] Text killHint;
     private void Awake()
@@ -28,7 +28,7 @@ public class PlayerControl : MonoBehaviour
         animator= GetComponent<Animator>();
 
         isWalkinghash = Animator.StringToHash("IsWalking");
-        isRunninghash = Animator.StringToHash("IsRunning");
+        CanRunhash = Animator.StringToHash("CanRun");
         isCrouchingHash = Animator.StringToHash("IsCrouching"); 
         isCrouchWalkingHash = Animator.StringToHash("IsCrouchWalking");
         isKillingHash = Animator.StringToHash("Kill");
@@ -52,7 +52,7 @@ public class PlayerControl : MonoBehaviour
     }
     void HandleInput_Run(InputAction.CallbackContext context)
     {
-        isRunning = context.ReadValueAsButton();
+        CanRun = context.ReadValueAsButton();
     }
 
     void HandleInput_Kill(InputAction.CallbackContext context)
@@ -64,7 +64,7 @@ public class PlayerControl : MonoBehaviour
     void HandleInput_Run_OnStart(InputAction.CallbackContext context)
     {
         isCrouching = false;
-        isRunning = context.ReadValueAsButton();
+        CanRun = context.ReadValueAsButton();
     }
 
     void HandleInput_Crouch(InputAction.CallbackContext context)
@@ -80,7 +80,7 @@ public class PlayerControl : MonoBehaviour
     void HandleAnimation()
     {
         bool isWalking_AnimParam = animator.GetBool(isWalkinghash);
-        bool isRunning_AnimParam = animator.GetBool(isRunninghash);
+        bool CanRun_AnimParam = animator.GetBool(CanRunhash);
         bool isCrouching_AnimParam = animator.GetBool(isCrouchingHash);
         bool isCrouchWalking_AnimParam = animator.GetBool(isCrouchWalkingHash);
 
@@ -89,12 +89,12 @@ public class PlayerControl : MonoBehaviour
         if (isMovementPressed && !isWalking_AnimParam && !isCrouching) animator.SetBool(isWalkinghash, true);
         else if(!isMovementPressed && isWalking_AnimParam) animator.SetBool(isWalkinghash, false);
 
-        if ((isMovementPressed && isRunning) && !isRunning_AnimParam)
+        if ((isMovementPressed && CanRun) && !CanRun_AnimParam)
         {
             animator.SetBool(isCrouchingHash, false);
-            animator.SetBool(isRunninghash, true);
+            animator.SetBool(CanRunhash, true);
         }
-        else if ((!isMovementPressed || !isRunning) && isRunning_AnimParam) animator.SetBool(isRunninghash, false);
+        else if ((!isMovementPressed || !CanRun) && CanRun_AnimParam) animator.SetBool(CanRunhash, false);
 
         if (isCrouching && !isCrouching_AnimParam) animator.SetBool(isCrouchingHash, true);
         else if (!isCrouching&& isCrouching_AnimParam) animator.SetBool(isCrouchingHash, false);
@@ -127,7 +127,7 @@ public class PlayerControl : MonoBehaviour
 
         if(!isKilling)
         {
-            if (isRunning && !isCrouching) Move(runSpeed);
+            if (CanRun && !isCrouching) Move(runSpeed);
             else if (isCrouching) Move(crouchWalkSpeed);
             else Move(walkSpeed);
         }

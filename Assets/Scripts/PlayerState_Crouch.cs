@@ -13,7 +13,7 @@ public class PlayerState_Crouch : StateMachineBase
     public override void OnEnterState()
     {
         _context.CharacterAnimator.SetBool(_context.IsCrouchingHash, true);
-        _context.IsRunning = false;
+        _context.CanRun = false;
     }
 
     public override void OnExitState()
