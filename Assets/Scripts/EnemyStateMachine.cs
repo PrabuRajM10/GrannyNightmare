@@ -19,7 +19,7 @@ public class EnemyStateMachine : StateMachine
         _states = new StateMachineHandle(this);
         _currentState = _states.Enemy_Idle();
         _currentState.OnEnterState();
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
 
     }
 
@@ -27,7 +27,7 @@ public class EnemyStateMachine : StateMachine
     {
         _newDestination = GetNewDestination(PositionList);
         _agent.SetDestination(_newDestination);
-        _restTime = UnityEngine.Random.Range(3, 7);
+        restTime = UnityEngine.Random.Range(3, 7);
         StartCoroutine(HandleMovement());
         StartCoroutine(HandlePlayerDetection());
 
@@ -55,17 +55,17 @@ public class EnemyStateMachine : StateMachine
             {
 
                 _isWalking = false;
-                if (_restTime > 0f)
+                if (restTime > 0f)
                 {
                     yield return new WaitForSeconds(1f);
-                    _restTime--;
+                    restTime--;
                 }
                 else
                 {
                     _newDestination = GetNewDestination(PositionList);
                     _isWalking = true;
                     _agent.SetDestination(_newDestination);
-                    _restTime = UnityEngine.Random.Range(3, 7);
+                    restTime = UnityEngine.Random.Range(3, 7);
 
                 }
             }

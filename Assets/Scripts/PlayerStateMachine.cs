@@ -10,29 +10,29 @@ using UnityEngine.Serialization;
 
 public class PlayerStateMachine : StateMachine
 {
-
-    StateMachineBase  _previousState;
+    private StateMachineBase  previousState;
     //[SerializeField] float walkSpeed, runSpeed, crouchWalkSpeed , rotationFactor = 1f, _movementSpeed;
-    private ActorInput _mainPlayerInput;
-    private PlayerInput _playerInput;
-    CharacterController _characterController;
-    Vector3 _characterCurrentMovementVector;
-    Vector2 _characterMoveInput;
+    private ActorInput mainPlayerInput;
+    private PlayerInput playerInput;
+    private CharacterController characterController;
+    private Vector3 characterCurrentMovementVector;
+    private Vector2 characterMoveInput;
     Vector2 smoothedInput;
-    Vector2 _look;
+
+    private Vector2 look;
     //bool _isMovementPressed, _canRun, _isCrouching, _isKilling;
     //int _isWalkinghash, _canRunhash, _isCrouchingHash, _isCrouchWalkingHash, _isKillingHash;
     [SerializeField] Text killHint;
-    Transform _playerTransform , _lockedEnemy;
+    private Transform playerTransform , lockedEnemy;
     private const float Threshold = 0.01f;
     
     // cinemachine
-    private float _cinemachineTargetYaw;
-    private float _cinemachineTargetPitch;
+    private float cinemachineTargetYaw;
+    private float cinemachineTargetPitch;
     
     
-    private float _playerRotationTargetY;
-    private int _sprintMultiplier = 2;
+    private float playerRotationTargetY;
+    private readonly int sprintMultiplier = 2;
 
 
     //public StateMachineBase CurrentState { get { return _currentState; } set { _currentState = value; } }
@@ -50,9 +50,9 @@ public class PlayerStateMachine : StateMachine
     //public int IsCrouchWalkingHash { get { return _isCrouchWalkingHash; } set { _isCrouchWalkingHash = value; } }
     //public int IsKillingHash { get { return _isKillingHash; } set { _isKillingHash = value; } }
 
-    [SerializeField] Transform PlayerTransform { get { return _playerTransform; } }
-    [SerializeField] Transform LockedEnemy { get { return _lockedEnemy; } set { LockedEnemy = value; } }
-    [SerializeField] CharacterController CharacterController { get { return _characterController; } }
+    [SerializeField] Transform PlayerTransform { get { return playerTransform; } }
+    [SerializeField] Transform LockedEnemy { get { return lockedEnemy; } set { LockedEnemy = value; } }
+    [SerializeField] CharacterController CharacterController { get { return characterController; } }
     
     [FormerlySerializedAs("LockCameraPosition")] [SerializeField] private bool lockCameraPosition = false;
     [Tooltip("How far in degrees can you move the camera up")]
@@ -61,54 +61,62 @@ public class PlayerStateMachine : StateMachine
     [Tooltip("How far in degrees can you move the camera down")]
     [SerializeField] float BottomClamp = -30.0f;
     
+    [FormerlySerializedAs("CinemachineCameraTarget")]
     [Header("Cinemachine")]
     [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-    [SerializeField] GameObject CinemachineCameraTarget;
+    [SerializeField]
+    private GameObject cinemachineCameraTarget;
     
+    [FormerlySerializedAs("CameraAngleOverride")]
     [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-    [SerializeField] float CameraAngleOverride = 0.0f;
+    [SerializeField]
+    private float cameraAngleOverride = 0.0f;
 
     [SerializeField] private float smoothTime = 1f;
     [SerializeField] private Vector2 smoothVelocity;
+    [SerializeField] private Transform lookAtTarget;
 
-    private bool IsCurrentDeviceMouse => _playerInput.currentControlScheme == "KeyboardMouse";
+    private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
     
-    public Vector3 CharacterCurrentMovementVector => _characterCurrentMovementVector;
+    public Vector3 CharacterCurrentMovementVector => characterCurrentMovementVector;
 
     private void Awake()
     {
-        _mainPlayerInput = new ActorInput();
-        _playerInput = GetComponent<PlayerInput>();
-        _playerTransform= transform;
-        _characterController = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        mainPlayerInput = new ActorInput();
+        playerInput = GetComponent<PlayerInput>();
+        playerTransform= transform;
+        characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
 
         _isCrouchingHash = Animator.StringToHash("IsCrouching");
         _isCrouchWalkingHash = Animator.StringToHash("IsCrouchWalking");
         _isKillingHash = Animator.StringToHash("Kill");
-        _PlayerMovementXHash = Animator.StringToHash("x");
+        _playerMovementXHash = Animator.StringToHash("x");
         _playerMovementZHash = Animator.StringToHash("z");
+        _isAimingHash = Animator.StringToHash("IsAiming");  
 
         _states = new StateMachineHandle(this);
         _currentState = _states.Idle();
         _currentState.OnEnterState();
 
-        _mainPlayerInput.PlayerMove.Move.started += context => HandleInput_Move(context);
-        _mainPlayerInput.PlayerMove.Move.canceled += context => HandleInput_Move(context);
-        _mainPlayerInput.PlayerMove.Move.performed += context => HandleInput_Move(context);
-        _mainPlayerInput.PlayerMove.Run.started += context => HandleInput_Run_OnStart(context);
+        mainPlayerInput.PlayerMove.Move.started += context => HandleInput_Move(context);
+        mainPlayerInput.PlayerMove.Move.canceled += context => HandleInput_Move(context);
+        mainPlayerInput.PlayerMove.Move.performed += context => HandleInput_Move(context);
+        mainPlayerInput.PlayerMove.Run.started += context => HandleInput_Run_OnStart(context);
         // _mainPlayerInput.PlayerMove.Run.performed += context => HandleInput_Run(context);
-        _mainPlayerInput.PlayerMove.Run.canceled += context => HandleInput_Run(context);
-        _mainPlayerInput.PlayerMove.Crouch.canceled += context => HandleInput_Crouch(context);
-        _mainPlayerInput.PlayerMove.Kill.started += context => HandleInput_Kill(context);
-        _mainPlayerInput.PlayerMove.Look.started += context => HandleInput_Look(context);
-        _mainPlayerInput.PlayerMove.Look.canceled += context => HandleInput_Look(context);
-        _mainPlayerInput.PlayerMove.Look.performed += context => HandleInput_Look(context); 
+        mainPlayerInput.PlayerMove.Run.canceled += context => HandleInput_Run(context);
+        mainPlayerInput.PlayerMove.Crouch.canceled += context => HandleInput_Crouch(context);
+        mainPlayerInput.PlayerMove.Kill.started += context => HandleInput_Kill(context);
+        mainPlayerInput.PlayerMove.Look.started += context => HandleInput_Look(context);
+        mainPlayerInput.PlayerMove.Look.canceled += context => HandleInput_Look(context);
+        mainPlayerInput.PlayerMove.Look.performed += context => HandleInput_Look(context);
+        mainPlayerInput.PlayerMove.Aim.started += context => HandleInput_Aim(context);
+        mainPlayerInput.PlayerMove.Aim.canceled += context => HandleInput_Aim(context);
     }
 
     private void Start()
     {
-        _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+        cinemachineTargetYaw = cinemachineCameraTarget.transform.rotation.eulerAngles.y;
     }
 
     void Update()
@@ -116,23 +124,23 @@ public class PlayerStateMachine : StateMachine
         HandleRotation();
         if(_currentState!=null)_currentState.OnUpdateState();
         
-        Vector3 forward = transform.TransformDirection(Vector3.forward) * _characterCurrentMovementVector.z; // TransformDirection converts local direction to world space
-        Vector3 right = transform.TransformDirection(Vector3.right) * _characterCurrentMovementVector.x;
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * characterCurrentMovementVector.z; // TransformDirection converts local direction to world space
+        Vector3 right = transform.TransformDirection(Vector3.right) * characterCurrentMovementVector.x;
 
         Vector3 moveDirection = (forward + right).normalized;
 
-        Vector2 movementInput = _characterMoveInput * (_canRun ? _sprintMultiplier : 1);
+        Vector2 movementInput = characterMoveInput * (_canRun ? sprintMultiplier : 1);
         smoothedInput.x = Mathf.SmoothDamp(smoothedInput.x, movementInput.x, ref smoothVelocity.x, smoothTime);
         smoothedInput.y = Mathf.SmoothDamp(smoothedInput.y, movementInput.y, ref smoothVelocity.y, smoothTime);
         smoothedInput.x = Mathf.Clamp(smoothedInput.x, -1, 2);
         smoothedInput.y = Mathf.Clamp(smoothedInput.y, -1, 2);
         
-        animator.SetFloat(_PlayerMovementXHash , smoothedInput.x);
-        animator.SetFloat(_playerMovementZHash , smoothedInput.y);
+        _animator.SetFloat(_playerMovementXHash , smoothedInput.x);
+        _animator.SetFloat(_playerMovementZHash , smoothedInput.y);
 
-        var acceleration = _canRun ? _movementSpeed * _sprintMultiplier : _movementSpeed;
+        var acceleration = _canRun ? movementSpeed * sprintMultiplier : movementSpeed;
 
-        _characterController.Move(moveDirection * Time.deltaTime * _movementSpeed);
+        characterController.Move(moveDirection * Time.deltaTime * movementSpeed);
     }
 
     private void LateUpdate()
@@ -142,19 +150,19 @@ public class PlayerStateMachine : StateMachine
 
     private void OnEnable()
     {
-        _mainPlayerInput.PlayerMove.Enable();
+        mainPlayerInput.PlayerMove.Enable();
     }
 
     private void OnDisable()
     {
-        _mainPlayerInput.PlayerMove.Disable();
+        mainPlayerInput.PlayerMove.Disable();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-            _lockedEnemy = other.transform;
+            lockedEnemy = other.transform;
             HandleKillHintUI(true);
         }
     }
@@ -167,13 +175,13 @@ public class PlayerStateMachine : StateMachine
     }
     void HandleInput_Move(InputAction.CallbackContext context)
     {
-        _characterMoveInput = context.ReadValue<Vector2>();
-        Debug.Log("[] [HandleInput_Move] _characterMoveInput "+ (_characterMoveInput.x , _characterMoveInput.y , _isRunButtonPressed));
-        _characterCurrentMovementVector.x = _characterMoveInput.x;
-        _characterCurrentMovementVector.z = _characterMoveInput.y;
+        characterMoveInput = context.ReadValue<Vector2>();
+        Debug.Log("[] [HandleInput_Move] _characterMoveInput "+ (characterMoveInput.x , characterMoveInput.y , _isRunButtonPressed));
+        characterCurrentMovementVector.x = characterMoveInput.x;
+        characterCurrentMovementVector.z = characterMoveInput.y;
         
-        _isWalking = _characterMoveInput.x != 0 || _characterMoveInput.y != 0;
-        if (_characterMoveInput.y > 0 && _isRunButtonPressed)
+        _isWalking = characterMoveInput.x != 0 || characterMoveInput.y != 0;
+        if (characterMoveInput.y > 0 && _isRunButtonPressed)
         {
             _canRun = true;
         }
@@ -187,13 +195,19 @@ public class PlayerStateMachine : StateMachine
 
     void HandleInput_Look(InputAction.CallbackContext context)
     {
-        _look = context.ReadValue<Vector2>();
+        look = context.ReadValue<Vector2>();
     }
     void HandleInput_Run(InputAction.CallbackContext context)
     {
         _isRunButtonPressed = context.ReadValueAsButton();
         Debug.Log("[Run] [Canceled] _isRunButtonPressed " + _isRunButtonPressed);
         _canRun = false;    
+    }
+    void HandleInput_Aim(InputAction.CallbackContext context)
+    {
+        _isAiming = context.ReadValueAsButton();
+        Debug.Log("[Aim]  " + _isAiming);
+        _animator.SetBool(_isAimingHash , _isAiming);
     }
 
     void HandleInput_Kill(InputAction.CallbackContext context)
@@ -207,7 +221,7 @@ public class PlayerStateMachine : StateMachine
         _isCrouching = false;
         _isRunButtonPressed = context.ReadValueAsButton();
         Debug.Log("[Run] [Start] _isRunButtonPressed " + _isRunButtonPressed);
-        if(_characterMoveInput.y > 0) _canRun = true;
+        if(characterMoveInput.y > 0) _canRun = true;
     }
 
     void HandleInput_Crouch(InputAction.CallbackContext context)
@@ -217,8 +231,8 @@ public class PlayerStateMachine : StateMachine
 
     void HandleGravity()
     {
-        if (_characterController.isGrounded) _characterCurrentMovementVector.y = -0.05f;
-        else _characterCurrentMovementVector.y = -9.8f;
+        if (characterController.isGrounded) characterCurrentMovementVector.y = -0.05f;
+        else characterCurrentMovementVector.y = -9.8f;
     }
 
     void HandleRotation()
@@ -237,20 +251,26 @@ public class PlayerStateMachine : StateMachine
         //     transform.rotation = Quaternion.Slerp(currentRot, targetRot, Time.deltaTime * rotationFactor);
         // }
         
-        if (_look.sqrMagnitude >= Threshold && !lockCameraPosition)
+        if (look.sqrMagnitude >= Threshold && !lockCameraPosition)
         {
             //Don't multiply mouse input by Time.deltaTime;
             float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-            _playerRotationTargetY += _look.x * deltaTimeMultiplier;
+            playerRotationTargetY += look.x * deltaTimeMultiplier;
             
         }
         
         // _playerRotationTargetY = ClampAngle(_playerRotationTargetY, float.MinValue, float.MaxValue);
 
-        transform.rotation = Quaternion.Euler(0,_playerRotationTargetY, 0.0f);
+        transform.rotation = Quaternion.Euler(0,playerRotationTargetY, 0.0f);
     }
 
+    void SetKLookTargetPosition()
+    {
+        // var zPos = (cinemachineCameraTarget.transform.TransformDirection(Vector3.forward) * 3f);
+        // var localTrans = cinemachineCameraTarget.transform.TransformDirection(cinemachineCameraTarget.transform.position.x , cinemachineCameraTarget.transform.position.y , cinemachineCameraTarget.transform.position.z);  
+        // lookAtTarget.position =  cinemachineCameraTarget.transform.position + zPos;
+    }
 
     // Update is called once per frame
     
@@ -258,23 +278,24 @@ public class PlayerStateMachine : StateMachine
     private void CameraRotation()
     {
         // if there is an input and camera position is not fixed
-        if (_look.sqrMagnitude >= Threshold && !lockCameraPosition)
+        if (look.sqrMagnitude >= Threshold && !lockCameraPosition)
         {
             //Don't multiply mouse input by Time.deltaTime;
             float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-            _cinemachineTargetYaw += _look.x * deltaTimeMultiplier;
-            _cinemachineTargetPitch += _look.y * deltaTimeMultiplier;
+            cinemachineTargetYaw += look.x * deltaTimeMultiplier;
+            cinemachineTargetPitch += look.y * deltaTimeMultiplier;
             
         }
 
         // clamp our rotations so our values are limited 360 degrees
-        _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
 
         // Cinemachine will follow this target
-        CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
-            _cinemachineTargetYaw, 0.0f);
+        cinemachineCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + cameraAngleOverride,
+            cinemachineTargetYaw, 0.0f);
+        SetKLookTargetPosition();
     }
     
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -286,7 +307,7 @@ public class PlayerStateMachine : StateMachine
     public void KillConfirmed()
     {
         _isKilling = false;
-        _currentState = _previousState;     
+        _currentState = previousState;     
         _currentState.OnEnterState();
     }
     void HandleKillHintUI(bool canShow)
@@ -298,25 +319,25 @@ public class PlayerStateMachine : StateMachine
         Debug.Log(" HandleKill _currentState" + _currentState);
         if(_currentState != null)
         {
-            _previousState = _currentState;
+            previousState = _currentState;
             _currentState = null;
             HandleKillHintUI(false);
-            var newPos = new Vector3(transform.position.x, transform.position.y, _lockedEnemy.transform.position.z - 1.5f);
+            var newPos = new Vector3(transform.position.x, transform.position.y, lockedEnemy.transform.position.z - 1.5f);
             transform.position = newPos;
-            transform.LookAt(_lockedEnemy.transform.position);
+            transform.LookAt(lockedEnemy.transform.position);
 
-            _characterController.enabled = false;
+            characterController.enabled = false;
 
-            animator.SetTrigger(_isKillingHash);
-            var enemyAnimator = _lockedEnemy.GetComponent<Animator>();
+            _animator.SetTrigger(_isKillingHash);
+            var enemyAnimator = lockedEnemy.GetComponent<Animator>();
             if (enemyAnimator != null)
             {
                 enemyAnimator.SetTrigger("IsDead");
             }
-            _lockedEnemy.GetComponent<Collider>().enabled = false;
-            _lockedEnemy = null;
+            lockedEnemy.GetComponent<Collider>().enabled = false;
+            lockedEnemy = null;
 
-            _characterController.enabled = true;
+            characterController.enabled = true;
         }
 
     }

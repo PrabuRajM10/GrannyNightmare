@@ -71,6 +71,15 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""dfb65707-f00a-4b63-ad8a-28d7909b09ee"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -194,6 +203,17 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41a46e52-322e-479f-ad87-7bb89830cfe4"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -224,6 +244,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         m_PlayerMove_Crouch = m_PlayerMove.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerMove_Kill = m_PlayerMove.FindAction("Kill", throwIfNotFound: true);
         m_PlayerMove_Look = m_PlayerMove.FindAction("Look", throwIfNotFound: true);
+        m_PlayerMove_Aim = m_PlayerMove.FindAction("Aim", throwIfNotFound: true);
     }
 
     ~@ActorInput()
@@ -295,6 +316,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMove_Crouch;
     private readonly InputAction m_PlayerMove_Kill;
     private readonly InputAction m_PlayerMove_Look;
+    private readonly InputAction m_PlayerMove_Aim;
     public struct PlayerMoveActions
     {
         private @ActorInput m_Wrapper;
@@ -304,6 +326,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_PlayerMove_Crouch;
         public InputAction @Kill => m_Wrapper.m_PlayerMove_Kill;
         public InputAction @Look => m_Wrapper.m_PlayerMove_Look;
+        public InputAction @Aim => m_Wrapper.m_PlayerMove_Aim;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -328,6 +351,9 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
         }
 
         private void UnregisterCallbacks(IPlayerMoveActions instance)
@@ -347,6 +373,9 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
         }
 
         public void RemoveCallbacks(IPlayerMoveActions instance)
@@ -380,5 +409,6 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnKill(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
 }
