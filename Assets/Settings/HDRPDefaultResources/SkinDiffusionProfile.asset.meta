@@ -6,3 +6,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 277398
+  packageName: Insurgent (Urban)
+  packageVersion: 
+  assetPath: Assets/Settings/HDRPDefaultResources/SkinDiffusionProfile.asset
+  uploadId: 0
