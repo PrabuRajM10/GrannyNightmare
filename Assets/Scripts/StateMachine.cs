@@ -5,13 +5,13 @@ using UnityEngine.Serialization;
 
 public class StateMachine : MonoBehaviour
 {
-    protected bool  _isWalking, _canRun, _isCrouching, _isKilling , _canRest , _isRunButtonPressed , _isAiming;
+    protected bool  _isWalking, _canRun, _isCrouching, _isKilling , _canRest , _isRunButtonPressed ;
     
     [SerializeField] protected float walkSpeed, runSpeed, crouchWalkSpeed, rotationFactor = 1f;
     [FormerlySerializedAs("_movementSpeed")] [SerializeField] protected float movementSpeed;
     [FormerlySerializedAs("_restTime")] [SerializeField] protected float restTime;
     protected StateMachineHandle _states;
-    protected int _canRunhash, _isCrouchingHash, _isCrouchWalkingHash,_playerMovementXHash , _playerMovementZHash, _isKillingHash , _isAimingHash ;
+    protected int _canRunhash, _isCrouchingHash, _isCrouchWalkingHash,_playerMovementXHash , _playerMovementZHash, _isKillingHash ;
     protected StateMachineBase _currentState;
     protected Animator _animator;
 
@@ -20,7 +20,6 @@ public class StateMachine : MonoBehaviour
     public bool IsWalking => _isWalking;
     public bool IsCrouching => _isCrouching;
     public bool IsKilling => _isKilling;
-    public bool IsAiming => _isAiming;
     public float MovementSpeed { set { movementSpeed = value; } }
     public float WalkSpeed => walkSpeed;
     public float RunSpeed => runSpeed;

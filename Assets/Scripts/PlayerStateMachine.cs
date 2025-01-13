@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,6 @@ using UnityEngine.Serialization;
 public class PlayerStateMachine : StateMachine
 {
     private StateMachineBase  previousState;
-    //[SerializeField] float walkSpeed, runSpeed, crouchWalkSpeed , rotationFactor = 1f, _movementSpeed;
     private ActorInput mainPlayerInput;
     private PlayerInput playerInput;
     private CharacterController characterController;
@@ -20,40 +20,19 @@ public class PlayerStateMachine : StateMachine
     Vector2 smoothedInput;
 
     private Vector2 look;
-    //bool _isMovementPressed, _canRun, _isCrouching, _isKilling;
-    //int _isWalkinghash, _canRunhash, _isCrouchingHash, _isCrouchWalkingHash, _isKillingHash;
-    [SerializeField] Text killHint;
     private Transform playerTransform , lockedEnemy;
     private const float Threshold = 0.01f;
     
-    // cinemachine
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
-    
-    
+
+    private bool isAiming , isFiring;
     private float playerRotationTargetY;
     private readonly int sprintMultiplier = 2;
+    private int isAimingHash;
 
+    [SerializeField] private RifleController rifleController;
 
-    //public StateMachineBase CurrentState { get { return _currentState; } set { _currentState = value; } }
-    //public bool CanRun { get { return _canRun; } set { _canRun = value; } }
-    //public bool IsMovementPressed{ get { return _isMovementPressed; } }
-    //public bool IsCrouching { get { return _isCrouching; } }
-    //public bool IsKilling { get { return _isKilling; } }
-    //public float MovementSpeed { set { _movementSpeed = value; } }
-    //public float WalkSpeed { get { return walkSpeed; } }
-    //public float RunSpeed { get { return runSpeed; } }
-    //public float CrouchWalkSpeed { get { return crouchWalkSpeed; } }
-    //public int IsWalkinghash { get { return _isWalkinghash; } set { _isWalkinghash = value; } }
-    //public int CanRunhash { get { return _canRunhash; } set { _canRunhash = value; } }
-    //public int IsCrouchingHash { get { return _isCrouchingHash; } set { _isCrouchingHash = value; } }
-    //public int IsCrouchWalkingHash { get { return _isCrouchWalkingHash; } set { _isCrouchWalkingHash = value; } }
-    //public int IsKillingHash { get { return _isKillingHash; } set { _isKillingHash = value; } }
-
-    [SerializeField] Transform PlayerTransform { get { return playerTransform; } }
-    [SerializeField] Transform LockedEnemy { get { return lockedEnemy; } set { LockedEnemy = value; } }
-    [SerializeField] CharacterController CharacterController { get { return characterController; } }
-    
     [FormerlySerializedAs("LockCameraPosition")] [SerializeField] private bool lockCameraPosition = false;
     [Tooltip("How far in degrees can you move the camera up")]
     [SerializeField] float TopClamp = 70.0f;
@@ -93,7 +72,7 @@ public class PlayerStateMachine : StateMachine
         _isKillingHash = Animator.StringToHash("Kill");
         _playerMovementXHash = Animator.StringToHash("x");
         _playerMovementZHash = Animator.StringToHash("z");
-        _isAimingHash = Animator.StringToHash("IsAiming");  
+        isAimingHash = Animator.StringToHash("IsAiming");  
 
         _states = new StateMachineHandle(this);
         _currentState = _states.Idle();
@@ -103,7 +82,6 @@ public class PlayerStateMachine : StateMachine
         mainPlayerInput.PlayerMove.Move.canceled += context => HandleInput_Move(context);
         mainPlayerInput.PlayerMove.Move.performed += context => HandleInput_Move(context);
         mainPlayerInput.PlayerMove.Run.started += context => HandleInput_Run_OnStart(context);
-        // _mainPlayerInput.PlayerMove.Run.performed += context => HandleInput_Run(context);
         mainPlayerInput.PlayerMove.Run.canceled += context => HandleInput_Run(context);
         mainPlayerInput.PlayerMove.Crouch.canceled += context => HandleInput_Crouch(context);
         mainPlayerInput.PlayerMove.Kill.started += context => HandleInput_Kill(context);
@@ -112,6 +90,8 @@ public class PlayerStateMachine : StateMachine
         mainPlayerInput.PlayerMove.Look.performed += context => HandleInput_Look(context);
         mainPlayerInput.PlayerMove.Aim.started += context => HandleInput_Aim(context);
         mainPlayerInput.PlayerMove.Aim.canceled += context => HandleInput_Aim(context);
+        mainPlayerInput.PlayerMove.Fire.started += context => HandleInput_Fire(context);
+        mainPlayerInput.PlayerMove.Fire.canceled += context => HandleInput_Fire(context);
     }
 
     private void Start()
@@ -123,6 +103,7 @@ public class PlayerStateMachine : StateMachine
     {
         HandleRotation();
         if(_currentState!=null)_currentState.OnUpdateState();
+        if(isFiring) rifleController.FireRifle();
         
         Vector3 forward = transform.TransformDirection(Vector3.forward) * characterCurrentMovementVector.z; // TransformDirection converts local direction to world space
         Vector3 right = transform.TransformDirection(Vector3.right) * characterCurrentMovementVector.x;
@@ -157,22 +138,6 @@ public class PlayerStateMachine : StateMachine
     {
         mainPlayerInput.PlayerMove.Disable();
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            lockedEnemy = other.transform;
-            HandleKillHintUI(true);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            HandleKillHintUI(false);
-        }
-    }
     void HandleInput_Move(InputAction.CallbackContext context)
     {
         characterMoveInput = context.ReadValue<Vector2>();
@@ -205,9 +170,16 @@ public class PlayerStateMachine : StateMachine
     }
     void HandleInput_Aim(InputAction.CallbackContext context)
     {
-        _isAiming = context.ReadValueAsButton();
-        Debug.Log("[Aim]  " + _isAiming);
-        _animator.SetBool(_isAimingHash , _isAiming);
+        isAiming = context.ReadValueAsButton();
+        Debug.Log("[Aim]  " + isAiming);
+        // _animator.SetBool(isAimingHash , isAiming);
+    }
+    
+    void HandleInput_Fire(InputAction.CallbackContext context)
+    {
+        isFiring = context.ReadValueAsButton();
+        Debug.Log("[Fire]  " + isFiring);
+        // _animator.SetBool(isAimingHash , isAiming);
     }
 
     void HandleInput_Kill(InputAction.CallbackContext context)
@@ -303,42 +275,5 @@ public class PlayerStateMachine : StateMachine
         if (lfAngle < -360f) lfAngle += 360f;
         if (lfAngle > 360f) lfAngle -= 360f;
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
-    }
-    public void KillConfirmed()
-    {
-        _isKilling = false;
-        _currentState = previousState;     
-        _currentState.OnEnterState();
-    }
-    void HandleKillHintUI(bool canShow)
-    {
-        killHint.gameObject.SetActive(canShow);
-    }
-    public override void HandleKill()
-    {
-        Debug.Log(" HandleKill _currentState" + _currentState);
-        if(_currentState != null)
-        {
-            previousState = _currentState;
-            _currentState = null;
-            HandleKillHintUI(false);
-            var newPos = new Vector3(transform.position.x, transform.position.y, lockedEnemy.transform.position.z - 1.5f);
-            transform.position = newPos;
-            transform.LookAt(lockedEnemy.transform.position);
-
-            characterController.enabled = false;
-
-            _animator.SetTrigger(_isKillingHash);
-            var enemyAnimator = lockedEnemy.GetComponent<Animator>();
-            if (enemyAnimator != null)
-            {
-                enemyAnimator.SetTrigger("IsDead");
-            }
-            lockedEnemy.GetComponent<Collider>().enabled = false;
-            lockedEnemy = null;
-
-            characterController.enabled = true;
-        }
-
     }
 }

@@ -1,0 +1,60 @@
+using System;
+using ObjectPooling;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+namespace Gameplay
+{
+    public class Rifle : MonoBehaviour
+    {
+        [SerializeField] PoolManager poolManagerSo;
+        [SerializeField] RifleController rifleControllerSo;
+        [SerializeField] private Transform muzzle;
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private LayerMask ignoreLayer;
+
+        private Vector3 lookTarget;
+
+        private void OnValidate()
+        {
+            if(mainCamera == null)mainCamera = Camera.main; 
+        }
+
+        private void OnDisable()
+        {
+            rifleControllerSo.OnFire -= Fire;
+        }
+        private void OnEnable()
+        {
+            rifleControllerSo.OnFire += Fire;
+        }
+
+        private void Update()
+        {
+            rifleControllerSo.Update();
+        }
+
+        private void Fire()
+        {
+            var screenCentre = new Vector3(Screen.width/2, Screen.height/2 , 0);
+            var ray = mainCamera.ScreenPointToRay(screenCentre);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity , ~ignoreLayer))
+            {
+                var hitPoint = hit.point;
+
+                var bulletDir = (hitPoint - muzzle.position) .normalized;
+                
+                // Debug.DrawRay(muzzle.position, bulletDir, Color.red , 1000);
+                Debug.DrawLine(muzzle.position, hitPoint, Color.red , 1000);
+                
+                var bullet = poolManagerSo.GetPoolObject<Bullet>();
+                bullet.SetRotationAndPosition(muzzle , bulletDir);
+                bullet.Fire();
+            }
+            
+        }
+    }
+    
+    // public class 
+}

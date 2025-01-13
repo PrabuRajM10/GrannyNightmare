@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2994289802671265705}
   - component: {fileID: 5771484226463772455}
   - component: {fileID: 2101828962249961650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Holed_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7835307911092054480}
   - component: {fileID: 6572252823923006096}
   - component: {fileID: 5071654762547560839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5927047962878146529}
   - component: {fileID: 1276721795741523441}
   - component: {fileID: 5854255035307271743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 2967285008868607798}
   - component: {fileID: 6050665686544100776}
   - component: {fileID: 1370987681070916914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 2332961115727085022}
   - component: {fileID: 7417967932200669457}
   - component: {fileID: 7066158468887615181}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Mount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 5130946762503436890}
   - component: {fileID: 8511928634512072885}
   - component: {fileID: 5274388500607061114}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 6969058745734767598}
   - component: {fileID: 4059936177546956872}
   - component: {fileID: 4825054079135363435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 8386567429848900444}
   - component: {fileID: 3180275802002051499}
   - component: {fileID: 5961269470486855839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,7 @@ GameObject:
   - component: {fileID: 2551705706630839267}
   - component: {fileID: 854862839203693856}
   - component: {fileID: 3307988414221361800}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Mount_Tightner1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 246328208266724890}
   - component: {fileID: 8730532028047830667}
   - component: {fileID: 5878958455760029717}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Main1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   - component: {fileID: 8950743502793020303}
   - component: {fileID: 1817547251933101442}
   - component: {fileID: 51895606429569936}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Foregrip_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +957,7 @@ GameObject:
   - component: {fileID: 6604691976165186350}
   - component: {fileID: 5725584035921528065}
   - component: {fileID: 1048488979987590943}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Screw3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 8344742672897276771}
   - component: {fileID: 3390183254681579083}
   - component: {fileID: 5514829956364905912}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Hinge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 8828857340900462336}
   - component: {fileID: 7137043095434338035}
   - component: {fileID: 3595728045482790480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1213,7 +1213,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2061859894709211309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftHandGrip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1244,7 +1244,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9189167128507813254}
-  m_Layer: 0
+  - component: {fileID: 191242459414668783}
+  m_Layer: 6
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1266,8 +1267,28 @@ Transform:
   m_Children:
   - {fileID: 5976014419630858922}
   - {fileID: 1280662167600458917}
+  - {fileID: 5802646356671683201}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &191242459414668783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1296605364670726625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0e5efb8ab14962846487b430b9742c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolManagerSo: {fileID: 11400000, guid: 899e6865fdde3124c9ff153573ad8945, type: 2}
+  rifleControllerSo: {fileID: 11400000, guid: bdaea40d066c9cc4ba003db2411679c6, type: 2}
+  muzzle: {fileID: 5802646356671683201}
+  mainCamera: {fileID: 0}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1413918597966023905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,7 +1300,7 @@ GameObject:
   - component: {fileID: 190307573916027868}
   - component: {fileID: 4465143398491752123}
   - component: {fileID: 7952571516500741516}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Side_Adjuster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1386,7 @@ GameObject:
   - component: {fileID: 3489030115399994011}
   - component: {fileID: 2348689198426756019}
   - component: {fileID: 1818293782504658184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1451,7 +1472,7 @@ GameObject:
   - component: {fileID: 1887467052524169147}
   - component: {fileID: 5117383672651145960}
   - component: {fileID: 4960345089317909353}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet_Shell5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1558,7 @@ GameObject:
   - component: {fileID: 841075576969749038}
   - component: {fileID: 7704007705421367365}
   - component: {fileID: 610447713327059483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1623,7 +1644,7 @@ GameObject:
   - component: {fileID: 5753477052355753172}
   - component: {fileID: 1624969219809174724}
   - component: {fileID: 94641308129512113}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1709,7 +1730,7 @@ GameObject:
   - component: {fileID: 4518695896336546513}
   - component: {fileID: 8482506762158122103}
   - component: {fileID: 7699800745130184262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1795,7 +1816,7 @@ GameObject:
   - component: {fileID: 6615853038512928788}
   - component: {fileID: 307899235128790873}
   - component: {fileID: 4725641644257303406}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Screw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1884,7 +1905,7 @@ GameObject:
   - component: {fileID: 3843877070316499486}
   - component: {fileID: 8332523194276150965}
   - component: {fileID: 6793886908006564409}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1970,7 +1991,7 @@ GameObject:
   - component: {fileID: 7601410422986615522}
   - component: {fileID: 4373146094286736687}
   - component: {fileID: 6080690822168529231}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2056,7 +2077,7 @@ GameObject:
   - component: {fileID: 8355946241197749311}
   - component: {fileID: 8186763711781573020}
   - component: {fileID: 7625059915721778570}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Foregrip_Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2143,7 +2164,7 @@ GameObject:
   - component: {fileID: 3826434530458789932}
   - component: {fileID: 2360998181322718056}
   - component: {fileID: 126808691605647012}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2229,7 +2250,7 @@ GameObject:
   - component: {fileID: 4447673836839418675}
   - component: {fileID: 4485706703391293019}
   - component: {fileID: 3752874108208238873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2315,7 +2336,7 @@ GameObject:
   - component: {fileID: 4704139264500163811}
   - component: {fileID: 4694716801645879265}
   - component: {fileID: 886548930324310809}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SightBlock4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2401,7 +2422,7 @@ GameObject:
   - component: {fileID: 8246414454305826105}
   - component: {fileID: 4076117679698108474}
   - component: {fileID: 2461661985017605512}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet_Shell3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2487,7 +2508,7 @@ GameObject:
   - component: {fileID: 5214992770478378399}
   - component: {fileID: 6067718000805492867}
   - component: {fileID: 8978799628366926061}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet_Shell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2578,7 +2599,7 @@ GameObject:
   - component: {fileID: 7646559914044573709}
   - component: {fileID: 125423406334386847}
   - component: {fileID: 4922266396232086780}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Lower_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2664,7 +2685,7 @@ GameObject:
   - component: {fileID: 5381731711404537409}
   - component: {fileID: 5009120282766377774}
   - component: {fileID: 4269298354660314062}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2750,7 +2771,7 @@ GameObject:
   - component: {fileID: 7961107404399921068}
   - component: {fileID: 173557887477548765}
   - component: {fileID: 5525532352332637294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2836,7 +2857,7 @@ GameObject:
   - component: {fileID: 967732376585432557}
   - component: {fileID: 1324877634518753887}
   - component: {fileID: 6656500874656401352}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2936,7 +2957,7 @@ GameObject:
   - component: {fileID: 4747901612499507084}
   - component: {fileID: 2825287799476205319}
   - component: {fileID: 6481444726419720689}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Barrel_Upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3022,7 +3043,7 @@ GameObject:
   - component: {fileID: 3468017461242307553}
   - component: {fileID: 7646692442928150074}
   - component: {fileID: 1572270345105436713}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Side_Grooves3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3108,7 +3129,7 @@ GameObject:
   - component: {fileID: 3611119699035403884}
   - component: {fileID: 6652649353929106460}
   - component: {fileID: 1473101198276707488}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3194,7 +3215,7 @@ GameObject:
   - component: {fileID: 5720142936759766587}
   - component: {fileID: 6054667616207693042}
   - component: {fileID: 200543305873956238}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Side_Grooves1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3280,7 +3301,7 @@ GameObject:
   - component: {fileID: 67132066829421712}
   - component: {fileID: 6870849829864075846}
   - component: {fileID: 6589952567887371913}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3366,7 +3387,7 @@ GameObject:
   - component: {fileID: 7354492054401989061}
   - component: {fileID: 3313068191168582187}
   - component: {fileID: 1790127955454946522}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Rear_Lens
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3452,7 +3473,7 @@ GameObject:
   - component: {fileID: 4284964113902999358}
   - component: {fileID: 7552604641450168095}
   - component: {fileID: 1563824365114051743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Band
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3538,7 +3559,7 @@ GameObject:
   - component: {fileID: 7216568392652308076}
   - component: {fileID: 8422847393895266588}
   - component: {fileID: 4251883151562762861}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Small_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3624,7 +3645,7 @@ GameObject:
   - component: {fileID: 641715949786159106}
   - component: {fileID: 2262507781520734004}
   - component: {fileID: 4113807412288744530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3710,7 +3731,7 @@ GameObject:
   - component: {fileID: 5501535155491746580}
   - component: {fileID: 2807235683307258945}
   - component: {fileID: 5148607722356332789}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sight_Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3800,7 +3821,7 @@ GameObject:
   - component: {fileID: 3989503580952628074}
   - component: {fileID: 8321400302318209259}
   - component: {fileID: 2383355645922072209}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SightBlock1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3886,7 +3907,7 @@ GameObject:
   - component: {fileID: 8958352452042559491}
   - component: {fileID: 6845094716351670829}
   - component: {fileID: 1469570058561513847}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mag_Holder_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3972,7 +3993,7 @@ GameObject:
   - component: {fileID: 9026525918804700260}
   - component: {fileID: 7875081289536233399}
   - component: {fileID: 1368002789072896161}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Screw_Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4058,7 +4079,7 @@ GameObject:
   - component: {fileID: 7176208791804935669}
   - component: {fileID: 4922890028359349040}
   - component: {fileID: 6313740483334125733}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dovetail_Support_bolts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4144,7 +4165,7 @@ GameObject:
   - component: {fileID: 4023057589693302254}
   - component: {fileID: 8788840934060490276}
   - component: {fileID: 5334136561030438876}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mag_Holder_Screw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4230,7 +4251,7 @@ GameObject:
   - component: {fileID: 6460594261443186222}
   - component: {fileID: 1075787419415083657}
   - component: {fileID: 2249435190519728935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4316,7 +4337,7 @@ GameObject:
   - component: {fileID: 3295506050704568972}
   - component: {fileID: 3373486694687460943}
   - component: {fileID: 2092024386647298399}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Cyl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4402,7 +4423,7 @@ GameObject:
   - component: {fileID: 2424550443192908076}
   - component: {fileID: 6738549370605326485}
   - component: {fileID: 3963992192285072619}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main_Grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4488,7 +4509,7 @@ GameObject:
   - component: {fileID: 8054559448561729446}
   - component: {fileID: 7369064130474761424}
   - component: {fileID: 7407918473655470800}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4588,7 +4609,7 @@ GameObject:
   - component: {fileID: 5701014863081125791}
   - component: {fileID: 1199115395122361327}
   - component: {fileID: 5261685478621194816}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main_Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4674,7 +4695,7 @@ GameObject:
   - component: {fileID: 8276381430403831842}
   - component: {fileID: 4993859532618123502}
   - component: {fileID: 179856920057821459}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Forend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4760,7 +4781,7 @@ GameObject:
   - component: {fileID: 3599161759672527231}
   - component: {fileID: 3072056446554176898}
   - component: {fileID: 1338629636731835266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mode_Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4846,7 +4867,7 @@ GameObject:
   - component: {fileID: 8127688557854478737}
   - component: {fileID: 6605489697157929133}
   - component: {fileID: 5767082793206149483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Bolt1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4932,7 +4953,7 @@ GameObject:
   - component: {fileID: 3802528369553253773}
   - component: {fileID: 893604018022281047}
   - component: {fileID: 5187486105699682359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Front_Horn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5018,7 +5039,7 @@ GameObject:
   - component: {fileID: 623144404152195112}
   - component: {fileID: 3344823004463165421}
   - component: {fileID: 7104877183211419689}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main_Receiver2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5104,7 +5125,7 @@ GameObject:
   - component: {fileID: 4617560940063788478}
   - component: {fileID: 7867688417745228366}
   - component: {fileID: 3521025710495041169}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5190,7 +5211,7 @@ GameObject:
   - component: {fileID: 2061311768312538326}
   - component: {fileID: 1119515658826957312}
   - component: {fileID: 2227879606695736288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5276,7 +5297,7 @@ GameObject:
   - component: {fileID: 7989994095037195235}
   - component: {fileID: 3473337834550329687}
   - component: {fileID: 5990406702071264561}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Screw2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5351,6 +5372,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &4941188964068378490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5802646356671683201}
+  m_Layer: 6
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5802646356671683201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4941188964068378490}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0, y: 0.1946, z: -0.4622}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9189167128507813254}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &5009352446013509912
 GameObject:
   m_ObjectHideFlags: 0
@@ -5362,7 +5414,7 @@ GameObject:
   - component: {fileID: 6793280805778172940}
   - component: {fileID: 4297725747254218998}
   - component: {fileID: 4369328889289542474}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Magazine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5448,7 +5500,7 @@ GameObject:
   - component: {fileID: 8154011441241605253}
   - component: {fileID: 9119054299284427066}
   - component: {fileID: 8932550933469809706}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Side_Grooves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5537,7 +5589,7 @@ GameObject:
   - component: {fileID: 2498264137972393254}
   - component: {fileID: 4674429599210311202}
   - component: {fileID: 4619692967431806112}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Connector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5623,7 +5675,7 @@ GameObject:
   - component: {fileID: 7458447389319733918}
   - component: {fileID: 6688486477502057499}
   - component: {fileID: 5047554757949240884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5709,7 +5761,7 @@ GameObject:
   - component: {fileID: 682052013139810590}
   - component: {fileID: 6192995553758282185}
   - component: {fileID: 1771716044498344161}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5795,7 +5847,7 @@ GameObject:
   - component: {fileID: 857860199934979}
   - component: {fileID: 7545410816155915300}
   - component: {fileID: 7867599363054700269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gas_Outlet_Pipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5881,7 +5933,7 @@ GameObject:
   - component: {fileID: 996930850598901262}
   - component: {fileID: 4910948548280238729}
   - component: {fileID: 1508830071312779663}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Cover_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5967,7 +6019,7 @@ GameObject:
   - component: {fileID: 3392236593986951057}
   - component: {fileID: 3802169426766114249}
   - component: {fileID: 4875909470611054143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6053,7 +6105,7 @@ GameObject:
   - component: {fileID: 5403743771043322776}
   - component: {fileID: 4497200414286784713}
   - component: {fileID: 953885075227595294}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6139,7 +6191,7 @@ GameObject:
   - component: {fileID: 7304511004877508331}
   - component: {fileID: 9163381240529754156}
   - component: {fileID: 5134903049442223227}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6225,7 +6277,7 @@ GameObject:
   - component: {fileID: 6119566007092762136}
   - component: {fileID: 7812808206294593695}
   - component: {fileID: 5740775280865373662}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6311,7 +6363,7 @@ GameObject:
   - component: {fileID: 3569655023231730590}
   - component: {fileID: 8825782927999901741}
   - component: {fileID: 8569956613217129272}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tightner_Upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6397,7 +6449,7 @@ GameObject:
   - component: {fileID: 2244271987764731370}
   - component: {fileID: 3244801006987947813}
   - component: {fileID: 5671080640718286354}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet_Shell4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6483,7 +6535,7 @@ GameObject:
   - component: {fileID: 6288340801157420047}
   - component: {fileID: 6183587031258135552}
   - component: {fileID: 2763259470021145875}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Bolt2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6567,7 +6619,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1280662167600458917}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IkTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6602,7 +6654,7 @@ GameObject:
   - component: {fileID: 4350253630045793123}
   - component: {fileID: 9138251903177981686}
   - component: {fileID: 6656882899485295720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6691,7 +6743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5976014419630858922}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rifle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6787,7 +6839,7 @@ GameObject:
   - component: {fileID: 5847134875700934544}
   - component: {fileID: 4097606092197412052}
   - component: {fileID: 6045919308939593648}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Pointer_Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6873,7 +6925,7 @@ GameObject:
   - component: {fileID: 7700264473049071241}
   - component: {fileID: 6556864354818448785}
   - component: {fileID: 2993844887153315465}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trigger_44
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6959,7 +7011,7 @@ GameObject:
   - component: {fileID: 8607125741881921864}
   - component: {fileID: 4923160490506359317}
   - component: {fileID: 686751278149691761}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Adjuster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7045,7 +7097,7 @@ GameObject:
   - component: {fileID: 873301272881760341}
   - component: {fileID: 5505321332949624355}
   - component: {fileID: 1921848287425161545}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Adjuster_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7131,7 +7183,7 @@ GameObject:
   - component: {fileID: 2440690524537799654}
   - component: {fileID: 8834925183116295179}
   - component: {fileID: 7897376755634962791}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Inside_Beveled_Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7217,7 +7269,7 @@ GameObject:
   - component: {fileID: 1281070317852634447}
   - component: {fileID: 796778643032894739}
   - component: {fileID: 7176678144070796135}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Side_Grooves2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7303,7 +7355,7 @@ GameObject:
   - component: {fileID: 4110555523418553675}
   - component: {fileID: 8084457759869216876}
   - component: {fileID: 2340950378992767704}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Front_Lens
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7387,7 +7439,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 570858624808150489}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightHandGrip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7420,7 +7472,7 @@ GameObject:
   - component: {fileID: 2693135156470717285}
   - component: {fileID: 9037550522085292104}
   - component: {fileID: 2372690559110361534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Bevel_Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7506,7 +7558,7 @@ GameObject:
   - component: {fileID: 3493505345642550415}
   - component: {fileID: 484650525638530473}
   - component: {fileID: 1001626305897015253}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7592,7 +7644,7 @@ GameObject:
   - component: {fileID: 607894268331097659}
   - component: {fileID: 4719148484375768788}
   - component: {fileID: 7490968136272936202}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stock_Divider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7678,7 +7730,7 @@ GameObject:
   - component: {fileID: 7972737603455247689}
   - component: {fileID: 4924684090469463420}
   - component: {fileID: 5530301348292390203}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Rear_Horn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7764,7 +7816,7 @@ GameObject:
   - component: {fileID: 6964109854237948688}
   - component: {fileID: 4735204697916652438}
   - component: {fileID: 2132044059385738223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7850,7 +7902,7 @@ GameObject:
   - component: {fileID: 921626018280987121}
   - component: {fileID: 7504552372129334090}
   - component: {fileID: 3838291183567648346}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet_Shell2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7936,7 +7988,7 @@ GameObject:
   - component: {fileID: 1216248515591537801}
   - component: {fileID: 1348801736790124955}
   - component: {fileID: 6950942909295298241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet_Shell1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8022,7 +8074,7 @@ GameObject:
   - component: {fileID: 4338859656216862033}
   - component: {fileID: 8600340086416541154}
   - component: {fileID: 85667588128318989}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mag_Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8108,7 +8160,7 @@ GameObject:
   - component: {fileID: 6250582224071030805}
   - component: {fileID: 1080235270834983108}
   - component: {fileID: 1366124806291436491}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SightBlock3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8194,7 +8246,7 @@ GameObject:
   - component: {fileID: 898285957756657026}
   - component: {fileID: 7105033191939308109}
   - component: {fileID: 7399669840460910232}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SightBlock2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8280,7 +8332,7 @@ GameObject:
   - component: {fileID: 1592981358906263328}
   - component: {fileID: 8142134777062310323}
   - component: {fileID: 691422596663779046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shell_Remover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8366,7 +8418,7 @@ GameObject:
   - component: {fileID: 8888594164827860511}
   - component: {fileID: 2884897037814157754}
   - component: {fileID: 35658532435372809}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Hinge_Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8452,7 +8504,7 @@ GameObject:
   - component: {fileID: 6247967745229914686}
   - component: {fileID: 1057492207770373158}
   - component: {fileID: 1138150500465629030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Foregrip_Switch1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8538,7 +8590,7 @@ GameObject:
   - component: {fileID: 770112497339416223}
   - component: {fileID: 2345120695022445742}
   - component: {fileID: 2008378441564322592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Diag_Adjuster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8624,7 +8676,7 @@ GameObject:
   - component: {fileID: 7768773611926489138}
   - component: {fileID: 1173106014630923518}
   - component: {fileID: 6536939829227188267}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Bolt5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8710,7 +8762,7 @@ GameObject:
   - component: {fileID: 3817239790930323649}
   - component: {fileID: 8353281216515581289}
   - component: {fileID: 7920258918117260377}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8796,7 +8848,7 @@ GameObject:
   - component: {fileID: 1439545392299985836}
   - component: {fileID: 8366452033140675094}
   - component: {fileID: 6578908370555313673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Thin_Rod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8882,7 +8934,7 @@ GameObject:
   - component: {fileID: 2088523250199121043}
   - component: {fileID: 7214042597708320269}
   - component: {fileID: 1567286429112214656}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Mount_Tightner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8969,7 +9021,7 @@ GameObject:
   - component: {fileID: 8532364877379419184}
   - component: {fileID: 558048301733878183}
   - component: {fileID: 6968447375876011497}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scope_Top_Adjuster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9055,7 +9107,7 @@ GameObject:
   - component: {fileID: 8594622824621307246}
   - component: {fileID: 6319972906355055624}
   - component: {fileID: 125654016972693820}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9141,7 +9193,7 @@ GameObject:
   - component: {fileID: 7058520540235907052}
   - component: {fileID: 1301502828069217504}
   - component: {fileID: 6702639882116503421}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dovetail_Support
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9227,7 +9279,7 @@ GameObject:
   - component: {fileID: 1903061185657484092}
   - component: {fileID: 7478031233772275604}
   - component: {fileID: 8524128422779956880}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9313,7 +9365,7 @@ GameObject:
   - component: {fileID: 4805582893470911054}
   - component: {fileID: 6123289520452724312}
   - component: {fileID: 4710872335466349007}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9399,7 +9451,7 @@ GameObject:
   - component: {fileID: 4645123059093151159}
   - component: {fileID: 712776320741147370}
   - component: {fileID: 7496491494783358288}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9485,7 +9537,7 @@ GameObject:
   - component: {fileID: 8586816123279008365}
   - component: {fileID: 4570767013050034154}
   - component: {fileID: 4323435708156749258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Screw1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9571,7 +9623,7 @@ GameObject:
   - component: {fileID: 881710874840912753}
   - component: {fileID: 6640836327778502943}
   - component: {fileID: 6192745498040852224}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9657,7 +9709,7 @@ GameObject:
   - component: {fileID: 91176127303955843}
   - component: {fileID: 7872449692603035056}
   - component: {fileID: 4852213342784831086}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grooves_Top1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9743,7 +9795,7 @@ GameObject:
   - component: {fileID: 2800508019158264752}
   - component: {fileID: 428741841165333424}
   - component: {fileID: 3211423357852197865}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9834,7 +9886,7 @@ GameObject:
   - component: {fileID: 5236095970764502262}
   - component: {fileID: 2208687111969654842}
   - component: {fileID: 213685005454695925}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9920,7 +9972,7 @@ GameObject:
   - component: {fileID: 806366837750354652}
   - component: {fileID: 6340550808622495827}
   - component: {fileID: 6669725478799046490}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10006,7 +10058,7 @@ GameObject:
   - component: {fileID: 3536233019621601667}
   - component: {fileID: 1927075383931188950}
   - component: {fileID: 4766809872847981447}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ironsight_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10092,7 +10144,7 @@ GameObject:
   - component: {fileID: 885632002302149262}
   - component: {fileID: 5989045397147838332}
   - component: {fileID: 7523788449608104585}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Bolt3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10178,7 +10230,7 @@ GameObject:
   - component: {fileID: 3036121198696592224}
   - component: {fileID: 7427418569921528324}
   - component: {fileID: 6241045194496514344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cage_Grooves_Top5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10264,7 +10316,7 @@ GameObject:
   - component: {fileID: 812513782290200055}
   - component: {fileID: 2057361940265814496}
   - component: {fileID: 5282408179861093245}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Receiver_Bolt4
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -80,6 +80,15 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""38a144e1-2c10-4c9a-879d-030382f548dd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -214,6 +223,17 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eba20eb5-6f97-48fd-beea-888dadea37a1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -245,6 +265,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         m_PlayerMove_Kill = m_PlayerMove.FindAction("Kill", throwIfNotFound: true);
         m_PlayerMove_Look = m_PlayerMove.FindAction("Look", throwIfNotFound: true);
         m_PlayerMove_Aim = m_PlayerMove.FindAction("Aim", throwIfNotFound: true);
+        m_PlayerMove_Fire = m_PlayerMove.FindAction("Fire", throwIfNotFound: true);
     }
 
     ~@ActorInput()
@@ -317,6 +338,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMove_Kill;
     private readonly InputAction m_PlayerMove_Look;
     private readonly InputAction m_PlayerMove_Aim;
+    private readonly InputAction m_PlayerMove_Fire;
     public struct PlayerMoveActions
     {
         private @ActorInput m_Wrapper;
@@ -327,6 +349,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         public InputAction @Kill => m_Wrapper.m_PlayerMove_Kill;
         public InputAction @Look => m_Wrapper.m_PlayerMove_Look;
         public InputAction @Aim => m_Wrapper.m_PlayerMove_Aim;
+        public InputAction @Fire => m_Wrapper.m_PlayerMove_Fire;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMove; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -354,6 +377,9 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
         }
 
         private void UnregisterCallbacks(IPlayerMoveActions instance)
@@ -376,6 +402,9 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
         }
 
         public void RemoveCallbacks(IPlayerMoveActions instance)
@@ -410,5 +439,6 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         void OnKill(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
