@@ -178,7 +178,6 @@ public class PlayerStateMachine : StateMachine
     void HandleInput_Fire(InputAction.CallbackContext context)
     {
         isFiring = context.ReadValueAsButton();
-        Debug.Log("[Fire]  " + isFiring);
         // _animator.SetBool(isAimingHash , isAiming);
     }
 
