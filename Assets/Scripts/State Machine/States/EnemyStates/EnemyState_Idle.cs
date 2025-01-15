@@ -1,26 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EnemyState_Idle : StateMachineBase
+namespace State_Machine.States.EnemyStates
 {
-    public EnemyState_Idle(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
-
-    public override void CheckSwitchState()
+    public class EnemyState_Idle : StateMachineBase
     {
-        if (_context.IsWalking) SwitchStates(stateHandle.Enemy_Walk());
-    }
+        public EnemyState_Idle(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
 
-    public override void OnEnterState()
-    {
-    }
+        public override void CheckSwitchState()
+        {
+            if (_context.IsWalking) SwitchStates(stateHandle.Enemy_Walk());
+        }
 
-    public override void OnExitState()
-    {
-    }
+        public override void OnEnterState()
+        {
+        }
 
-    public override void OnUpdateState()
-    {
-        CheckSwitchState();
+        public override void OnExitState()
+        {
+        }
+
+        public override void OnUpdateState()
+        {
+            CheckSwitchState();
+        }
     }
 }

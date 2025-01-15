@@ -1,30 +1,31 @@
-using UnityEngine;
-
-public class PlayerState_CrouchWalk : StateMachineBase
+namespace State_Machine.States.PlayerStates
 {
-    public PlayerState_CrouchWalk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle) {}
-    public override void CheckSwitchState()
+    public class PlayerState_CrouchWalk : StateMachineBase
     {
-        if(_context.CanRun) SwitchStates(stateHandle.Walk());
-        else if (!_context.IsCrouching) SwitchStates(stateHandle.Idle());
-        else if(!_context.IsWalking) SwitchStates(stateHandle.Crouch());
-        else if (_context.IsKilling) ExecuteKill();
+        public PlayerState_CrouchWalk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle) {}
+        public override void CheckSwitchState()
+        {
+            if(_context.CanRun) SwitchStates(stateHandle.Walk());
+            else if (!_context.IsCrouching) SwitchStates(stateHandle.Idle());
+            else if(!_context.IsWalking) SwitchStates(stateHandle.Crouch());
+            else if (_context.IsKilling) ExecuteKill();
 
-    }
+        }
 
-    public override void OnEnterState()
-    {
-        _context.MovementSpeed = _context.CrouchWalkSpeed;
-        _context.CharacterAnimator.SetBool(_context.IsCrouchWalkingHash, true);
-    }
+        public override void OnEnterState()
+        {
+            _context.MovementSpeed = _context.CrouchWalkSpeed;
+            _context.CharacterAnimator.SetBool(_context.IsCrouchWalkingHash, true);
+        }
 
-    public override void OnExitState()
-    {
-        _context.CharacterAnimator.SetBool(_context.IsCrouchWalkingHash, false);
-    }
+        public override void OnExitState()
+        {
+            _context.CharacterAnimator.SetBool(_context.IsCrouchWalkingHash, false);
+        }
 
-    public override void OnUpdateState()
-    {
-        CheckSwitchState();
+        public override void OnUpdateState()
+        {
+            CheckSwitchState();
+        }
     }
 }

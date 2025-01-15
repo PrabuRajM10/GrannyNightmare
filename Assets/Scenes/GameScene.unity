@@ -2732,6 +2732,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
         type: 3}
+      propertyPath: destinationBuffer
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
+        type: 3}
       propertyPath: 'PositionList.Array.data[0]'
       value: 
       objectReference: {fileID: 1632887095}

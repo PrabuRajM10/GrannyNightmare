@@ -1,32 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EnemyState_Walk : StateMachineBase
+namespace State_Machine.States.EnemyStates
 {
-    public EnemyState_Walk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
-
-    public override void CheckSwitchState()
+    public class EnemyState_Walk : StateMachineBase
     {
-        Debug.Log("EnemyState_Walk CheckSwitchState");
-        if (!_context.IsWalking) SwitchStates(stateHandle.Enemy_Idle());
-    }
+        public EnemyState_Walk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
 
-    public override void OnEnterState()
-    {
-        Debug.Log("EnemyState_Walk OnEnterState");
-    }
+        public override void CheckSwitchState()
+        {
+            if (!_context.IsWalking) SwitchStates(stateHandle.Enemy_Idle());
+        }
 
-    public override void OnExitState()
-    {
-        Debug.Log("EnemyState_Walk OnExitState");
-    }
+        public override void OnEnterState()
+        {
+            _context.CharacterAnimator.SetBool(_context.IsWalkingHash, true);
+            _context.SetAgentSpeed(_context.WalkSpeed);
+        }
 
-    public override void OnUpdateState()
-    {
-        Debug.Log("EnemyState_Walk OnUpdateState");
-        CheckSwitchState();
-    }
+        public override void OnExitState()
+        {
+            _context.CharacterAnimator.SetBool(_context.IsWalkingHash, false);
+        }
 
-   
+        public override void OnUpdateState()
+        {
+            CheckSwitchState();
+        }
+    }
 }

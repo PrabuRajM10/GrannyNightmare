@@ -1,27 +1,29 @@
-using UnityEngine;
-public class PlayerState_Walk : StateMachineBase
+namespace State_Machine.States.PlayerStates
 {
-    public PlayerState_Walk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
-    public override void CheckSwitchState()
+    public class PlayerState_Walk : StateMachineBase
     {
-        if (_context.CanRun) SwitchStates(stateHandle.Run());
-        else if (!_context.IsWalking) SwitchStates(stateHandle.Idle());
-        else if (_context.IsCrouching) SwitchStates(stateHandle.Crouch());
-        else if (_context.IsKilling) ExecuteKill();
-    }
+        public PlayerState_Walk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
+        public override void CheckSwitchState()
+        {
+            if (_context.CanRun) SwitchStates(stateHandle.Run());
+            else if (!_context.IsWalking) SwitchStates(stateHandle.Idle());
+            else if (_context.IsCrouching) SwitchStates(stateHandle.Crouch());
+            else if (_context.IsKilling) ExecuteKill();
+        }
 
-    public override void OnEnterState()
-    {
-        _context.MovementSpeed = _context.WalkSpeed;
-    }
+        public override void OnEnterState()
+        {
+            _context.MovementSpeed = _context.WalkSpeed;
+        }
 
-    public override void OnExitState()
-    {
-    }
+        public override void OnExitState()
+        {
+        }
 
-    public override void OnUpdateState()
-    {
-        CheckSwitchState();
-    }
+        public override void OnUpdateState()
+        {
+            CheckSwitchState();
+        }
 
+    }
 }

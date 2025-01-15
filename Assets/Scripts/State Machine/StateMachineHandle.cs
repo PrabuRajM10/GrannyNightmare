@@ -1,3 +1,6 @@
+using State_Machine.States.EnemyStates;
+using State_Machine.States.PlayerStates;
+
 public class StateMachineHandle
 {
     StateMachine _context;
@@ -38,5 +41,17 @@ public class StateMachineHandle
     public StateMachineBase Enemy_Walk()
     {
         return new EnemyState_Walk(_context, this);
+    }
+    public StateMachineBase Enemy_Alert()
+    {
+        return new EnemyState_Alert(_context, this);
+    }
+    public StateMachineBase Enemy_Chase()
+    {
+        return new EnemyState_Chase(_context, this);
+    }
+    public StateMachineBase Enemy_Attack()
+    {
+        return new EnemyState_Attack(_context, this);
     }
 }
