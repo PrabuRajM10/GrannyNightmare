@@ -1951,10 +1951,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1781492566079806730}
   - component: {fileID: 850962791458025532}
-  - component: {fileID: 2636529717108198298}
-  - component: {fileID: 8724280387292462599}
   - component: {fileID: 8022024510000353441}
   - component: {fileID: 9045234382569791566}
+  - component: {fileID: 2636529717108198298}
+  - component: {fileID: 8724280387292462599}
   - component: {fileID: 4304799435181027017}
   m_Layer: 7
   m_Name: Mannequin
@@ -2004,64 +2004,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2636529717108198298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5445526277228002471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4330e158763feed47a11321a3e3d8cbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 1.8
-  runSpeed: 5
-  crouchWalkSpeed: 1
-  rotationFactor: 10
-  movementSpeed: 0
-  restTime: 0
-  rifleController: {fileID: 0}
-  lockCameraPosition: 0
-  TopClamp: 90
-  BottomClamp: -50
-  cinemachineCameraTarget: {fileID: 5055082201579258751}
-  cameraAngleOverride: 0
-  smoothTime: 0.1
-  smoothVelocity: {x: 0, y: 0}
-  lookAtTarget: {fileID: 2121813685285778577}
---- !u!114 &8724280387292462599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5445526277228002471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d21c254787fbe6a41b020fe3395024fe,
-    type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: PlayerMove
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!65 &8022024510000353441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2108,6 +2050,65 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &2636529717108198298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445526277228002471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4330e158763feed47a11321a3e3d8cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1.8
+  runSpeed: 5
+  crouchWalkSpeed: 1
+  rotationFactor: 10
+  movementSpeed: 0
+  restTime: 0
+  _animator: {fileID: 0}
+  rifleController: {fileID: 0}
+  lockCameraPosition: 0
+  TopClamp: 90
+  BottomClamp: -50
+  cinemachineCameraTarget: {fileID: 5055082201579258751}
+  cameraAngleOverride: 0
+  smoothTime: 0.1
+  smoothVelocity: {x: 0, y: 0}
+  lookAtTarget: {fileID: 2121813685285778577}
+--- !u!114 &8724280387292462599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5445526277228002471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: d21c254787fbe6a41b020fe3395024fe,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerMove
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &4304799435181027017
 MonoBehaviour:
   m_ObjectHideFlags: 0

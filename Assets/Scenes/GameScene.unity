@@ -2715,6 +2715,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6215562725844747551, guid: 60169876ea470494a8817af0add7ebff,
+        type: 3}
+      propertyPath: m_Speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
+        type: 3}
+      propertyPath: overlapRadius
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
         type: 3}
       propertyPath: 'PositionList.Array.data[0]'
@@ -2728,6 +2743,21 @@ PrefabInstance:
     - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
         type: 3}
       propertyPath: 'PositionList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1548673200}
+    - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
+        type: 3}
+      propertyPath: 'positionList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1632887095}
+    - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
+        type: 3}
+      propertyPath: 'positionList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1400615500}
+    - target: {fileID: 7461727651797735804, guid: 60169876ea470494a8817af0add7ebff,
+        type: 3}
+      propertyPath: 'positionList.Array.data[2]'
       value: 
       objectReference: {fileID: 1548673200}
     - target: {fileID: 8344161823475899479, guid: 60169876ea470494a8817af0add7ebff,
@@ -2763,10 +2793,30 @@ PrefabInstance:
       propertyPath: 'PositionList.Array.data[2]'
       value: 
       objectReference: {fileID: 1548673200}
+    - target: {fileID: 548588162101312477, guid: 4d06915b1345d0d43be27c6d433d1305,
+        type: 3}
+      propertyPath: 'positionList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1632887095}
+    - target: {fileID: 548588162101312477, guid: 4d06915b1345d0d43be27c6d433d1305,
+        type: 3}
+      propertyPath: 'positionList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1400615500}
+    - target: {fileID: 548588162101312477, guid: 4d06915b1345d0d43be27c6d433d1305,
+        type: 3}
+      propertyPath: 'positionList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1548673200}
     - target: {fileID: 2197127759390021747, guid: 4d06915b1345d0d43be27c6d433d1305,
         type: 3}
       propertyPath: m_Name
       value: Enemy_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2197127759390021747, guid: 4d06915b1345d0d43be27c6d433d1305,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6063877390155413000, guid: 4d06915b1345d0d43be27c6d433d1305,
         type: 3}
@@ -2886,6 +2936,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_2
       objectReference: {fileID: 0}
+    - target: {fileID: 7212223460879755813, guid: a534e35ae6bac11489a467faa8f76190,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7509876503899428276, guid: a534e35ae6bac11489a467faa8f76190,
         type: 3}
       propertyPath: 'PositionList.Array.data[0]'
@@ -2899,6 +2954,21 @@ PrefabInstance:
     - target: {fileID: 7509876503899428276, guid: a534e35ae6bac11489a467faa8f76190,
         type: 3}
       propertyPath: 'PositionList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1548673200}
+    - target: {fileID: 7509876503899428276, guid: a534e35ae6bac11489a467faa8f76190,
+        type: 3}
+      propertyPath: 'positionList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1632887095}
+    - target: {fileID: 7509876503899428276, guid: a534e35ae6bac11489a467faa8f76190,
+        type: 3}
+      propertyPath: 'positionList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1400615500}
+    - target: {fileID: 7509876503899428276, guid: a534e35ae6bac11489a467faa8f76190,
+        type: 3}
+      propertyPath: 'positionList.Array.data[2]'
       value: 
       objectReference: {fileID: 1548673200}
     m_RemovedComponents: []
