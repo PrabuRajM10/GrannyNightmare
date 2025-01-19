@@ -8,7 +8,6 @@ namespace State_Machine.States.PlayerStates
             if (_context.CanRun) SwitchStates(stateHandle.Run());
             else if (!_context.IsWalking) SwitchStates(stateHandle.Idle());
             else if (_context.IsCrouching) SwitchStates(stateHandle.Crouch());
-            else if (_context.IsKilling) ExecuteKill();
         }
 
         public override void OnEnterState()

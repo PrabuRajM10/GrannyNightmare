@@ -34,13 +34,13 @@ public class StateMachineHandle
     {
         return new PlayerState_Kill(_context, this);
     }
-    public StateMachineBase Enemy_Idle()
+    public StateMachineBase Enemy_Wait()
     {
-        return new EnemyState_Idle(_context, this);
+        return new EnemyState_Wait(_context, this);
     }
-    public StateMachineBase Enemy_Walk()
+    public StateMachineBase Enemy_Patrol()
     {
-        return new EnemyState_Walk(_context, this);
+        return new EnemyState_Patrol(_context, this);
     }
     public StateMachineBase Enemy_Alert()
     {

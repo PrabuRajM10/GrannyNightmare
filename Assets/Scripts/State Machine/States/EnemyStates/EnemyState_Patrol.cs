@@ -1,12 +1,13 @@
 namespace State_Machine.States.EnemyStates
 {
-    public class EnemyState_Walk : StateMachineBase
+    public class EnemyState_Patrol : StateMachineBase
     {
-        public EnemyState_Walk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
+        public EnemyState_Patrol(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle){}
 
         public override void CheckSwitchState()
         {
-            if (!_context.IsWalking) SwitchStates(stateHandle.Enemy_Idle());
+            if (_context.IsWaiting) SwitchStates(stateHandle.Enemy_Wait());
+            if (_context.IsChasing) SwitchStates(stateHandle.Enemy_Chase());
         }
 
         public override void OnEnterState()

@@ -23,10 +23,4 @@ public abstract class StateMachineBase
         _context.CurrentState = newState;
     }
 
-    protected void ExecuteKill()
-    {
-        OnExitState();
-        _context.HandleKill();
-    }
-
 }
