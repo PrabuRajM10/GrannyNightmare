@@ -16,7 +16,6 @@ namespace State_Machine.States.PlayerStates
         Vector2 smoothedInput;
 
         private Vector2 look;
-        private Transform playerTransform , lockedEnemy;
         private const float Threshold = 0.01f;
     
         private float cinemachineTargetYaw;
@@ -70,7 +69,6 @@ namespace State_Machine.States.PlayerStates
         [SerializeField] private float crouchWalkSpeed;
 
     
-        public Vector3 CharacterCurrentMovementVector => characterCurrentMovementVector;
         public PlayerStateMachineBase CurrentPlayerState { get => currentState;
             set => currentState = value;
         }
@@ -96,7 +94,6 @@ namespace State_Machine.States.PlayerStates
         {
             mainPlayerInput = new ActorInput();
             playerInput = GetComponent<PlayerInput>();
-            playerTransform= transform;
             characterController = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
 
@@ -172,7 +169,6 @@ namespace State_Machine.States.PlayerStates
         void HandleInput_Move(InputAction.CallbackContext context)
         {
             characterMoveInput = context.ReadValue<Vector2>();
-            Debug.Log("[] [HandleInput_Move] _characterMoveInput "+ (characterMoveInput.x , characterMoveInput.y , isRunButtonPressed));
             characterCurrentMovementVector.x = characterMoveInput.x;
             characterCurrentMovementVector.z = characterMoveInput.y;
         
@@ -185,8 +181,6 @@ namespace State_Machine.States.PlayerStates
             {
                 canRun = false;    
             }
-            // _PlayerMovementXHash  = _characterMoveInput.x;
-            // _playerMovementZHash = _characterMoveInput.y;
         }
 
         void HandleInput_Look(InputAction.CallbackContext context)
@@ -203,13 +197,11 @@ namespace State_Machine.States.PlayerStates
         {
             isAiming = context.ReadValueAsButton();
             Debug.Log("[Aim]  " + isAiming);
-            // _animator.SetBool(isAimingHash , isAiming);
         }
     
         void HandleInput_Fire(InputAction.CallbackContext context)
         {
             isFiring = context.ReadValueAsButton();
-            // _animator.SetBool(isAimingHash , isAiming);
         }
 
         void HandleInput_Run_OnStart(InputAction.CallbackContext context)
@@ -233,50 +225,19 @@ namespace State_Machine.States.PlayerStates
 
         void HandleRotation()
         {
-            // Vector3 positionToLook;
-            //
-            // Debug.Log("[HandleRotation] look " + (_look.x , _look.y));
-            //
-            // positionToLook.x = _characterMoveInput.x;
-            // positionToLook.y = 0.0f;
-            // positionToLook.z = _characterMoveInput.y;
-            //
-            // if (_isWalking)
-            // {
-            //     Quaternion targetRot = Quaternion.LookRotation(positionToLook);
-            //     transform.rotation = Quaternion.Slerp(currentRot, targetRot, Time.deltaTime * rotationFactor);
-            // }
-        
             if (look.sqrMagnitude >= Threshold && !lockCameraPosition)
             {
-                //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
                 playerRotationTargetY += look.x * deltaTimeMultiplier;
             
             }
-        
-            // _playerRotationTargetY = ClampAngle(_playerRotationTargetY, float.MinValue, float.MaxValue);
-
             transform.rotation = Quaternion.Euler(0,playerRotationTargetY, 0.0f);
         }
-
-        void SetKLookTargetPosition()
-        {
-            // var zPos = (cinemachineCameraTarget.transform.TransformDirection(Vector3.forward) * 3f);
-            // var localTrans = cinemachineCameraTarget.transform.TransformDirection(cinemachineCameraTarget.transform.position.x , cinemachineCameraTarget.transform.position.y , cinemachineCameraTarget.transform.position.z);  
-            // lookAtTarget.position =  cinemachineCameraTarget.transform.position + zPos;
-        }
-
-        // Update is called once per frame
-    
-    
         private void CameraRotation()
         {
-            // if there is an input and camera position is not fixed
             if (look.sqrMagnitude >= Threshold && !lockCameraPosition)
             {
-                //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
                 cinemachineTargetYaw += look.x * deltaTimeMultiplier;
@@ -284,14 +245,11 @@ namespace State_Machine.States.PlayerStates
             
             }
 
-            // clamp our rotations so our values are limited 360 degrees
             cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
             cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, BottomClamp, TopClamp);
 
-            // Cinemachine will follow this target
             cinemachineCameraTarget.transform.rotation = Quaternion.Euler(cinemachineTargetPitch + cameraAngleOverride,
                 cinemachineTargetYaw, 0.0f);
-            SetKLookTargetPosition();
         }
     
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
