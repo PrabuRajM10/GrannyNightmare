@@ -1,9 +1,9 @@
 namespace State_Machine.States.PlayerStates
 {
-    public class PlayerState_Idle : StateMachineBase
+    public class PlayerPlayerStateIdle : PlayerStateMachineBase
     {
 
-        public PlayerState_Idle(StateMachine context , StateMachineHandle playerStateHandle) : base(context , playerStateHandle){}
+        public PlayerPlayerStateIdle(PlayerStateMachine context , StateMachineHandle playerStateHandle) : base(context , playerStateHandle){}
         public override void CheckSwitchState()
         {
             if (_context.IsWalking) SwitchStates(stateHandle.Walk());

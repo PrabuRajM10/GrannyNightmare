@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace State_Machine.States.PlayerStates
 {
-    public class PlayerState_Run : StateMachineBase
+    public class PlayerPlayerStateRun : PlayerStateMachineBase
     {
-        public PlayerState_Run(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle)
+        public PlayerPlayerStateRun(PlayerStateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle)
         {
 
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using State_Machine;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -13,12 +14,12 @@ public class StateMachine : MonoBehaviour
     [FormerlySerializedAs("_restTime")] [SerializeField] protected float restTime;
     protected StateMachineHandle _states;
     protected int _isCrouchingHash, _isCrouchWalkingHash,_playerMovementXHash , _playerMovementZHash , _isWalkingHash , _isChasingHash , _isAttackingHash , _isWaitingHash;
-    protected StateMachineBase _currentState;
+    protected PlayerStateMachineBase _currentPlayerState;
     protected Animator _animator;
     protected NavMeshAgent _agent;
 
-    public StateMachineBase CurrentState { get => _currentState;
-        set => _currentState = value;
+    public PlayerStateMachineBase CurrentPlayerState { get => _currentPlayerState;
+        set => _currentPlayerState = value;
     }
     public bool CanRun { get => _canRun;
         set => _canRun = value;

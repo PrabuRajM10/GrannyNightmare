@@ -1,57 +1,34 @@
+using State_Machine;
 using State_Machine.States.EnemyStates;
 using State_Machine.States.PlayerStates;
 
 public class StateMachineHandle
 {
-    StateMachine _context;
+    PlayerStateMachine _context;
 
-    public StateMachineHandle(StateMachine context )
+    public StateMachineHandle(PlayerStateMachine context )
     {
         _context = context;
     }   
 
-    public StateMachineBase Idle()
+    public PlayerStateMachineBase Idle()
     {
-        return new PlayerState_Idle(_context, this);
+        return new PlayerPlayerStateIdle(_context, this);
     }
-    public StateMachineBase Walk()
+    public PlayerStateMachineBase Walk()
     {
-        return new PlayerState_Walk(_context, this);
+        return new PlayerPlayerStateWalk(_context, this);
     }
-    public StateMachineBase Run()
+    public PlayerStateMachineBase Run()
     {
-        return new PlayerState_Run(_context, this);
+        return new PlayerPlayerStateRun(_context, this);
     }
-    public StateMachineBase Crouch()
+    public PlayerStateMachineBase Crouch()
     {
-        return new PlayerState_Crouch(_context, this);
+        return new PlayerPlayerStateCrouch(_context, this);
     }
-    public StateMachineBase CrouchWalk()
+    public PlayerStateMachineBase CrouchWalk()
     {
-        return new PlayerState_CrouchWalk(_context, this);
-    }
-    public StateMachineBase Kill()
-    {
-        return new PlayerState_Kill(_context, this);
-    }
-    public StateMachineBase Enemy_Wait()
-    {
-        return new EnemyState_Wait(_context, this);
-    }
-    public StateMachineBase Enemy_Patrol()
-    {
-        return new EnemyState_Patrol(_context, this);
-    }
-    public StateMachineBase Enemy_Alert()
-    {
-        return new EnemyState_Alert(_context, this);
-    }
-    public StateMachineBase Enemy_Chase()
-    {
-        return new EnemyState_Chase(_context, this);
-    }
-    public StateMachineBase Enemy_Attack()
-    {
-        return new EnemyState_Attack(_context, this);
+        return new PlayerPlayerStateCrouchWalk(_context, this);
     }
 }

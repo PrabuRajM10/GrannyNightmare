@@ -23,9 +23,7 @@ namespace State_Machine.States.EnemyStates
         void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
-            _states = new StateMachineHandle(this);
-            _currentState = _states.Enemy_Wait();
-            _currentState.OnEnterState();
+            _currentPlayerState.OnEnterState();
             _animator = GetComponent<Animator>();
             _isWalkingHash = Animator.StringToHash("IsWalking");
             _isChasingHash = Animator.StringToHash("IsChasing");
@@ -41,7 +39,7 @@ namespace State_Machine.States.EnemyStates
 
         private void Update()
         {
-            if(_currentState!=null)_currentState.OnUpdateState();
+            if(_currentPlayerState!=null)_currentPlayerState.OnUpdateState();
             switch (isPlayerFound)
             {
                 case false when !canChasePlayer:

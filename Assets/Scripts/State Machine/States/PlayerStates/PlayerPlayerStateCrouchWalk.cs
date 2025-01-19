@@ -1,8 +1,8 @@
 namespace State_Machine.States.PlayerStates
 {
-    public class PlayerState_CrouchWalk : StateMachineBase
+    public class PlayerPlayerStateCrouchWalk : PlayerStateMachineBase
     {
-        public PlayerState_CrouchWalk(StateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle) {}
+        public PlayerPlayerStateCrouchWalk(PlayerStateMachine context, StateMachineHandle playerStateHandle) : base(context, playerStateHandle) {}
         public override void CheckSwitchState()
         {
             if(_context.CanRun) SwitchStates(stateHandle.Walk());

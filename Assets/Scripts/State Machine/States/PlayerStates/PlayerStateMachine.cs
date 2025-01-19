@@ -5,9 +5,9 @@ using UnityEngine.Serialization;
 
 namespace State_Machine.States.PlayerStates
 {
-    public class PlayerStateMachine : StateMachine
+    public class PlayerStateMachine : MonoBehaviour
     {
-        private StateMachineBase  previousState;
+        private PlayerStateMachineBase  previousPlayerState;
         private ActorInput mainPlayerInput;
         private PlayerInput playerInput;
         private CharacterController characterController;
@@ -26,6 +26,20 @@ namespace State_Machine.States.PlayerStates
         private float playerRotationTargetY;
         private readonly int sprintMultiplier = 2;
         private int isAimingHash;
+        private Animator animator;
+        private int isCrouchingHash;
+        private int isCrouchWalkingHash;
+        private int playerMovementXHash;
+        private int playerMovementZHash;
+        private StateMachineHandle states;
+        private PlayerStateMachineBase currentState;
+        private bool canRun;
+        private float movementSpeed;
+        private bool isRunButtonPressed;
+        private bool isWalking;
+        private bool isCrouching;
+        private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
+
 
         [SerializeField] private RifleController rifleController;
 
@@ -50,10 +64,33 @@ namespace State_Machine.States.PlayerStates
         [SerializeField] private float smoothTime = 1f;
         [SerializeField] private Vector2 smoothVelocity;
         [SerializeField] private Transform lookAtTarget;
+        
+        [SerializeField] private float walkSpeed;
+        [SerializeField] private float runSpeed;
+        [SerializeField] private float crouchWalkSpeed;
 
-        private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
     
         public Vector3 CharacterCurrentMovementVector => characterCurrentMovementVector;
+        public PlayerStateMachineBase CurrentPlayerState { get => currentState;
+            set => currentState = value;
+        }
+        public bool CanRun { get => canRun;
+            set => canRun = value;
+        }
+        public bool IsWalking => isWalking;
+        public bool IsCrouching => isCrouching;
+        public float MovementSpeed { set => movementSpeed = value; }
+        public float WalkSpeed => walkSpeed;
+        public float RunSpeed => runSpeed;
+
+        public float CrouchWalkSpeed => crouchWalkSpeed;
+        public int IsCrouchingHash { get => isCrouchingHash;
+            set => isCrouchingHash = value;
+        }
+        public int IsCrouchWalkingHash { get => isCrouchWalkingHash;
+            set => isCrouchWalkingHash = value;
+        }
+        public Animator CharacterAnimator => animator;
 
         private void Awake()
         {
@@ -61,17 +98,17 @@ namespace State_Machine.States.PlayerStates
             playerInput = GetComponent<PlayerInput>();
             playerTransform= transform;
             characterController = GetComponent<CharacterController>();
-            _animator = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
 
-            _isCrouchingHash = Animator.StringToHash("IsCrouching");
-            _isCrouchWalkingHash = Animator.StringToHash("IsCrouchWalking");
-            _playerMovementXHash = Animator.StringToHash("x");
-            _playerMovementZHash = Animator.StringToHash("z");
+            isCrouchingHash = Animator.StringToHash("IsCrouching");
+            isCrouchWalkingHash = Animator.StringToHash("IsCrouchWalking");
+            playerMovementXHash = Animator.StringToHash("x");
+            playerMovementZHash = Animator.StringToHash("z");
             isAimingHash = Animator.StringToHash("IsAiming");  
 
-            _states = new StateMachineHandle(this);
-            _currentState = _states.Idle();
-            _currentState.OnEnterState();
+            states = new StateMachineHandle(this);
+            currentState = states.Idle();
+            currentState.OnEnterState();
 
             mainPlayerInput.PlayerMove.Move.started += context => HandleInput_Move(context);
             mainPlayerInput.PlayerMove.Move.canceled += context => HandleInput_Move(context);
@@ -79,7 +116,6 @@ namespace State_Machine.States.PlayerStates
             mainPlayerInput.PlayerMove.Run.started += context => HandleInput_Run_OnStart(context);
             mainPlayerInput.PlayerMove.Run.canceled += context => HandleInput_Run(context);
             mainPlayerInput.PlayerMove.Crouch.canceled += context => HandleInput_Crouch(context);
-            mainPlayerInput.PlayerMove.Kill.started += context => HandleInput_Kill(context);
             mainPlayerInput.PlayerMove.Look.started += context => HandleInput_Look(context);
             mainPlayerInput.PlayerMove.Look.canceled += context => HandleInput_Look(context);
             mainPlayerInput.PlayerMove.Look.performed += context => HandleInput_Look(context);
@@ -97,7 +133,7 @@ namespace State_Machine.States.PlayerStates
         void Update()
         {
             HandleRotation();
-            if(_currentState!=null)_currentState.OnUpdateState();
+            if(currentState!=null)currentState.OnUpdateState();
             if(isFiring) rifleController.FireRifle();
         
             Vector3 forward = transform.TransformDirection(Vector3.forward) * characterCurrentMovementVector.z; // TransformDirection converts local direction to world space
@@ -105,16 +141,16 @@ namespace State_Machine.States.PlayerStates
 
             Vector3 moveDirection = (forward + right).normalized;
 
-            Vector2 movementInput = characterMoveInput * (_canRun ? sprintMultiplier : 1);
+            Vector2 movementInput = characterMoveInput * (canRun ? sprintMultiplier : 1);
             smoothedInput.x = Mathf.SmoothDamp(smoothedInput.x, movementInput.x, ref smoothVelocity.x, smoothTime);
             smoothedInput.y = Mathf.SmoothDamp(smoothedInput.y, movementInput.y, ref smoothVelocity.y, smoothTime);
             smoothedInput.x = Mathf.Clamp(smoothedInput.x, -1, 2);
             smoothedInput.y = Mathf.Clamp(smoothedInput.y, -1, 2);
         
-            _animator.SetFloat(_playerMovementXHash , smoothedInput.x);
-            _animator.SetFloat(_playerMovementZHash , smoothedInput.y);
+            animator.SetFloat(playerMovementXHash , smoothedInput.x);
+            animator.SetFloat(playerMovementZHash , smoothedInput.y);
 
-            var acceleration = _canRun ? movementSpeed * sprintMultiplier : movementSpeed;
+            var acceleration = canRun ? movementSpeed * sprintMultiplier : movementSpeed;
 
             characterController.Move(moveDirection * Time.deltaTime * movementSpeed);
         }
@@ -136,18 +172,18 @@ namespace State_Machine.States.PlayerStates
         void HandleInput_Move(InputAction.CallbackContext context)
         {
             characterMoveInput = context.ReadValue<Vector2>();
-            Debug.Log("[] [HandleInput_Move] _characterMoveInput "+ (characterMoveInput.x , characterMoveInput.y , _isRunButtonPressed));
+            Debug.Log("[] [HandleInput_Move] _characterMoveInput "+ (characterMoveInput.x , characterMoveInput.y , isRunButtonPressed));
             characterCurrentMovementVector.x = characterMoveInput.x;
             characterCurrentMovementVector.z = characterMoveInput.y;
         
-            _isWalking = characterMoveInput.x != 0 || characterMoveInput.y != 0;
-            if (characterMoveInput.y > 0 && _isRunButtonPressed)
+            isWalking = characterMoveInput.x != 0 || characterMoveInput.y != 0;
+            if (characterMoveInput.y > 0 && isRunButtonPressed)
             {
-                _canRun = true;
+                canRun = true;
             }
             else
             {
-                _canRun = false;    
+                canRun = false;    
             }
             // _PlayerMovementXHash  = _characterMoveInput.x;
             // _playerMovementZHash = _characterMoveInput.y;
@@ -159,9 +195,9 @@ namespace State_Machine.States.PlayerStates
         }
         void HandleInput_Run(InputAction.CallbackContext context)
         {
-            _isRunButtonPressed = context.ReadValueAsButton();
-            Debug.Log("[Run] [Canceled] _isRunButtonPressed " + _isRunButtonPressed);
-            _canRun = false;    
+            isRunButtonPressed = context.ReadValueAsButton();
+            Debug.Log("[Run] [Canceled] _isRunButtonPressed " + isRunButtonPressed);
+            canRun = false;    
         }
         void HandleInput_Aim(InputAction.CallbackContext context)
         {
@@ -176,23 +212,17 @@ namespace State_Machine.States.PlayerStates
             // _animator.SetBool(isAimingHash , isAiming);
         }
 
-        void HandleInput_Kill(InputAction.CallbackContext context)
-        {
-            _isKilling = true;
-            //HandleKill();
-        }
-
         void HandleInput_Run_OnStart(InputAction.CallbackContext context)
         {
-            _isCrouching = false;
-            _isRunButtonPressed = context.ReadValueAsButton();
-            Debug.Log("[Run] [Start] _isRunButtonPressed " + _isRunButtonPressed);
-            if(characterMoveInput.y > 0) _canRun = true;
+            isCrouching = false;
+            isRunButtonPressed = context.ReadValueAsButton();
+            Debug.Log("[Run] [Start] _isRunButtonPressed " + isRunButtonPressed);
+            if(characterMoveInput.y > 0) canRun = true;
         }
 
         void HandleInput_Crouch(InputAction.CallbackContext context)
         {
-            _isCrouching = !_isCrouching;
+            isCrouching = !isCrouching;
         }
 
         void HandleGravity()
