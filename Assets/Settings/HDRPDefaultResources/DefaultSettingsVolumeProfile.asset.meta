@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-guid: 41385608899434bf48e5f0d82ad82a00
+guid: e4441c748346fd94cb934ca07876d0a6
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 277398
-  packageName: Insurgent (Urban)
-  packageVersion: 
-  assetPath: Assets/Settings/HDRPDefaultResources/DefaultSettingsVolumeProfile.asset
-  uploadId: 0
