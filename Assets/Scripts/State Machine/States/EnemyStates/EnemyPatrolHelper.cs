@@ -20,5 +20,10 @@ namespace State_Machine.States.EnemyStates
             currentIndex = (currentIndex + 1) % positionList.Count;     
             targetTransform = positionList[currentIndex].transform; 
         }
+
+        public Vector3 GetNextDestination()
+        {
+            return targetTransform.position;
+        }
     }
 }

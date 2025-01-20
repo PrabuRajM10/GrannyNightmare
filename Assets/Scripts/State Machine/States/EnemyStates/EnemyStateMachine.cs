@@ -8,100 +8,74 @@ using UnityEngine.Serialization;
 
 namespace State_Machine.States.EnemyStates
 {
-    public class EnemyStateMachine : StateMachine
+    public class EnemyStateMachine : MonoBehaviour
     {
         private Vector3 newDestination;
         [FormerlySerializedAs("_overlapRadius")] [SerializeField] private float overlapRadius = 5f;
         [FormerlySerializedAs("EnemyViewDistance")] [SerializeField] private float enemyViewDistance;
         [FormerlySerializedAs("viewAnlge")] [FormerlySerializedAs("ViewAnlge")] [SerializeField] private float viewAngle;
-        [FormerlySerializedAs("PositionList")] [SerializeField] private List<Transform> positionList= new List<Transform>();
-        [SerializeField] private float destinationBuffer = 0.1f;
 
+        [SerializeField] EnemyBaseState initialState;
+        [SerializeField] private EnemyPatrolHelper enemyPatrolHelper;
+        
+        EnemyBaseState currentState;   
+        
         private bool canChasePlayer , isPlayerFound;
         private PlayerStateMachine player;
+        [FormerlySerializedAs("_agent")] [SerializeField] private NavMeshAgent agent;
+        [FormerlySerializedAs("_animator")] [SerializeField] private Animator animator;
+        private int isWalkingHash;
+        private int isChasingHash;
+        private int isAttackingHash;
+        private int isIdleHash;
+        private int isDeadHash;
+        private bool isChasing;
+        private bool isAttacking;
+        private float patrolSpeed;
+        private float chaseSpeed;
+
+        public Animator Animator => animator;
+        public NavMeshAgent NavAgent => agent;  
+        public EnemyPatrolHelper EnemyPatrolHelper => enemyPatrolHelper;
+
+        public PlayerStateMachine TargetPlayer
+        {
+            set => player = value;
+            get => player;
+        }
+        public int IsIdleHash => isIdleHash;
+        public int IsChasingHash => isChasingHash;
+        public int IsAttackingHash => isAttackingHash;
+        public int IsDeadHash => isDeadHash;
+        
+        public float PatrolSpeed => patrolSpeed;
+        public float ChaseSpeed => chaseSpeed;
+        private void OnValidate()
+        {
+            if(agent == null)agent = GetComponent<NavMeshAgent>();  
+            if(animator == null)animator = GetComponent<Animator>();  
+            if(enemyPatrolHelper == null)enemyPatrolHelper = GetComponent<EnemyPatrolHelper>();  
+        }
+
 
         void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>();
-            _currentPlayerState.OnEnterState();
-            _animator = GetComponent<Animator>();
-            _isWalkingHash = Animator.StringToHash("IsWalking");
-            _isChasingHash = Animator.StringToHash("IsChasing");
-            _isAttackingHash = Animator.StringToHash("IsAttacking");
+            isWalkingHash = Animator.StringToHash("IsWalking");
+            isChasingHash = Animator.StringToHash("IsChasing");
+            isAttackingHash = Animator.StringToHash("IsAttacking");
+
+            currentState = initialState;
         }
 
         private void Start()
         {
-            newDestination = GetNewDestination(positionList);
-            _agent.SetDestination(newDestination);
-            restTime = UnityEngine.Random.Range(3, 7);
+            currentState.OnEnter(this);
         }
 
         private void Update()
         {
-            if(_currentPlayerState!=null)_currentPlayerState.OnUpdateState();
-            switch (isPlayerFound)
-            {
-                case false when !canChasePlayer:
-                    LookForPlayer();
-                    Patrol();
-                    break;
-                case true when canChasePlayer:
-                    newDestination = player.transform.position;
-                    _agent.SetDestination(newDestination);
-                    _agent.isStopped = false;
-                    if (Vector3.Distance(newDestination, transform.position) > destinationBuffer)
-                    {
-                        if(!_isChasing)_isChasing = true;
-                        if(_isAttacking)_isAttacking = false;
-                    }
-                    else
-                    {
-                        if(_isChasing)_isAttacking = false;
-                        if(!_isAttacking)_isAttacking = true;
-                    }
-                    break;
-            }
+            if(currentState!=null)currentState.OnUpdate(this);
         }
-
-        private void Patrol()
-        {
-            if (Vector3.Distance(newDestination, transform.position) > destinationBuffer)
-            {
-                if(!_isWalking)_isWalking = true;
-            }
-            else
-            {
-                _isWalking = false;
-                _isWaiting = true;
-                    
-                if (restTime > 0f)
-                {
-                    restTime -= Time.deltaTime;
-                }
-                else
-                {
-                    newDestination = GetNewDestination(positionList);
-                    _isWalking = true;
-                    _agent.SetDestination(newDestination);
-                    restTime = UnityEngine.Random.Range(3, 7);
-                }
-
-            }
-        }
-
-        Vector3 GetNewDestination(List<Transform> transList)
-        {
-            var count = transList.Count;
-            List<Transform> newTransList = new List<Transform>();
-            foreach(var trans in transList)
-            {
-                if (Vector3.Distance(trans.position, transform.position) > 1f) newTransList.Add(trans);    
-            }
-            
-            return newTransList[UnityEngine.Random.Range(0, newTransList.Count)].position;
-        }
-
         void LookForPlayer()
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, overlapRadius);
@@ -124,16 +98,11 @@ namespace State_Machine.States.EnemyStates
                             Debug.DrawLine(newPos, playerObjTransform.position, Color.yellow, 1000);
                             Debug.Log("Player got caught");
                             player = playerObj;
-                            (_isChasing, isPlayerFound, _agent.isStopped) = (true,true,true);
+                            (isChasing, isPlayerFound, agent.isStopped) = (true,true,true);
                         }
                     }
                 }
             }
-        }
-        public void StartChasing()
-        {
-            Debug.Log("StartChasing - Animation event");
-            canChasePlayer = true;
         }
 
         private void OnDrawGizmos()
