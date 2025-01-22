@@ -1,6 +1,8 @@
 using System;
 using ObjectPooling;
+using State_Machine.EnemyStateMachine;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Gameplay
@@ -9,6 +11,7 @@ namespace Gameplay
     {
         [SerializeField] Rigidbody rb;
         [SerializeField] private float thrust = 100f;
+        [SerializeField] private int damage = 5;
         PoolManager poolManager;
 
         private void OnValidate()
@@ -19,6 +22,14 @@ namespace Gameplay
         {
             var rifle = other.GetComponent<Rifle>();
             if(rifle) return;
+
+            var damageable = other.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.TakeDamage(damage);
+                Vector3 lookDirection = transform.TransformDirection(-Vector3.forward);
+                other.GetComponent<EnemyStateMachine>().LookAtDirection(lookDirection);
+            }
             
             Debug.Log("[Bullet] [OnTriggerEnter] Triggered on "+ other.name);
             poolManager.ReturnPoolObject(this);

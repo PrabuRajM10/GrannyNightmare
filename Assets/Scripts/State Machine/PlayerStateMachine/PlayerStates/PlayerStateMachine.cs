@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace State_Machine.PlayerStateMachine.PlayerStates
 {
-    public class PlayerStateMachine : MonoBehaviour
+    public class PlayerStateMachine : MonoBehaviour , IDamageable
     {
         private PlayerStateMachineBase  previousPlayerState;
         private ActorInput mainPlayerInput;
@@ -67,8 +67,8 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
         [SerializeField] private float crouchWalkSpeed;
-        [SerializeField] private int health = 5;
-
+        [FormerlySerializedAs("health")] [SerializeField] private int maxHealth = 100;
+        [SerializeField] private int currentHealth;
 
         public PlayerStateMachineBase CurrentPlayerState { get => currentState;
             set => currentState = value;
@@ -107,7 +107,8 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
             states = new StateMachineHandle(this);
             currentState = states.Idle();
             currentState.OnEnterState();
-
+            currentHealth = maxHealth;
+            
             mainPlayerInput.PlayerMove.Move.started += context => HandleInput_Move(context);
             mainPlayerInput.PlayerMove.Move.canceled += context => HandleInput_Move(context);
             mainPlayerInput.PlayerMove.Move.performed += context => HandleInput_Move(context);
@@ -262,7 +263,13 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
 
         public int GetHealth()
         {
-            return health;
+            return currentHealth;
+        }
+
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
+            currentHealth = Mathf.Max(currentHealth, 0);    
         }
     }
 }

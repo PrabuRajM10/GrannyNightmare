@@ -10,13 +10,13 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
             Debug.Log("[EnemyStateAttack] [OnEnter]");
             stateMachine.Animator.SetBool(stateMachine.IsAttackingHash, true);
             stateMachine.TurnOffLocomotion(true);
-
+            stateMachine.EnableAttack(true);
         }
 
         public override void OnUpdate(EnemyStateMachine stateMachine)
         {
             base.OnUpdate(stateMachine);
-            stateMachine.LookAtPlayer();
+            stateMachine.LookAtTarget(stateMachine.TargetPlayer.transform);
         }
 
         public override void OnExit(State_Machine.EnemyStateMachine.EnemyStateMachine stateMachine)
@@ -24,6 +24,7 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
             Debug.Log("[EnemyStateAttack] [OnExit]");
             stateMachine.TurnOffLocomotion(false);
             stateMachine.Animator.SetBool(stateMachine.IsAttackingHash, false);
+            stateMachine.EnableAttack(false);
         }
     }
 }
