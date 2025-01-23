@@ -1,5 +1,7 @@
 using Gameplay;
+using Managers;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -8,8 +10,6 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
     public class PlayerStateMachine : MonoBehaviour , IDamageable
     {
         private PlayerStateMachineBase  previousPlayerState;
-        private ActorInput mainPlayerInput;
-        private PlayerInput playerInput;
         private CharacterController characterController;
         private Vector3 characterCurrentMovementVector;
         private Vector2 characterMoveInput;
@@ -25,6 +25,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         private float playerRotationTargetY;
         private readonly int sprintMultiplier = 2;
         private int isAimingHash;
+        private int isDeadHash;
         private Animator animator;
         private int isCrouchingHash;
         private int isCrouchWalkingHash;
@@ -37,7 +38,9 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         private bool isRunButtonPressed;
         private bool isWalking;
         private bool isCrouching;
-        private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
+        private bool isDead;
+
+        // private bool IsCurrentDeviceMouse => playerInput.currentControlScheme == "KeyboardMouse";
 
 
         [SerializeField] private RifleController rifleController;
@@ -62,7 +65,10 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
 
         [SerializeField] private float smoothTime = 1f;
         [SerializeField] private Vector2 smoothVelocity;
+        [SerializeField] InputManager inputManager;
         [SerializeField] private Transform lookAtTarget;
+        [SerializeField] private MultiAimConstraint aimConstraint;
+        [SerializeField] private TwoBoneIKConstraint[] handIks;
         
         [SerializeField] private float walkSpeed;
         [SerializeField] private float runSpeed;
@@ -78,6 +84,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         }
         public bool IsWalking => isWalking;
         public bool IsCrouching => isCrouching;
+        public bool IsDead => isDead;
         public float MovementSpeed { set => movementSpeed = value; }
         public float WalkSpeed => walkSpeed;
         public float RunSpeed => runSpeed;
@@ -89,12 +96,12 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         public int IsCrouchWalkingHash { get => isCrouchWalkingHash;
             set => isCrouchWalkingHash = value;
         }
+        
+        public int IsDeadHash => isDeadHash;    
         public Animator CharacterAnimator => animator;
 
         private void Awake()
         {
-            mainPlayerInput = new ActorInput();
-            playerInput = GetComponent<PlayerInput>();
             characterController = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
 
@@ -103,25 +110,13 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
             playerMovementXHash = Animator.StringToHash("x");
             playerMovementZHash = Animator.StringToHash("z");
             isAimingHash = Animator.StringToHash("IsAiming");  
+            isDeadHash = Animator.StringToHash("IsDead");  
 
             states = new StateMachineHandle(this);
             currentState = states.Idle();
             currentState.OnEnterState();
             currentHealth = maxHealth;
             
-            mainPlayerInput.PlayerMove.Move.started += context => HandleInput_Move(context);
-            mainPlayerInput.PlayerMove.Move.canceled += context => HandleInput_Move(context);
-            mainPlayerInput.PlayerMove.Move.performed += context => HandleInput_Move(context);
-            mainPlayerInput.PlayerMove.Run.started += context => HandleInput_Run_OnStart(context);
-            mainPlayerInput.PlayerMove.Run.canceled += context => HandleInput_Run(context);
-            mainPlayerInput.PlayerMove.Crouch.canceled += context => HandleInput_Crouch(context);
-            mainPlayerInput.PlayerMove.Look.started += context => HandleInput_Look(context);
-            mainPlayerInput.PlayerMove.Look.canceled += context => HandleInput_Look(context);
-            mainPlayerInput.PlayerMove.Look.performed += context => HandleInput_Look(context);
-            mainPlayerInput.PlayerMove.Aim.started += context => HandleInput_Aim(context);
-            mainPlayerInput.PlayerMove.Aim.canceled += context => HandleInput_Aim(context);
-            mainPlayerInput.PlayerMove.Fire.started += context => HandleInput_Fire(context);
-            mainPlayerInput.PlayerMove.Fire.canceled += context => HandleInput_Fire(context);
         }
 
         private void Start()
@@ -161,12 +156,22 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
 
         private void OnEnable()
         {
-            mainPlayerInput.PlayerMove.Enable();
+            inputManager.HandleMoveInput += HandleInput_Move;
+            inputManager.HandleRunInputStart += HandleInput_Run_OnStart;
+            inputManager.HandleRunInputCanceled += HandleInput_Run;
+            inputManager.HandleCrouchInput += HandleInput_Crouch;
+            inputManager.HandleLookInput += HandleInput_Look;
+            inputManager.HandleFireInput += HandleInput_Fire;
         }
 
         private void OnDisable()
         {
-            mainPlayerInput.PlayerMove.Disable();
+            inputManager.HandleMoveInput += HandleInput_Move;
+            inputManager.HandleRunInputStart += HandleInput_Run_OnStart;
+            inputManager.HandleRunInputCanceled += HandleInput_Run;
+            inputManager.HandleCrouchInput += HandleInput_Crouch;
+            inputManager.HandleLookInput += HandleInput_Look;
+            inputManager.HandleFireInput += HandleInput_Fire;
         }
         void HandleInput_Move(InputAction.CallbackContext context)
         {
@@ -229,7 +234,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         {
             if (look.sqrMagnitude >= Threshold && !lockCameraPosition)
             {
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                float deltaTimeMultiplier = inputManager.IsCurrentDeviceMouse() ? 1.0f : Time.deltaTime;
 
                 playerRotationTargetY += look.x * deltaTimeMultiplier;
             
@@ -240,7 +245,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         {
             if (look.sqrMagnitude >= Threshold && !lockCameraPosition)
             {
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                float deltaTimeMultiplier = inputManager.IsCurrentDeviceMouse() ? 1.0f : Time.deltaTime;
 
                 cinemachineTargetYaw += look.x * deltaTimeMultiplier;
                 cinemachineTargetPitch += look.y * deltaTimeMultiplier;
@@ -269,7 +274,23 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
-            currentHealth = Mathf.Max(currentHealth, 0);    
+
+            if (currentHealth <= 0)
+            {
+                isDead = true;  
+            }
+        }
+
+        public void OnDead()
+        {
+            aimConstraint.weight = 0;
+            foreach (var handIk in handIks)
+            {
+                handIk.weight = 0;
+            }
+            lookAtTarget.gameObject.SetActive(false);
+            rifleController.EnableWeapon(false);
+            // animator.SetLayerWeight(1,0); // upper body layer (for aim if implemented)
         }
     }
 }

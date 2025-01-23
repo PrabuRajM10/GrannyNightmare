@@ -23,10 +23,13 @@ namespace Gameplay
         private void OnDisable()
         {
             rifleControllerSo.OnFire -= Fire;
+            rifleControllerSo.OnEnableWeapon -= OnEnableWeapon;
         }
+
         private void OnEnable()
         {
             rifleControllerSo.OnFire += Fire;
+            rifleControllerSo.OnEnableWeapon += OnEnableWeapon;
         }
 
         private void Update()
@@ -53,6 +56,10 @@ namespace Gameplay
                 bullet.Fire();
             }
             
+        }
+        private void OnEnableWeapon(bool state)
+        {
+            gameObject.SetActive(state);
         }
     }
     

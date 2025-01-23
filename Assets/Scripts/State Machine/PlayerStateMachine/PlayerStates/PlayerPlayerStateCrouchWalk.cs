@@ -8,6 +8,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
             if(_context.CanRun) SwitchStates(stateHandle.Walk());
             else if (!_context.IsCrouching) SwitchStates(stateHandle.Idle());
             else if(!_context.IsWalking) SwitchStates(stateHandle.Crouch());
+            else if (_context.IsDead) SwitchStates(stateHandle.Dead());
 
         }
 

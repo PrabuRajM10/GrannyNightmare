@@ -31,5 +31,10 @@ namespace State_Machine.PlayerStateMachine
         {
             return new PlayerPlayerStateCrouchWalk(_context, this);
         }
+        
+        public PlayerStateMachineBase Dead()
+        {
+            return new PlayerPlayerStateDead(_context, this);
+        }
     }
 }

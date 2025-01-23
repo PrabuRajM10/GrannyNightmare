@@ -9,7 +9,7 @@ namespace State_Machine.EnemyStateMachine
         [SerializeField] private List<Transform> positionList= new List<Transform>();
         [SerializeField] private int currentIndex;
         [SerializeField] Transform targetTransform;
-        [SerializeField] private float destinationBuffer = 0.5f;
+        [SerializeField] private float destinationBuffer = 0.2f;
 
         private void Start()
         {

@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f91fc5cdd4524395b9202e77563211f4, type: 3}
-  m_Name: CloserToPlayerTransition
+  m_Script: {fileID: 11500000, guid: b6176ea806f44e80aaa0c7dd12e92db0, type: 3}
+  m_Name: InputManager
   m_EditorClassIdentifier: 
-  targetState: {fileID: 11400000, guid: 2ce08b8e5a39b3446990ac868e593071, type: 2}
-  safeDistance: 1.3

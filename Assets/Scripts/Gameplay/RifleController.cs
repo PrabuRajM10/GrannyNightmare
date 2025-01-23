@@ -14,6 +14,7 @@ namespace Gameplay
         
         public event Action OnFire;
 
+        public event Action<bool> OnEnableWeapon;
         public void Update()
         {
             timeSinceLastShot += Time.deltaTime;
@@ -24,6 +25,11 @@ namespace Gameplay
             if(!CanShoot())return;
             OnFire?.Invoke();
             timeSinceLastShot = 0f;
+        }
+
+        public void EnableWeapon(bool b)
+        {
+            OnEnableWeapon?.Invoke(b);
         }
     }
 }

@@ -115,10 +115,11 @@ namespace State_Machine.EnemyStateMachine
 
         public void LookAtTarget(Transform target)
         {
-            transform.LookAt(player.transform);
+            transform.LookAt(target.transform);
             // var targetForward = target.TransformDirection(Vector3.forward);
             // var localForward = transform.TransformDirection(Vector3.forward);
-            // var direction = (target.position - localForward).normalized;
+            // var direction = (target.position - transform.position).normalized;
+            // Debug.DrawRay(transform.position, direction, Color.red , 100);
             // LookAtDirection(direction);
         }
 
