@@ -71,7 +71,7 @@ namespace State_Machine.EnemyStateMachine
 
         private void Start()
         {
-            currentState.OnEnter(this);
+            if(currentState != null)currentState.OnEnter(this);
         }
 
         private void Update()
@@ -136,6 +136,16 @@ namespace State_Machine.EnemyStateMachine
         public void EnableAttack(bool state)
         {
             zombieHand.EnableAttack(state);
+        }
+
+        public void SetInitialPosition(Transform patrolPointsPoint)
+        {
+            transform.localPosition = patrolPointsPoint.localPosition;    
+        }
+
+        public void SetParent(Transform parent)
+        {
+            transform.SetParent(parent);
         }
     }
 }

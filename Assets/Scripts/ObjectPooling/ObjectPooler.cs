@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Gameplay;
+using State_Machine.EnemyStateMachine;
 using UnityEngine;
 
 namespace ObjectPooling
@@ -9,12 +10,14 @@ namespace ObjectPooling
     {
         [SerializeField] private PoolManager poolManagerSo;
         [SerializeField] private Bullet bullet;
+        [SerializeField] private EnemyStateMachine enemy;
         [SerializeField] private Transform bulletSpawnParent;
-        private ObjectPooling<Bullet> bulletsPool;
+        [SerializeField] private Transform enemySpawnParent;
 
         private void Awake()
         {
-            poolManagerSo.AddPool(FactoryMethod, TurnOnBulletCallback, TurnOffBulletCallback, 100);
+            poolManagerSo.AddPool(BulletFactoryMethod, TurnOnBulletCallback, TurnOffBulletCallback, 100);
+            poolManagerSo.AddPool(EnemyFactoryMethod, TurnOnEnemyCallback, TurnOffEnemyCallback, 10);
         }
 
         private void Update()
@@ -38,11 +41,28 @@ namespace ObjectPooling
             obj.SetParent(null);
             obj.gameObject.SetActive(true);
         }
+        
+        private void TurnOffEnemyCallback(EnemyStateMachine obj)
+        {
+            obj.SetParent(enemySpawnParent);
+            obj.gameObject.SetActive(false);
+        }
 
-        private Bullet FactoryMethod()
+        private void TurnOnEnemyCallback(EnemyStateMachine obj)
+        {
+            // obj.gameObject.SetActive(true);
+        }
+
+        private Bullet BulletFactoryMethod()
         {
             var obj = Instantiate(bullet);
             obj.Init(poolManagerSo);
+            return obj;
+        }
+        private EnemyStateMachine EnemyFactoryMethod()
+        {
+            var obj = Instantiate(enemy);
+            // obj.Init(poolManagerSo);
             return obj;
         }
     }
