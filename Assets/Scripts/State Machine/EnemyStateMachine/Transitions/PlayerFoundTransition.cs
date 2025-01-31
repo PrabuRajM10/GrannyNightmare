@@ -6,8 +6,8 @@ namespace State_Machine.EnemyStateMachine.Transitions
     public class PlayerFoundTransition : Transition
     {
         [SerializeField] private float overlapRadius = 5f;
-        [SerializeField] private float viewAngle;
         [SerializeField] private float enemyViewDistance;
+        private float viewAngle;
 
         public override void Execute(EnemyStateMachine stateMachine)
         {
@@ -22,7 +22,7 @@ namespace State_Machine.EnemyStateMachine.Transitions
                 var dirVect = (playerObjTransform.position - stateMachine.GetPosition()).normalized;
                 //Debug.Log("HandlePlayerDetection player dot result " + dotResult);
 
-                if ((!(Vector3.Angle(stateMachine.transform.forward, dirVect) < viewAngle / 2))) continue;
+                // if ((!(Vector3.Angle(stateMachine.transform.forward, dirVect) < viewAngle / 2))) continue;
                 var newPos = new Vector3(stateMachine.GetPosition().x, stateMachine.GetPosition().y + 0.5f, stateMachine.GetPosition().z);
          
                 if (!Physics.Raycast(newPos, dirVect, enemyViewDistance)) continue;

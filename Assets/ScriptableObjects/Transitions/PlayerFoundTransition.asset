@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerFoundTransition
   m_EditorClassIdentifier: 
   targetState: {fileID: 11400000, guid: 947021c4d28f38347afad6388754701b, type: 2}
-  overlapRadius: 5
+  overlapRadius: 20
   viewAngle: 80
   enemyViewDistance: 120

@@ -9,15 +9,15 @@ namespace State_Machine.EnemyStateMachine
     {
         [FormerlySerializedAs("_agent")] [SerializeField] private NavMeshAgent agent;
         [FormerlySerializedAs("_animator")] [SerializeField] private Animator animator; 
-        [FormerlySerializedAs("_overlapRadius")] [SerializeField] private float overlapRadius = 5f;
 
         [SerializeField] EnemyBaseState initialState;
         [SerializeField] private EnemyPatrolHelper enemyPatrolHelper;
-        [SerializeField] ZombieHand zombieHand;
+        [FormerlySerializedAs("zombieHand")] [SerializeField] EnemyHand enemyHand;
         [FormerlySerializedAs("health")] [SerializeField] private int maxHealth = 5;
         [SerializeField] private int currentHealth;
         [SerializeField] private float patrolSpeed = 0.8f;
         [SerializeField] private float chaseSpeed = 1.5f;
+        [FormerlySerializedAs("airChaseSpeed")] [FormerlySerializedAs("airChase")] [SerializeField] private float jumpChaseSpeed = 2f;
 
         EnemyBaseState currentState;   
         
@@ -25,7 +25,10 @@ namespace State_Machine.EnemyStateMachine
         private Vector3 newDestination;
         private int isPatrolingHash;
         private int isChasingHash;
-        private int isAttackingHash;
+        private int isLightAttackingHash;
+        private int isHeavyAttackingHash;
+        private int isJumpAttackingHash;
+        private int isRangedAttackingHash;
         private int isIdleHash;
         private int isDeadHash;
         private bool isChasing;
@@ -44,11 +47,17 @@ namespace State_Machine.EnemyStateMachine
         public int IsIdleHash => isIdleHash;
         public int IsPatrolingHash => isPatrolingHash;
         public int IsChasingHash => isChasingHash;
-        public int IsAttackingHash => isAttackingHash;
+        public int IsLightAttackingHash => isLightAttackingHash;
+        public int IsHeavyAttackingHash => isHeavyAttackingHash;
+        public int IsJumpAttackingHash => isJumpAttackingHash;
+        public int IsRangedAttackingHash => isRangedAttackingHash;
         public int IsDeadHash => isDeadHash;
         
         public float PatrolSpeed => patrolSpeed;
         public float ChaseSpeed => chaseSpeed;
+        public float JumpChaseSpeed => jumpChaseSpeed;
+        public bool CanChasePlayer => canChasePlayer;
+
         private void OnValidate()
         {
             if(agent == null)agent = GetComponent<NavMeshAgent>();  
@@ -61,7 +70,10 @@ namespace State_Machine.EnemyStateMachine
         {
             isPatrolingHash = Animator.StringToHash("IsPatroling");
             isChasingHash = Animator.StringToHash("IsChasing");
-            isAttackingHash = Animator.StringToHash("IsAttacking");
+            isLightAttackingHash = Animator.StringToHash("IsAttacking_Light");
+            isHeavyAttackingHash = Animator.StringToHash("IsAttacking_Heavy");
+            isJumpAttackingHash = Animator.StringToHash("IsAttacking_Jump");
+            isRangedAttackingHash = Animator.StringToHash("IsAttacking_Ranged");
             isDeadHash = Animator.StringToHash("IsDead");
             isIdleHash = Animator.StringToHash("IsIdle");
 
@@ -96,11 +108,6 @@ namespace State_Machine.EnemyStateMachine
         {
             return transform.position;
         }
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, overlapRadius);   
-        }
 
         public void TakeDamage(int damage)
         {
@@ -110,6 +117,7 @@ namespace State_Machine.EnemyStateMachine
 
         public void TurnOffLocomotion(bool state)
         {
+            Debug.Log("[Enemy] [TurnOffLocomotion] " + state);
             agent.isStopped = state;
         }
 
@@ -135,7 +143,7 @@ namespace State_Machine.EnemyStateMachine
 
         public void EnableAttack(bool state)
         {
-            zombieHand.EnableAttack(state);
+            enemyHand.EnableAttack(state);
         }
 
         public void SetInitialPosition(Transform patrolPointsPoint)
@@ -146,6 +154,18 @@ namespace State_Machine.EnemyStateMachine
         public void SetParent(Transform parent)
         {
             transform.SetParent(parent);
+        }
+        
+        //Animation event 
+        public void StartChasing()
+        {
+            Debug.Log("[Enemy] [StartChasing]");
+            canChasePlayer = true;
+        }
+        public void StopChasing()
+        {
+            Debug.Log("[Enemy] [StopChasing]");
+            canChasePlayer = false;
         }
     }
 }

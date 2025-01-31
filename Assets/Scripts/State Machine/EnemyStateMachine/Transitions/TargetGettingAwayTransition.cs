@@ -11,7 +11,7 @@ namespace State_Machine.EnemyStateMachine.Transitions
         public override void Execute(EnemyStateMachine stateMachine)
         {
             if (player == null) player = stateMachine.TargetPlayer;
-            if (Vector3.Distance(stateMachine.GetPosition(), player.transform.position) > minDistance)
+            if (Vector3.Distance(stateMachine.GetPosition(), player.transform.position) > minDistance && stateMachine.CanChasePlayer)
             {
                 stateMachine.SwitchStates(targetState); 
             }
