@@ -17,7 +17,7 @@ namespace State_Machine.EnemyStateMachine
         [SerializeField] private int currentHealth;
         [SerializeField] private float patrolSpeed = 0.8f;
         [SerializeField] private float chaseSpeed = 1.5f;
-        [FormerlySerializedAs("airChaseSpeed")] [FormerlySerializedAs("airChase")] [SerializeField] private float jumpChaseSpeed = 2f;
+        [FormerlySerializedAs("jumpChaseSpeed")] [FormerlySerializedAs("airChaseSpeed")] [FormerlySerializedAs("airChase")] [SerializeField] private float baseJumpChaseSpeed = 2f;
 
         EnemyBaseState currentState;   
         
@@ -33,7 +33,7 @@ namespace State_Machine.EnemyStateMachine
         private int isDeadHash;
         private bool isChasing;
         private bool isAttacking;
-        private bool canChasePlayer , isPlayerFound;
+        private bool isAttackDone , isPlayerFound;
 
         public Animator Animator => animator;
         public NavMeshAgent NavAgent => agent;  
@@ -55,8 +55,21 @@ namespace State_Machine.EnemyStateMachine
         
         public float PatrolSpeed => patrolSpeed;
         public float ChaseSpeed => chaseSpeed;
-        public float JumpChaseSpeed => jumpChaseSpeed;
-        public bool CanChasePlayer => canChasePlayer;
+
+        public int JumpChaseSpeed
+        {
+            get
+            {
+                var d = Vector3.Distance(transform.position, TargetPlayer.transform.position);
+                var m = 6; // min distance
+                d = Mathf.Round(Mathf.Clamp(d, m, 12));
+                int x = (int)Mathf.Abs(d - m);
+
+                return (int)(baseJumpChaseSpeed + x + (x + 1) / 2);
+            }
+        }
+
+        public bool IsAttackDone => isAttackDone;
 
         private void OnValidate()
         {
@@ -157,15 +170,26 @@ namespace State_Machine.EnemyStateMachine
         }
         
         //Animation event 
-        public void StartChasing()
+        public void StartAttack()
         {
-            Debug.Log("[Enemy] [StartChasing]");
-            canChasePlayer = true;
+            isAttackDone = false;
+            Debug.Log("[StartAttack] isAttackDone " + isAttackDone);
         }
-        public void StopChasing()
+        public void EndAttack()
         {
-            Debug.Log("[Enemy] [StopChasing]");
-            canChasePlayer = false;
+            isAttackDone = true;
+            Debug.Log("[EndAttack] isAttackDone " + isAttackDone);
         }
+
+        public void StartMoving()
+        {
+            TurnOffLocomotion(false);
+        }
+        
+        public void StopMoving()
+        {
+            TurnOffLocomotion(true);
+        }
+        
     }
 }

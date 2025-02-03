@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7de3c7348bb54b26881d14603a51d740, type: 3}
+  m_Name: EnemyStateLightAttack
+  m_EditorClassIdentifier: 
+  transitions:
+  - {fileID: 11400000, guid: a65abad1304ed1a44b4f165b09aa940f, type: 2}
+  - {fileID: 11400000, guid: 94351a760b1f0fd418c61240650b8d21, type: 2}
+  - {fileID: 11400000, guid: 1b1d411ae10a0c34ca2aef777e6be576, type: 2}

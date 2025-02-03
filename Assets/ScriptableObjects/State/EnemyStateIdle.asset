@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 506d47a80a5242c49b61e5dc1750ba1b, type: 3}
-  m_Name: EnemyStateWait
+  m_Name: EnemyStateIdle
   m_EditorClassIdentifier: 
   transitions:
   - {fileID: 11400000, guid: 2b10ff84e470cc143974925da1f4418d, type: 2}

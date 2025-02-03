@@ -15,8 +15,10 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
                 player = target;
                 var navAgent = stateMachine.NavAgent;
                 navAgent.speed = stateMachine.ChaseSpeed;
+                stateMachine.TurnOffLocomotion(true);
                 stateMachine.NavAgent.SetDestination(player.transform.position);
                 stateMachine.Animator.SetBool(stateMachine.IsChasingHash, true);
+                // stateMachine.TurnOffLocomotion(false);
             }
             else
             {
@@ -34,6 +36,7 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
         {
             Debug.Log("[EnemyStateChase] [OnExit]");
             stateMachine.Animator.SetBool(stateMachine.IsChasingHash, false);
+            stateMachine.TurnOffLocomotion(true);
         }
     }
 }

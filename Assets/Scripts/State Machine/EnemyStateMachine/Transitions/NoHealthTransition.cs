@@ -9,7 +9,7 @@ namespace State_Machine.EnemyStateMachine.Transitions
         {
             if (stateMachine.GetHealth() <= 0)
             {
-                stateMachine.SwitchStates(targetState);
+                stateMachine.SwitchStates(targetStates[0]);
             }
         }
     }

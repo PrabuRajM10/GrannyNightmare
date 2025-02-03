@@ -9,7 +9,7 @@ namespace State_Machine.EnemyStateMachine.Transitions
         {
             if (stateMachine.EnemyPatrolHelper.HasReachedDestination())
             {
-                stateMachine.SwitchStates(targetState);
+                stateMachine.SwitchStates(targetStates[0]);
             }
         }
     }

@@ -33,7 +33,7 @@ namespace Gameplay
 
         public void EnableAttack(bool state)
         {
-            // boxCollider.enabled = state;
+            boxCollider.enabled = state;
         }
     }
 }

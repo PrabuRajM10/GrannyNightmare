@@ -12,7 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a196ae2ba35d45b8bef56ae95ec96773, type: 3}
   m_Name: PlayerFoundTransition
   m_EditorClassIdentifier: 
-  targetState: {fileID: 11400000, guid: 947021c4d28f38347afad6388754701b, type: 2}
+  targetStates:
+  - {fileID: 11400000, guid: 2ce08b8e5a39b3446990ac868e593071, type: 2}
+  - {fileID: 11400000, guid: 2c28afbbeb53c52488d633f18d411d1f, type: 2}
+  - {fileID: 11400000, guid: 947021c4d28f38347afad6388754701b, type: 2}
+  - {fileID: 11400000, guid: 4d7ea604152662e4b85cd080a7fe0f2b, type: 2}
+  - {fileID: 11400000, guid: 0ec62e30a2eb8224abd88b8228661cbb, type: 2}
   overlapRadius: 20
-  viewAngle: 80
   enemyViewDistance: 120
+  attackDistance: 2
+  chaseDistance: 4
+  jumpAttackDistance: 6
+  rangedAttackDistance: 999

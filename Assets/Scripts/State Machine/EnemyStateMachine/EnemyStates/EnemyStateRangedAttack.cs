@@ -7,8 +7,8 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
     {
         public override void OnEnter(EnemyStateMachine stateMachine)
         {
+            stateMachine.StartAttack();
             stateMachine.Animator.SetBool(stateMachine.IsRangedAttackingHash, true);
-            stateMachine.TurnOffLocomotion(true);
             stateMachine.EnableAttack(true);
         }
         public override void OnUpdate(EnemyStateMachine stateMachine)
@@ -18,7 +18,6 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
         }
         public override void OnExit(EnemyStateMachine stateMachine)
         {
-            stateMachine.TurnOffLocomotion(false);
             stateMachine.Animator.SetBool(stateMachine.IsRangedAttackingHash, false);
             stateMachine.EnableAttack(false);
         }

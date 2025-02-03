@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3874ad30d66047c2966955b3ec1bfe88, type: 3}
   m_Name: WaitTimeOverTransition
   m_EditorClassIdentifier: 
-  targetState: {fileID: 11400000, guid: 2012fe14778294d45a675ae01338616e, type: 2}
+  targetStates:
+  - {fileID: 11400000, guid: 2012fe14778294d45a675ae01338616e, type: 2}
   waitTime: 2

@@ -273,6 +273,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
 
         public void TakeDamage(int damage)
         {
+            Debug.Log("[TakeDamage] damage " + damage);
             currentHealth -= damage;
 
             if (currentHealth <= 0)

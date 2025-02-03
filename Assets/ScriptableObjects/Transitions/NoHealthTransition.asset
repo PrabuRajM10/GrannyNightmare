@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9247d53ba0e7449caf36fc86fae399c5, type: 3}
   m_Name: NoHealthTransition
   m_EditorClassIdentifier: 
-  targetState: {fileID: 11400000, guid: e0695836766e1b2498d7d2b95922a232, type: 2}
+  targetStates:
+  - {fileID: 11400000, guid: e0695836766e1b2498d7d2b95922a232, type: 2}

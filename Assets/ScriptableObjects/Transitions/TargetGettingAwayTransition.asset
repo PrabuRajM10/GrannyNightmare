@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c6ffa4e0e6d432297153484cf1dc1b4, type: 3}
   m_Name: TargetGettingAwayTransition
   m_EditorClassIdentifier: 
-  targetState: {fileID: 11400000, guid: 947021c4d28f38347afad6388754701b, type: 2}
+  targetStates:
+  - {fileID: 11400000, guid: 947021c4d28f38347afad6388754701b, type: 2}
   minDistance: 2

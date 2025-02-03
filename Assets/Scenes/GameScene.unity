@@ -826,7 +826,7 @@ Transform:
   m_GameObject: {fileID: 291785627}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -31.100002, y: 33.7011, z: -2.0674992}
+  m_LocalPosition: {x: -18.3, y: 33.7011, z: -2.0674992}
   m_LocalScale: {x: 1, y: 76.59, z: 75.30243}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1010,8 +1010,8 @@ Transform:
   m_GameObject: {fileID: 342355297}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.212311, y: -0.48, z: -1.2026002}
-  m_LocalScale: {x: 29.586147, y: 29.586147, z: 18.01703}
+  m_LocalPosition: {x: -2.212311, y: -0.48, z: -3.6257}
+  m_LocalScale: {x: 4.5858526, y: 29.586147, z: 4.566641}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 723743832}
@@ -3646,7 +3646,7 @@ Transform:
   m_GameObject: {fileID: 1177268230}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.89, y: 33.7074, z: 31.969402}
+  m_LocalPosition: {x: -0.9, y: 33.7074, z: 11.6}
   m_LocalScale: {x: 1, y: 76.59, z: 60.48265}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4035,7 +4035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gizmoType: 0
-  radius: 20
+  radius: 8
   color: {r: 0.1215291, g: 1, b: 0, a: 1}
 --- !u!1 &1389365751
 GameObject:
@@ -5037,7 +5037,7 @@ Transform:
   m_GameObject: {fileID: 1752204165}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.9, y: 33.6674, z: -39.1306}
+  m_LocalPosition: {x: -0.9, y: 33.6674, z: -20.3}
   m_LocalScale: {x: 1, y: 76.59, z: 60.48265}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5219,7 +5219,7 @@ Transform:
   m_GameObject: {fileID: 1831474968}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.099998, y: 33.7, z: -2.2}
+  m_LocalPosition: {x: 13.6, y: 33.7, z: -2.2}
   m_LocalScale: {x: 1, y: 76.59, z: 75.56865}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5618,7 +5618,7 @@ PrefabInstance:
     - target: {fileID: 1781492566079806730, guid: 437704c7fd286834d9bed13f9de6e1fd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.59
+      value: -1.03
       objectReference: {fileID: 0}
     - target: {fileID: 1781492566079806730, guid: 437704c7fd286834d9bed13f9de6e1fd,
         type: 3}
@@ -5628,7 +5628,7 @@ PrefabInstance:
     - target: {fileID: 1781492566079806730, guid: 437704c7fd286834d9bed13f9de6e1fd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.54
+      value: -3.67
       objectReference: {fileID: 0}
     - target: {fileID: 1781492566079806730, guid: 437704c7fd286834d9bed13f9de6e1fd,
         type: 3}
@@ -5839,6 +5839,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1684873036223664274, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2000840613493004980, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}
       propertyPath: positionList.Array.size
@@ -5869,20 +5874,60 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sporty Granny
       objectReference: {fileID: 0}
+    - target: {fileID: 2046700504545405216, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3116072544310885526, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: 530e84878c7f22446a646d95fd532210, type: 3}
+    - target: {fileID: 3116072544310885526, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142140932747494745, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.0734082
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142140932747494745, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.5001245
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142140932747494745, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.20017964
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142140932747494745, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.53700423
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142140932747494745, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.10652507
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142140932747494745, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.006578952
+      objectReference: {fileID: 0}
     - target: {fileID: 6195243916572974674, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}
       propertyPath: damage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7341279668903149772, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7341279668903149772, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}
@@ -5892,7 +5937,7 @@ PrefabInstance:
     - target: {fileID: 7341279668903149772, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7341279668903149772, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}
@@ -5933,6 +5978,16 @@ PrefabInstance:
         type: 3}
       propertyPath: maxHealth
       value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857534657321708888, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: chaseSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8857534657321708888, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: jumpChaseSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

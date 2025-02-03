@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d687643beb488cb07c658b2b92e2c3, type: 3}
   m_Name: PatrolPointReachedTransition
   m_EditorClassIdentifier: 
-  targetState: {fileID: 11400000, guid: 00e9a31cab454af4ca471a3773c5e78a, type: 2}
+  targetStates:
+  - {fileID: 11400000, guid: 00e9a31cab454af4ca471a3773c5e78a, type: 2}

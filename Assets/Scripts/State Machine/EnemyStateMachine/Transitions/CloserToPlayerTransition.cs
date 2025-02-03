@@ -12,7 +12,7 @@ namespace State_Machine.EnemyStateMachine.Transitions
             if (player == null) player = stateMachine.TargetPlayer;
             if (Vector3.Distance(stateMachine.GetPosition(), player.transform.position) < safeDistance)
             {
-                stateMachine.SwitchStates(targetState); 
+                stateMachine.SwitchStates(targetStates[Random.Range(0, targetStates.Length)]); 
             }
         }
     }
