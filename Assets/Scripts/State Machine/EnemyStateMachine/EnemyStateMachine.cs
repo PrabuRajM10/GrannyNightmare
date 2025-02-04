@@ -1,4 +1,5 @@
 using Gameplay;
+using Ui;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -18,7 +19,8 @@ namespace State_Machine.EnemyStateMachine
         [SerializeField] private float patrolSpeed = 0.8f;
         [SerializeField] private float chaseSpeed = 1.5f;
         [FormerlySerializedAs("jumpChaseSpeed")] [FormerlySerializedAs("airChaseSpeed")] [FormerlySerializedAs("airChase")] [SerializeField] private float baseJumpChaseSpeed = 2f;
-
+        [SerializeField] UiManager uiManager;
+        
         EnemyBaseState currentState;   
         
         private PlayerStateMachine.PlayerStates.PlayerStateMachine player;
@@ -125,6 +127,7 @@ namespace State_Machine.EnemyStateMachine
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
+            uiManager.UpdateEnemyHealth(maxHealth , currentHealth);
             currentHealth = Mathf.Max(0, currentHealth);
         }
 

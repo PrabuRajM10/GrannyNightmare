@@ -1,5 +1,6 @@
 using Gameplay;
 using Managers;
+using Ui;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
@@ -44,6 +45,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
 
 
         [SerializeField] private RifleController rifleController;
+        [SerializeField] private UiManager uiManager;
 
         [FormerlySerializedAs("LockCameraPosition")] [SerializeField] private bool lockCameraPosition = false;
         [Tooltip("How far in degrees can you move the camera up")]
@@ -275,7 +277,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         {
             Debug.Log("[TakeDamage] damage " + damage);
             currentHealth -= damage;
-
+            uiManager.UpdatePlayerHealth(maxHealth , currentHealth);
             if (currentHealth <= 0)
             {
                 isDead = true;  

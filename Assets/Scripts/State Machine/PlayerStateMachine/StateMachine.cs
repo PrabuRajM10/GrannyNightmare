@@ -11,6 +11,7 @@ namespace State_Machine.PlayerStateMachine
         [SerializeField] protected float walkSpeed, runSpeed, crouchWalkSpeed, rotationFactor = 1f;
         [FormerlySerializedAs("_movementSpeed")] [SerializeField] protected float movementSpeed;
         [FormerlySerializedAs("_restTime")] [SerializeField] protected float restTime;
+        
         protected StateMachineHandle _states;
         protected int _isCrouchingHash, _isCrouchWalkingHash,_playerMovementXHash , _playerMovementZHash , _isWalkingHash , _isChasingHash , _isAttackingHash , _isWaitingHash;
         protected PlayerStateMachineBase _currentPlayerState;
