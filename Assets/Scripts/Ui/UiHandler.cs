@@ -14,6 +14,19 @@ namespace Ui
         
         [SerializeField] UiManager uiManager;
 
+        private void Awake()
+        {
+            uiManager.OnSetUpPlayerHealth += UiManagerOnSetUpPlayerHealth;
+            uiManager.OnSetUpEnemyHealth += UiManagerOnSetUpEnemyHealth;
+        }
+
+        private void OnDestroy()
+        {
+            uiManager.OnSetUpPlayerHealth -= UiManagerOnSetUpPlayerHealth;
+            uiManager.OnSetUpEnemyHealth -= UiManagerOnSetUpEnemyHealth;
+        }
+
+
         private void OnEnable()
         {
             uiManager.OnUpdateEnemyHealth += UiManagerOnUpdateEnemyHealth;
@@ -27,15 +40,24 @@ namespace Ui
             uiManager.OnUpdatePlayerHealth -= UiManagerOnUpdatePlayerHealth;
             uiManager.OnSwitchScreen -= SwitchScreen;
         }
-
-        private void UiManagerOnUpdatePlayerHealth(float arg1, float arg2)
+        private void UiManagerOnSetUpEnemyHealth(float obj)
         {
-            gameplayScreen.UpdatePlayerHealth(arg1, arg2);
+            gameplayScreen.SetUpEnemyHealth(obj);
         }
 
-        private void UiManagerOnUpdateEnemyHealth(float arg1, float arg2)
+        private void UiManagerOnSetUpPlayerHealth(float value)
         {
-            gameplayScreen.UpdateEnemyHealth(arg1, arg2);
+            gameplayScreen.SetUpPlayerHealth(value);
+        }
+
+        private void UiManagerOnUpdatePlayerHealth(float arg2)
+        {
+            gameplayScreen.UpdatePlayerHealth(arg2);
+        }
+
+        private void UiManagerOnUpdateEnemyHealth(float arg2)
+        {
+            gameplayScreen.UpdateEnemyHealth(arg2);
         }
 
         public void SwitchScreen(GameScreens currentGameScreen , GameScreens newGameScreen)

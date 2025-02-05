@@ -1,4 +1,6 @@
+using System;
 using Gameplay;
+using ObjectPooling;
 using Ui;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,13 +15,14 @@ namespace State_Machine.EnemyStateMachine
 
         [SerializeField] EnemyBaseState initialState;
         [SerializeField] private EnemyPatrolHelper enemyPatrolHelper;
-        [FormerlySerializedAs("zombieHand")] [SerializeField] EnemyHand enemyHand;
+        [SerializeField] Transform projectileSpawnPoint;
+        [SerializeField] UiManager uiManager;
+        [SerializeField] PoolManager poolManager;
         [FormerlySerializedAs("health")] [SerializeField] private int maxHealth = 5;
         [SerializeField] private int currentHealth;
         [SerializeField] private float patrolSpeed = 0.8f;
         [SerializeField] private float chaseSpeed = 1.5f;
-        [FormerlySerializedAs("jumpChaseSpeed")] [FormerlySerializedAs("airChaseSpeed")] [FormerlySerializedAs("airChase")] [SerializeField] private float baseJumpChaseSpeed = 2f;
-        [SerializeField] UiManager uiManager;
+        [SerializeField] private float baseJumpChaseSpeed = 2f;
         
         EnemyBaseState currentState;   
         
@@ -36,6 +39,9 @@ namespace State_Machine.EnemyStateMachine
         private bool isChasing;
         private bool isAttacking;
         private bool isAttackDone , isPlayerFound;
+
+        public delegate void Callback();
+        Callback onCalculateAttackDamage;
 
         public Animator Animator => animator;
         public NavMeshAgent NavAgent => agent;  
@@ -70,6 +76,7 @@ namespace State_Machine.EnemyStateMachine
                 return (int)(baseJumpChaseSpeed + x + (x + 1) / 2);
             }
         }
+        public Transform ProjectileSpawnPoint => projectileSpawnPoint;
 
         public bool IsAttackDone => isAttackDone;
 
@@ -94,11 +101,13 @@ namespace State_Machine.EnemyStateMachine
 
             currentState = initialState;
             currentHealth = maxHealth;
+            
         }
 
         private void Start()
         {
             if(currentState != null)currentState.OnEnter(this);
+            uiManager.SetUpEnemyHealth(maxHealth);
         }
 
         private void Update()
@@ -127,7 +136,7 @@ namespace State_Machine.EnemyStateMachine
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
-            uiManager.UpdateEnemyHealth(maxHealth , currentHealth);
+            uiManager.UpdateEnemyHealth(currentHealth);
             currentHealth = Mathf.Max(0, currentHealth);
         }
 
@@ -140,11 +149,6 @@ namespace State_Machine.EnemyStateMachine
         public void LookAtTarget(Transform target)
         {
             transform.LookAt(target.transform);
-            // var targetForward = target.TransformDirection(Vector3.forward);
-            // var localForward = transform.TransformDirection(Vector3.forward);
-            // var direction = (target.position - transform.position).normalized;
-            // Debug.DrawRay(transform.position, direction, Color.red , 100);
-            // LookAtDirection(direction);
         }
 
         public void LookAtDirection(Vector3 direction)
@@ -157,11 +161,6 @@ namespace State_Machine.EnemyStateMachine
             return currentHealth;
         }
 
-        public void EnableAttack(bool state)
-        {
-            enemyHand.EnableAttack(state);
-        }
-
         public void SetInitialPosition(Transform patrolPointsPoint)
         {
             transform.localPosition = patrolPointsPoint.localPosition;    
@@ -171,17 +170,23 @@ namespace State_Machine.EnemyStateMachine
         {
             transform.SetParent(parent);
         }
-        
+
+        public void SubscribeDamageCalculation(Callback damageCalc)
+        {
+            onCalculateAttackDamage = damageCalc;
+        }
+        public void UnSubscribeDamageCalculation()
+        {
+            onCalculateAttackDamage = null;
+        }
         //Animation event 
         public void StartAttack()
         {
             isAttackDone = false;
-            Debug.Log("[StartAttack] isAttackDone " + isAttackDone);
         }
         public void EndAttack()
         {
             isAttackDone = true;
-            Debug.Log("[EndAttack] isAttackDone " + isAttackDone);
         }
 
         public void StartMoving()
@@ -193,6 +198,10 @@ namespace State_Machine.EnemyStateMachine
         {
             TurnOffLocomotion(true);
         }
-        
+
+        public void CalculateDamageOnAttack()
+        {
+            onCalculateAttackDamage?.Invoke();
+        }
     }
 }

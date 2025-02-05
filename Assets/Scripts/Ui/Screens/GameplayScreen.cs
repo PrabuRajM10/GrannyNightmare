@@ -8,13 +8,23 @@ namespace Ui.Screens
         [SerializeField] private HealthBar playerHealth;
         [SerializeField] private HealthBar enemyHealth;
 
-        public void UpdatePlayerHealth(float maxHealth, float currentHealth)
+        public void SetUpEnemyHealth(float f)
         {
-            playerHealth.UpdateHealthBar(maxHealth, currentHealth);
+            enemyHealth.SetUp(f);
         }
-        public void UpdateEnemyHealth(float maxHealth, float currentHealth)
+
+        public void SetUpPlayerHealth(float value)
         {
-            enemyHealth.UpdateHealthBar(maxHealth, currentHealth);
+            playerHealth.SetUp(value);
         }
+        public void UpdatePlayerHealth(float currentHealth)
+        {
+            playerHealth.UpdateHealthBar(currentHealth);
+        }
+        public void UpdateEnemyHealth(float currentHealth)
+        {
+            enemyHealth.UpdateHealthBar(currentHealth);
+        }
+
     }
 }

@@ -5,20 +5,18 @@ namespace Ui.Helper
 {
     public class HealthBar : MonoBehaviour
     {
-        [SerializeField] Image healthBar;
+        [SerializeField] Slider healthBar;
 
-        public void UpdateHealthBar(float maxHealth, float currentHealth)
+        public void SetUp(float maxHealth)
         {
-            healthBar.fillAmount = (currentHealth / maxHealth) * 100;
+            healthBar.minValue = 0;
+            healthBar.maxValue = maxHealth;
+            healthBar.value = maxHealth;
         }
-        
-        int CountDigitsBeforePoint(int num)
+
+        public void UpdateHealthBar(float currentHealth)
         {
-            num = Mathf.Abs(num); // Handle negative numbers
-
-            if (num < 1) return 1; // If it's between 0 and 1 (e.g., 0.45), it has 1 digit before the decimal
-
-            return (int)Mathf.Floor(Mathf.Log10(num)) + 1;
+            LeanTween.value(healthBar.value , currentHealth , 0.5f).setOnUpdate(f => healthBar.value = f);
         }
     }
 }

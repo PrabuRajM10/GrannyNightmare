@@ -119,11 +119,13 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
             currentState.OnEnterState();
             currentHealth = maxHealth;
             
+            
         }
 
         private void Start()
         {
             cinemachineTargetYaw = cinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            uiManager.SetUpPlayerHealth(maxHealth);
         }
 
         void Update()
@@ -277,7 +279,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         {
             Debug.Log("[TakeDamage] damage " + damage);
             currentHealth -= damage;
-            uiManager.UpdatePlayerHealth(maxHealth , currentHealth);
+            uiManager.UpdatePlayerHealth(currentHealth);
             if (currentHealth <= 0)
             {
                 isDead = true;  

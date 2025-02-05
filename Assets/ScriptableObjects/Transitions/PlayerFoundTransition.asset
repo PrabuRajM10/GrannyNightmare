@@ -19,8 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4d7ea604152662e4b85cd080a7fe0f2b, type: 2}
   - {fileID: 11400000, guid: 0ec62e30a2eb8224abd88b8228661cbb, type: 2}
   overlapRadius: 20
-  enemyViewDistance: 120
   attackDistance: 2
   chaseDistance: 4
   jumpAttackDistance: 6
-  rangedAttackDistance: 999
+  rangedAttackDistance: 8

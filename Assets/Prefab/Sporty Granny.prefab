@@ -715,6 +715,7 @@ GameObject:
   - component: {fileID: 1684873036223664274}
   - component: {fileID: 2000840613493004980}
   - component: {fileID: 8857534657321708888}
+  - component: {fileID: 7041610575325213624}
   m_Layer: 0
   m_Name: Sporty Granny
   m_TagString: Untagged
@@ -740,6 +741,7 @@ Transform:
   - {fileID: 1855414746105265523}
   - {fileID: 8005429713237041271}
   - {fileID: 3423787878498343217}
+  - {fileID: 997396315957749697}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3116072544310885526
@@ -751,11 +753,11 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2046700504545405216}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5ba71d4cc1154714d8862e1e9dfe4877, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 530e84878c7f22446a646d95fd532210, type: 3}
   m_Controller: {fileID: 9100000, guid: a2cb7008c7c304342be43ad99c77840a, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -826,7 +828,7 @@ NavMeshAgent:
   m_Acceleration: 200
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -846,7 +848,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9f59decdbe41949eaf3219468ebe25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionList: []
+  positionList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentIndex: 0
   targetTransform: {fileID: 0}
   destinationBuffer: 0.5
@@ -865,14 +871,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1684873036223664274}
   animator: {fileID: 3116072544310885526}
-  overlapRadius: 7
   initialState: {fileID: 11400000, guid: 00e9a31cab454af4ca471a3773c5e78a, type: 2}
   enemyPatrolHelper: {fileID: 2000840613493004980}
-  enemyHand: {fileID: 6195243916572974674}
-  maxHealth: 5
+  projectileSpawnPoint: {fileID: 997396315957749697}
+  uiManager: {fileID: 11400000, guid: d9598f6195cea8f4e9287031cfed529c, type: 2}
+  poolManager: {fileID: 11400000, guid: 899e6865fdde3124c9ff153573ad8945, type: 2}
+  maxHealth: 999
   currentHealth: 0
   patrolSpeed: 0.5
-  chaseSpeed: 2.5
+  chaseSpeed: 3
+  baseJumpChaseSpeed: 10
+--- !u!114 &7041610575325213624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046700504545405216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b551c67c5bf16aa43ab340e81a009b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoType: 0
+  radius: 8
+  color: {r: 0.1215291, g: 1, b: 0, a: 1}
 --- !u!1 &2188425692377527439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1313,6 +1336,37 @@ Transform:
   - {fileID: 3550545171255349620}
   - {fileID: 2763987231206436592}
   m_Father: {fileID: 3423787878498343217}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3388150227077359781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 997396315957749697}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &997396315957749697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3388150227077359781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.162, z: 0.388}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7341279668903149772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3484475054755571738
 GameObject:
@@ -2272,7 +2326,6 @@ Transform:
   m_Children:
   - {fileID: 4795121080273924474}
   - {fileID: 2379127177494545387}
-  - {fileID: 6118483264959428199}
   m_Father: {fileID: 3672976534462863133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5956213172611420103
@@ -3629,74 +3682,6 @@ Transform:
   - {fileID: 6864331983354817753}
   m_Father: {fileID: 4693813480392445091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8245099799970248314
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6118483264959428199}
-  - component: {fileID: 6142140932747494745}
-  - component: {fileID: 6195243916572974674}
-  m_Layer: 0
-  m_Name: EnemyHand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6118483264959428199
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8245099799970248314}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: -0.49999988, z: 0.50000024, w: 0.5}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9058571097928293183}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6142140932747494745
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8245099799970248314}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0869079, y: 0.13526702, z: 0.12917455}
-  m_Center: {x: 0.54375386, y: -0.017270217, z: -0.0000000031956617}
---- !u!114 &6195243916572974674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8245099799970248314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4be4a1155954aab8ad6bec59f45c515, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  boxCollider: {fileID: 6142140932747494745}
 --- !u!1 &8362177041451249158
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,23 +10,35 @@ namespace ObjectPooling
     {
         [SerializeField] private PoolManager poolManagerSo;
         [SerializeField] private Bullet bullet;
+        [SerializeField] private EnemyProjectile enemyProjectile;
         [SerializeField] private EnemyStateMachine enemy;
         [SerializeField] private Transform bulletSpawnParent;
         [SerializeField] private Transform enemySpawnParent;
+        [SerializeField] private Transform enemyProjectileSpawnParent;
 
         private void Awake()
         {
             poolManagerSo.AddPool(BulletFactoryMethod, TurnOnBulletCallback, TurnOffBulletCallback, 100);
             poolManagerSo.AddPool(EnemyFactoryMethod, TurnOnEnemyCallback, TurnOffEnemyCallback, 10);
+            poolManagerSo.AddPool(EProjectileFactory, TurnOnEnemyProjectileCallback, TurnOffEnemyProjectileCallback, 10);
         }
 
-        private void Update()
+        private void TurnOffEnemyProjectileCallback(EnemyProjectile obj)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                // bulletsPool.GetObject();
-                poolManagerSo.GetPoolObject<Bullet>();
-            }
+            obj.gameObject.SetActive(false);
+            obj.SetParent(enemyProjectileSpawnParent);
+            obj.Reset();
+        }
+
+        private void TurnOnEnemyProjectileCallback(EnemyProjectile obj)
+        {
+            obj.SetParent(null);
+        }
+
+        private EnemyProjectile EProjectileFactory()
+        {
+            var p = Instantiate(enemyProjectile);
+            return p;
         }
 
         private void TurnOffBulletCallback(Bullet obj)

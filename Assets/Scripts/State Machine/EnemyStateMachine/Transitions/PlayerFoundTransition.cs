@@ -1,3 +1,4 @@
+using Helper;
 using UnityEngine;
 
 namespace State_Machine.EnemyStateMachine.Transitions
@@ -6,7 +7,6 @@ namespace State_Machine.EnemyStateMachine.Transitions
     public class PlayerFoundTransition : Transition
     {
         [SerializeField] private float overlapRadius = 5f;
-        [SerializeField] private float enemyViewDistance;
         [SerializeField] private float attackDistance;
         [SerializeField] private float chaseDistance;
         [SerializeField] private float jumpAttackDistance;
@@ -20,29 +20,11 @@ namespace State_Machine.EnemyStateMachine.Transitions
         {
             if (stateMachine.TargetPlayer == null)
             {
-                var hitColliders = Physics.OverlapSphere(stateMachine.GetPosition(), overlapRadius);
-
-                foreach (var hitCollider in hitColliders)
-                {
-                    var playerObj = hitCollider.gameObject.GetComponent<PlayerStateMachine.PlayerStates.PlayerStateMachine>();
-                    if (playerObj == null || playerObj.GetHealth() <= 0) continue;
-                
-                    var playerObjTransform = playerObj.transform;
-                    var dirVect = (playerObjTransform.position - stateMachine.GetPosition()).normalized;
-                    //Debug.Log("HandlePlayerDetection player dot result " + dotResult);
-
-                    // if ((!(Vector3.Angle(stateMachine.transform.forward, dirVect) < viewAngle / 2))) continue;
-                    var newPos = new Vector3(stateMachine.GetPosition().x, stateMachine.GetPosition().y + 0.5f, stateMachine.GetPosition().z);
-         
-                    if (!Physics.Raycast(newPos, dirVect, enemyViewDistance)) continue;
-                    Debug.DrawLine(newPos, playerObjTransform.position, Color.yellow, 1000);
-                    Debug.Log("Player got caught");
-                    stateMachine.SetTargetPlayer(playerObj);
-                    stateMachine.SwitchStates(targetStates[2]);
-                    return;
-                }
+                var player = Utils.GetPlayerIfInOverlap(stateMachine.GetPosition(), overlapRadius);
+                stateMachine.SetTargetPlayer(player);
+                stateMachine.SwitchStates(targetStates[2]);
             }
-            stateMachine.SwitchStates(GetTargetState(stateMachine));
+            if(!stateMachine.TargetPlayer.IsDead)stateMachine.SwitchStates(GetTargetState(stateMachine));
 
         }
 
