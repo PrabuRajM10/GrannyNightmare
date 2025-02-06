@@ -11,16 +11,28 @@ namespace ObjectPooling
         [SerializeField] private PoolManager poolManagerSo;
         [SerializeField] private Bullet bullet;
         [SerializeField] private EnemyProjectile enemyProjectile;
-        [SerializeField] private EnemyStateMachine enemy;
+        [SerializeField] private PositionalAudio positionalAudio;
         [SerializeField] private Transform bulletSpawnParent;
-        [SerializeField] private Transform enemySpawnParent;
+        [SerializeField] private Transform audioSpawnParent;
         [SerializeField] private Transform enemyProjectileSpawnParent;
 
         private void Awake()
         {
             poolManagerSo.AddPool(BulletFactoryMethod, TurnOnBulletCallback, TurnOffBulletCallback, 100);
-            poolManagerSo.AddPool(EnemyFactoryMethod, TurnOnEnemyCallback, TurnOffEnemyCallback, 10);
             poolManagerSo.AddPool(EProjectileFactory, TurnOnEnemyProjectileCallback, TurnOffEnemyProjectileCallback, 10);
+            poolManagerSo.AddPool(PositionalAudioFactory, AudioTurnOnCallback, AudioTurnOffCallback, 20);
+        }
+
+        private void AudioTurnOffCallback(PositionalAudio obj)
+        {
+            obj.gameObject.SetActive(false);
+            obj.SetParent(audioSpawnParent);
+            obj.Reset();
+        }
+
+        private void AudioTurnOnCallback(PositionalAudio obj)
+        {
+            obj.SetParent(null);
         }
 
         private void TurnOffEnemyProjectileCallback(EnemyProjectile obj)
@@ -53,17 +65,6 @@ namespace ObjectPooling
             obj.SetParent(null);
             obj.gameObject.SetActive(true);
         }
-        
-        private void TurnOffEnemyCallback(EnemyStateMachine obj)
-        {
-            obj.SetParent(enemySpawnParent);
-            obj.gameObject.SetActive(false);
-        }
-
-        private void TurnOnEnemyCallback(EnemyStateMachine obj)
-        {
-            // obj.gameObject.SetActive(true);
-        }
 
         private Bullet BulletFactoryMethod()
         {
@@ -71,10 +72,11 @@ namespace ObjectPooling
             obj.Init(poolManagerSo);
             return obj;
         }
-        private EnemyStateMachine EnemyFactoryMethod()
+
+        private PositionalAudio PositionalAudioFactory()
         {
-            var obj = Instantiate(enemy);
-            // obj.Init(poolManagerSo);
+            var obj = Instantiate(positionalAudio);
+            obj.Init(poolManagerSo);        
             return obj;
         }
     }

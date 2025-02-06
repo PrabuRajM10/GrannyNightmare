@@ -3237,9 +3237,10 @@ MonoBehaviour:
   bullet: {fileID: 306940760008500878, guid: f62474c338db1f34ea2ed2e346f572d5, type: 3}
   enemyProjectile: {fileID: 2650890985920519157, guid: 0e01cd7a549832d4db33bb6fe128a98e,
     type: 3}
-  enemy: {fileID: 8857534657321708888, guid: 4a769baae666f87448c571f2568bd5dc, type: 3}
+  positionalAudio: {fileID: 1264290702919185565, guid: 4b9a2b4469e095b47929de5cb7a90190,
+    type: 3}
   bulletSpawnParent: {fileID: 562279036}
-  enemySpawnParent: {fileID: 1965869899}
+  audioSpawnParent: {fileID: 1965869899}
   enemyProjectileSpawnParent: {fileID: 1777552193}
 --- !u!4 &953950580
 Transform:
@@ -3759,6 +3760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d072089e16ccd47af899f4ba19d5b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolManager: {fileID: 11400000, guid: 899e6865fdde3124c9ff153573ad8945, type: 2}
+  gameAudios: {fileID: 11400000, guid: 2ed6932142246854ea2d72655d142933, type: 2}
 --- !u!4 &1089724959
 Transform:
   m_ObjectHideFlags: 0
@@ -5926,7 +5929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965869899}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: Audios
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
