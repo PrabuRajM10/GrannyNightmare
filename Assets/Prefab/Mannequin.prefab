@@ -1992,7 +1992,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 0335d445bf0a32f46bc19f18b91d74c4, type: 3}
   m_Controller: {fileID: 9100000, guid: 127c2324fe35e4048aed7383070d210f, type: 2}
   m_CullingMode: 1
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -2050,6 +2050,7 @@ MonoBehaviour:
   smoothVelocity: {x: 0, y: 0}
   inputManager: {fileID: 11400000, guid: 883f301341b65c74a8ab4315402ea166, type: 2}
   lookAtTarget: {fileID: 2121813685285778577}
+  initialPosition: {fileID: 0}
   aimConstraint: {fileID: 3930842844330670491}
   handIks:
   - {fileID: 6885826064861966520}
@@ -5214,52 +5215,52 @@ PrefabInstance:
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.104
+      value: 0.105
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.042
+      value: -0.033
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.143
+      value: -0.133
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6143647
+      value: 0.5911315
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.3748247
+      value: 0.43223444
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.19770563
+      value: -0.22918035
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.66556364
+      value: 0.64125925
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 46.363
+      value: 53.605
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 21.777
+      value: 28.53
       objectReference: {fileID: 0}
     - target: {fileID: 9189167128507813254, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 103.999
+      value: 109.297
       objectReference: {fileID: 0}
     - target: {fileID: 9214378688891101374, guid: 9bac10e691f2b134e8a762aac4cb9231,
         type: 3}

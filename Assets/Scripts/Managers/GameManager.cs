@@ -117,6 +117,7 @@ namespace Managers
         private void HandleOnMenuStateEnter()
         {
             inputManager.CanProcessInput = false;
+            SoundManager.PlaySound(AudioType.Bg ,default , true);
         }
 
         private void HandleOnResultStateEnter()
@@ -124,6 +125,8 @@ namespace Managers
             inputManager.CanProcessInput = false;
             enemy.Reset();
             player.Reset();
+            SoundManager.StopAudio(AudioType.BossFightMusic);
+            SoundManager.PlaySound(AudioType.Bg , default , true);
         }
 
         private void HandleOnPauseStateEnter()
@@ -136,6 +139,8 @@ namespace Managers
         {
             Cursor.lockState = CursorLockMode.Locked;
             enemy.StartEnemyBehaviour();
+            SoundManager.StopAudio(AudioType.Bg);
+            SoundManager.PlaySound(AudioType.BossFightMusic , default , true);
         }
 
         private void HandleOnResultStateExit()
@@ -157,6 +162,7 @@ namespace Managers
         {
 
             Cursor.lockState = CursorLockMode.None;
+            
         }
 
     }

@@ -713,7 +713,6 @@ GameObject:
   - component: {fileID: 5136330745024959197}
   - component: {fileID: 4421189731649513555}
   - component: {fileID: 1684873036223664274}
-  - component: {fileID: 2000840613493004980}
   - component: {fileID: 8857534657321708888}
   - component: {fileID: 7041610575325213624}
   m_Layer: 0
@@ -836,27 +835,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2000840613493004980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046700504545405216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da9f59decdbe41949eaf3219468ebe25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positionList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  currentIndex: 0
-  targetTransform: {fileID: 0}
-  destinationBuffer: 0.5
-  distance: 0
 --- !u!114 &8857534657321708888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,8 +850,8 @@ MonoBehaviour:
   agent: {fileID: 1684873036223664274}
   animator: {fileID: 3116072544310885526}
   initialState: {fileID: 11400000, guid: 00e9a31cab454af4ca471a3773c5e78a, type: 2}
-  enemyPatrolHelper: {fileID: 2000840613493004980}
   projectileSpawnPoint: {fileID: 997396315957749697}
+  initialPosition: {fileID: 0}
   uiManager: {fileID: 11400000, guid: d9598f6195cea8f4e9287031cfed529c, type: 2}
   poolManager: {fileID: 11400000, guid: 899e6865fdde3124c9ff153573ad8945, type: 2}
   maxHealth: 999

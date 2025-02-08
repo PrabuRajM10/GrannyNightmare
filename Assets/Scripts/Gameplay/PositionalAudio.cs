@@ -47,5 +47,15 @@ namespace Gameplay
         {
             transform.position = Vector3.zero;
         }
+
+        public void Resume()
+        {
+            if(!audioSource.isPlaying)audioSource.Play();
+        }
+
+        public void Stop()
+        {
+            if(audioSource.isPlaying)audioSource.Stop();
+        }
     }
 }

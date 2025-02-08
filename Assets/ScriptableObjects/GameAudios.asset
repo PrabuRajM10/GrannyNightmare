@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips:
   - type: 0
-    clip: {fileID: 8300000, guid: 915c17d15f7393144aadf4cd780a7228, type: 3}
+    clip: {fileID: 8300000, guid: 36089d202b9f3814492581598ea156b9, type: 3}
     audioMixerGroup: {fileID: 7287413328852959982, guid: 200c146562430334f9b497e5fc3bf0da,
       type: 2}
   - type: 3
@@ -36,4 +36,8 @@ MonoBehaviour:
   - type: 7
     clip: {fileID: 8300000, guid: ba730cc2b737c034ca7b7bbf73ea39ec, type: 3}
     audioMixerGroup: {fileID: 6915208955367104132, guid: 200c146562430334f9b497e5fc3bf0da,
+      type: 2}
+  - type: 8
+    clip: {fileID: 8300000, guid: 915c17d15f7393144aadf4cd780a7228, type: 3}
+    audioMixerGroup: {fileID: -926543551160230852, guid: 200c146562430334f9b497e5fc3bf0da,
       type: 2}
