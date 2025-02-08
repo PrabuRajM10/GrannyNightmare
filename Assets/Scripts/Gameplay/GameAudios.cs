@@ -34,6 +34,11 @@ namespace Gameplay
     {
         Bg,
         GunFire,
-        BulletHit
+        BulletHit,
+        EnemyLightAttack,
+        EnemyHeavyAttack,
+        EnemyJumpAttack,
+        EnemyRangedAttack,
+        EnemyDeath
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using Gameplay;
 using Managers;
 using Ui;
@@ -69,6 +70,7 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         [SerializeField] private Vector2 smoothVelocity;
         [SerializeField] InputManager inputManager;
         [SerializeField] private Transform lookAtTarget;
+        [SerializeField] private Transform initialPosition;
         [SerializeField] private MultiAimConstraint aimConstraint;
         [SerializeField] private TwoBoneIKConstraint[] handIks;
         
@@ -119,7 +121,8 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
             currentState.OnEnterState();
             currentHealth = maxHealth;
             
-            
+            SetInitialPosition();
+
         }
 
         private void Start()
@@ -201,7 +204,6 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         void HandleInput_Run(InputAction.CallbackContext context)
         {
             isRunButtonPressed = context.ReadValueAsButton();
-            Debug.Log("[Run] [Canceled] _isRunButtonPressed " + isRunButtonPressed);
             canRun = false;    
         }
         void HandleInput_Aim(InputAction.CallbackContext context)
@@ -226,6 +228,19 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
         void HandleInput_Crouch(InputAction.CallbackContext context)
         {
             isCrouching = !isCrouching;
+        }
+
+        void SetInitialPosition()
+        {
+            transform.localPosition = initialPosition.localPosition;    
+        }
+
+        public void ResetMovementAndRotation()
+        {
+            characterCurrentMovementVector = Vector3.zero;
+            look = Vector2.zero;
+            animator.SetFloat(playerMovementXHash , 0);
+            animator.SetFloat(playerMovementZHash , 0);
         }
 
         void HandleGravity()
@@ -288,14 +303,41 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
 
         public void OnDead()
         {
-            aimConstraint.weight = 0;
-            foreach (var handIk in handIks)
-            {
-                handIk.weight = 0;
-            }
+            SetConstrainsWeight(0);
             lookAtTarget.gameObject.SetActive(false);
             rifleController.EnableWeapon(false);
+            uiManager.SetGameResult(false);
+            StartCoroutine(nameof(GameOver));
             // animator.SetLayerWeight(1,0); // upper body layer (for aim if implemented)
+        }
+
+        IEnumerator GameOver()
+        {
+            yield return new WaitForSeconds(2);
+            uiManager.SwitchScreen(GameScreens.GamePlayScreen , GameScreens.GameResult);
+        }
+
+        public void Reset()
+        {
+            currentState.OnExitState();
+            currentState = states.Idle();
+            currentState.OnEnterState();
+            lookAtTarget.gameObject.SetActive(true);
+            rifleController.EnableWeapon(true);
+            SetConstrainsWeight(1);
+            currentHealth = maxHealth;
+            uiManager.UpdatePlayerHealth(currentHealth,0);
+            isDead = false;
+            SetInitialPosition();
+        }
+
+        void SetConstrainsWeight(float weight)
+        {
+            aimConstraint.weight = weight;
+            foreach (var handIk in handIks)
+            {
+                handIk.weight = weight;
+            }
         }
     }
 }

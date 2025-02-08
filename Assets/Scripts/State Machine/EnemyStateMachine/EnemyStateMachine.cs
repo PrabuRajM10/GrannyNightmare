@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Gameplay;
 using ObjectPooling;
 using Ui;
@@ -14,8 +15,8 @@ namespace State_Machine.EnemyStateMachine
         [FormerlySerializedAs("_animator")] [SerializeField] private Animator animator; 
 
         [SerializeField] EnemyBaseState initialState;
-        [SerializeField] private EnemyPatrolHelper enemyPatrolHelper;
         [SerializeField] Transform projectileSpawnPoint;
+        [SerializeField] private Transform initialPosition;
         [SerializeField] UiManager uiManager;
         [SerializeField] PoolManager poolManager;
         [FormerlySerializedAs("health")] [SerializeField] private int maxHealth = 5;
@@ -38,14 +39,14 @@ namespace State_Machine.EnemyStateMachine
         private int isDeadHash;
         private bool isChasing;
         private bool isAttacking;
-        private bool isAttackDone , isPlayerFound;
+        private bool isAttackDone , isPlayerFound , canBehave;
 
         public delegate void Callback();
         Callback onCalculateAttackDamage;
+        Callback onPlayAudioCallback;
 
         public Animator Animator => animator;
         public NavMeshAgent NavAgent => agent;  
-        public EnemyPatrolHelper EnemyPatrolHelper => enemyPatrolHelper;
 
         public PlayerStateMachine.PlayerStates.PlayerStateMachine TargetPlayer
         {
@@ -84,7 +85,6 @@ namespace State_Machine.EnemyStateMachine
         {
             if(agent == null)agent = GetComponent<NavMeshAgent>();  
             if(animator == null)animator = GetComponent<Animator>();  
-            if(enemyPatrolHelper == null)enemyPatrolHelper = GetComponent<EnemyPatrolHelper>();  
         }
 
 
@@ -101,21 +101,25 @@ namespace State_Machine.EnemyStateMachine
 
             currentState = initialState;
             currentHealth = maxHealth;
-            
+            SetInitialPosition();
+
         }
 
         private void Start()
         {
-            if(currentState != null)currentState.OnEnter(this);
             uiManager.SetUpEnemyHealth(maxHealth);
         }
 
         private void Update()
         {
-            if(currentState!=null)currentState.OnUpdate(this);
+            if(canBehave && currentState!=null)currentState.OnUpdate(this);
         }
 
-
+        public void StartEnemyBehaviour()
+        {
+            canBehave = true;
+            if(currentState != null)currentState.OnEnter(this);
+        }
         public void SetTargetPlayer(PlayerStateMachine.PlayerStates.PlayerStateMachine playerStateMachine)
         {
             player = playerStateMachine;
@@ -161,9 +165,9 @@ namespace State_Machine.EnemyStateMachine
             return currentHealth;
         }
 
-        public void SetInitialPosition(Transform patrolPointsPoint)
+        private void SetInitialPosition()
         {
-            transform.localPosition = patrolPointsPoint.localPosition;    
+            transform.localPosition = initialPosition.localPosition;    
         }
 
         public void SetParent(Transform parent)
@@ -175,15 +179,47 @@ namespace State_Machine.EnemyStateMachine
         {
             onCalculateAttackDamage = damageCalc;
         }
-        public void UnSubscribeDamageCalculation()
+
+        public void SubscribePlayAudio(Callback audioCallback)
+        {
+            onPlayAudioCallback = audioCallback;
+        }
+        public void UnSubscribeCallbacks()
         {
             onCalculateAttackDamage = null;
+            onPlayAudioCallback = null;
         }
+
+        public void Dead()
+        {
+            uiManager.SetGameResult(true);
+            StartCoroutine(nameof(GameOver));
+        }
+        
+        IEnumerator GameOver()
+        {
+            yield return new WaitForSeconds(2);
+            uiManager.SwitchScreen(GameScreens.GamePlayScreen , GameScreens.GameResult);
+        }
+
+        public void Reset()
+        {
+            currentState.OnExit(this);
+            currentState = initialState;
+            currentState.OnEnter(this);
+            currentHealth = maxHealth;
+            uiManager.UpdateEnemyHealth(currentHealth , 0);
+            SetInitialPosition();
+            canBehave = false;  
+        }
+
         //Animation event 
+
         public void StartAttack()
         {
             isAttackDone = false;
         }
+
         public void EndAttack()
         {
             isAttackDone = true;
@@ -193,7 +229,7 @@ namespace State_Machine.EnemyStateMachine
         {
             TurnOffLocomotion(false);
         }
-        
+
         public void StopMoving()
         {
             TurnOffLocomotion(true);
@@ -202,6 +238,11 @@ namespace State_Machine.EnemyStateMachine
         public void CalculateDamageOnAttack()
         {
             onCalculateAttackDamage?.Invoke();
+        }
+
+        public void PlayAudio()
+        {
+            onPlayAudioCallback?.Invoke();
         }
     }
 }

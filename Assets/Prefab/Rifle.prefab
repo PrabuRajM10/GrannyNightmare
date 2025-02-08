@@ -1285,6 +1285,7 @@ MonoBehaviour:
   poolManagerSo: {fileID: 11400000, guid: 899e6865fdde3124c9ff153573ad8945, type: 2}
   rifleControllerSo: {fileID: 11400000, guid: bdaea40d066c9cc4ba003db2411679c6, type: 2}
   muzzle: {fileID: 5802646356671683201}
+  mesh: {fileID: 6459500930487678992}
   mainCamera: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2

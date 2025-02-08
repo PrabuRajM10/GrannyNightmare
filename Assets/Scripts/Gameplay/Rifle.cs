@@ -10,6 +10,7 @@ namespace Gameplay
         [SerializeField] PoolManager poolManagerSo;
         [SerializeField] RifleController rifleControllerSo;
         [SerializeField] private Transform muzzle;
+        [SerializeField] private GameObject mesh;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private LayerMask ignoreLayer;
 
@@ -59,7 +60,7 @@ namespace Gameplay
         }
         private void OnEnableWeapon(bool state)
         {
-            gameObject.SetActive(state);
+            mesh.SetActive(state);
         }
     }
     

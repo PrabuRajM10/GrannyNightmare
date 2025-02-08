@@ -1,3 +1,4 @@
+using System;
 using ObjectPooling;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -8,6 +9,7 @@ namespace Gameplay
     {
         [SerializeField] AudioSource audioSource;
         PoolManager poolManager;
+        Action onAudioPlayed;
         private void OnValidate()
         {
             if(audioSource == null) audioSource = GetComponent<AudioSource>();
@@ -18,8 +20,9 @@ namespace Gameplay
             this.poolManager = poolManager;
         }
 
-        public void SetData(AudioClip clip, AudioMixerGroup mixerGroup, Vector3 position = default, bool loop = false)
+        public void SetData(AudioClip clip, AudioMixerGroup mixerGroup, Vector3 position = default, bool loop = false , Action onAudioCompleted = null)
         {
+            onAudioPlayed = onAudioCompleted;
             transform.position = position;
             audioSource.outputAudioMixerGroup = mixerGroup;
             audioSource.clip = clip;
@@ -31,6 +34,7 @@ namespace Gameplay
 
         void BackToPool()
         {
+            onAudioPlayed?.Invoke();
             poolManager.ReturnPoolObject(this);
         }
 

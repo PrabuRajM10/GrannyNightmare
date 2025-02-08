@@ -49,15 +49,15 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""f5fcdbf6-a702-4cf7-92d0-08a055562936"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Kill"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
-                    ""id"": ""0056784b-9cf5-4070-9d0b-503594526a18"",
+                    ""id"": ""d0f2f80d-957a-4dc6-acc2-5882048abec3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -182,12 +182,12 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6b7d21e7-18c4-495b-8da7-ed12af189316"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""id"": ""b06405ae-4405-49e7-8ee3-f0d854d6972c"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Kill"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -262,7 +262,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         m_PlayerMove_Move = m_PlayerMove.FindAction("Move", throwIfNotFound: true);
         m_PlayerMove_Run = m_PlayerMove.FindAction("Run", throwIfNotFound: true);
         m_PlayerMove_Crouch = m_PlayerMove.FindAction("Crouch", throwIfNotFound: true);
-        m_PlayerMove_Kill = m_PlayerMove.FindAction("Kill", throwIfNotFound: true);
+        m_PlayerMove_Pause = m_PlayerMove.FindAction("Pause", throwIfNotFound: true);
         m_PlayerMove_Look = m_PlayerMove.FindAction("Look", throwIfNotFound: true);
         m_PlayerMove_Aim = m_PlayerMove.FindAction("Aim", throwIfNotFound: true);
         m_PlayerMove_Fire = m_PlayerMove.FindAction("Fire", throwIfNotFound: true);
@@ -335,7 +335,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMove_Move;
     private readonly InputAction m_PlayerMove_Run;
     private readonly InputAction m_PlayerMove_Crouch;
-    private readonly InputAction m_PlayerMove_Kill;
+    private readonly InputAction m_PlayerMove_Pause;
     private readonly InputAction m_PlayerMove_Look;
     private readonly InputAction m_PlayerMove_Aim;
     private readonly InputAction m_PlayerMove_Fire;
@@ -346,7 +346,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_PlayerMove_Move;
         public InputAction @Run => m_Wrapper.m_PlayerMove_Run;
         public InputAction @Crouch => m_Wrapper.m_PlayerMove_Crouch;
-        public InputAction @Kill => m_Wrapper.m_PlayerMove_Kill;
+        public InputAction @Pause => m_Wrapper.m_PlayerMove_Pause;
         public InputAction @Look => m_Wrapper.m_PlayerMove_Look;
         public InputAction @Aim => m_Wrapper.m_PlayerMove_Aim;
         public InputAction @Fire => m_Wrapper.m_PlayerMove_Fire;
@@ -368,9 +368,9 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
-            @Kill.started += instance.OnKill;
-            @Kill.performed += instance.OnKill;
-            @Kill.canceled += instance.OnKill;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -393,9 +393,9 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
-            @Kill.started -= instance.OnKill;
-            @Kill.performed -= instance.OnKill;
-            @Kill.canceled -= instance.OnKill;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -436,7 +436,7 @@ public partial class @ActorInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
-        void OnKill(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);

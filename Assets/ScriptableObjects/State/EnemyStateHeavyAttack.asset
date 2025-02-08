@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94351a760b1f0fd418c61240650b8d21, type: 2}
   - {fileID: 11400000, guid: 1b1d411ae10a0c34ca2aef777e6be576, type: 2}
   damageableDistance: 2
-  damageAmount: 5
+  damageAmount: 10

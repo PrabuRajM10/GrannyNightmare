@@ -16,12 +16,13 @@ namespace Gameplay
             poolManager = poolManagerSo;
         }
 
-        public static void PlaySound(AudioType audioType, Vector3 position = default, bool loop = false)
+        public static void PlaySound(AudioType audioType, Vector3 position = default, bool loop = false , Action callback = null)
         {
+            Debug.Log("[SoundManager] [PlaySound] audiotype " + audioType);
             var audio = poolManager.GetPoolObject<PositionalAudio>();
             var audioData = gameAudios.GetAudioData(audioType);
             if (audioData != null)
-                audio.SetData(audioData.Value.clip, audioData.Value.mixer, position, loop);
+                audio.SetData(audioData.Value.clip, audioData.Value.mixer, position, loop , callback);
             else
             {
                 Debug.LogError("Audio data Empty for type " + audioType);

@@ -9,12 +9,13 @@ namespace State_Machine.PlayerStateMachine.PlayerStates
 
         public override void OnEnterState()
         {
+            _context.CharacterAnimator.SetBool(_context.IsDeadHash , true);
             _context.OnDead();
-            _context.CharacterAnimator.SetTrigger(_context.IsDeadHash);
         }
 
         public override void OnExitState()
         {
+            _context.CharacterAnimator.SetBool(_context.IsDeadHash , false);
         }
 
         public override void OnUpdateState()

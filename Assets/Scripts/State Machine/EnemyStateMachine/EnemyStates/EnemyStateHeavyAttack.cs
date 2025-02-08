@@ -1,5 +1,7 @@
+using Gameplay;
 using Helper;
 using UnityEngine;
+using AudioType = UnityEngine.AudioType;
 
 namespace State_Machine.EnemyStateMachine.EnemyStates
 {
@@ -16,6 +18,7 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
             enemyStateMachine.StartAttack();
             enemyStateMachine.Animator.SetBool(enemyStateMachine.IsHeavyAttackingHash, true);
             enemyStateMachine.SubscribeDamageCalculation(DamageCalculation);
+            enemyStateMachine.SubscribePlayAudio(AudioCallback);
         }
         public override void OnUpdate(EnemyStateMachine stateMachine)
         {
@@ -25,15 +28,17 @@ namespace State_Machine.EnemyStateMachine.EnemyStates
         public override void OnExit(EnemyStateMachine stateMachine)
         {
             enemyStateMachine.Animator.SetBool(enemyStateMachine.IsHeavyAttackingHash, false);
-            enemyStateMachine.UnSubscribeDamageCalculation();
+            enemyStateMachine.UnSubscribeCallbacks();
         }
         void DamageCalculation()
         {
-            Debug.Log("[EnemyStateHeavyAttack] [DamageCalculation] ");
-            Debug.Log("[EnemyStateLightAttack] [DamageCalculation] ");
-
             var player = Utils.GetPlayerIfInOverlap(enemyStateMachine.GetPosition(), damageableDistance);
             if(player != null)player.TakeDamage(damageAmount);
+        }
+        
+        private void AudioCallback()
+        {
+            SoundManager.PlaySound(Gameplay.AudioType.EnemyHeavyAttack , enemyStateMachine.GetPosition());
         }
     }
 }

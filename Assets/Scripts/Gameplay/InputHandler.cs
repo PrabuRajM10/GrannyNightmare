@@ -30,23 +30,30 @@ namespace Gameplay
             // mainPlayerInput.PlayerMove.Aim.canceled += context => HandleInput_Aim(context);
             mainPlayerInput.PlayerMove.Fire.started += HandleInput_Fire;
             mainPlayerInput.PlayerMove.Fire.canceled += HandleInput_Fire;
+            mainPlayerInput.PlayerMove.Pause.started += PauseOnStarted;
         }
+
         private void OnEnable()
         {
             mainPlayerInput.PlayerMove.Enable();
             inputManager.IsDeviceKNM += InputManagerOnIsDeviceKNM;
         }
 
-        
+
         private void OnDisable()
         {
             inputManager.IsDeviceKNM -= InputManagerOnIsDeviceKNM;
             mainPlayerInput.PlayerMove.Disable();
         }
-        
+
         private bool InputManagerOnIsDeviceKNM()
         {
             return IsCurrentDeviceMouse;
+        }
+
+        private void PauseOnStarted(InputAction.CallbackContext context)
+        {
+            inputManager.HandleInput_Pause(); 
         }
 
         private void HandleInput_Fire(InputAction.CallbackContext context)
