@@ -59,6 +59,7 @@ namespace Gameplay
                 muzzleFlash.SetParent(muzzle);
                 muzzleFlash.ResetPositionAndRotation();
                 muzzleFlash.Play();
+                SoundManager.PlaySound(AudioType.GunFire,muzzle.position);
             }
             
         }

@@ -8,6 +8,7 @@ namespace Managers
     public class InputManager : ScriptableObject
     {
         private bool canProcessInput;
+        private bool gamePaused;
 
         public bool CanProcessInput
         {
@@ -27,7 +28,7 @@ namespace Managers
 
         public void HandleInput_Fire(InputAction.CallbackContext context)
         {
-            if(!canProcessInput)return;
+            if(!canProcessInput || gamePaused)return;
             HandleFireInput?.Invoke(context);
         }
 
@@ -74,6 +75,11 @@ namespace Managers
         {
             if(!canProcessInput)return;
             HandlePauseInput?.Invoke();
+        }
+
+        public void OnGamePaused(bool paused)
+        {
+            gamePaused = paused;
         }
     }
 }

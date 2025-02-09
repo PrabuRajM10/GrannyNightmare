@@ -23,18 +23,18 @@ namespace ObjectPooling
             poolManagerSo.AddPool(BulletFactoryMethod, TurnOnBulletCallback, TurnOffBulletCallback, 100);
             poolManagerSo.AddPool(EProjectileFactory, TurnOnEnemyProjectileCallback, TurnOffEnemyProjectileCallback, 10);
             poolManagerSo.AddPool(PositionalAudioFactory, AudioTurnOnCallback, AudioTurnOffCallback, 20);
-            poolManagerSo.AddPool(MuzzleFlashFactory, MuzzleFlashTurnOnCallback, MuzzleFlashTurnOffCallback , 50);
+            poolManagerSo.AddPool(MuzzleFlashFactory, MuzzleFlashTurnOnCallback, MuzzleFlashTurnOffCallback , 25);
         }
 
         private void MuzzleFlashTurnOffCallback(MuzzleFlash obj)
         {
-            obj.SetParent(null);
+            obj.gameObject.SetActive(false);
+            obj.SetParent(muzzleFlashSpawnParent);
         }
 
         private void MuzzleFlashTurnOnCallback(MuzzleFlash obj)
         {
-            obj.gameObject.SetActive(false);
-            obj.SetParent(muzzleFlashSpawnParent);
+            obj.SetParent(null);
         }
 
         private void AudioTurnOffCallback(PositionalAudio obj)

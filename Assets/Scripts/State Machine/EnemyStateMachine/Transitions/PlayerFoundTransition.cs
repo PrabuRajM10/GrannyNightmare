@@ -23,6 +23,7 @@ namespace State_Machine.EnemyStateMachine.Transitions
                 var player = Utils.GetPlayerIfInOverlap(stateMachine.GetPosition(), overlapRadius);
                 stateMachine.SetTargetPlayer(player);
                 stateMachine.SwitchStates(targetStates[2]);
+                return;
             }
             if(!stateMachine.TargetPlayer.IsDead)stateMachine.SwitchStates(GetTargetState(stateMachine));
 

@@ -40,7 +40,8 @@ namespace Managers
 
         void Start()
         {
-            SoundManager.PlaySound(AudioType.Bg ,default , true);
+            // SoundManager.PlaySound(AudioType.Bg ,default , true);
+            SwitchState(GameState.Menu);
         }
 
         private void UpdateGameState(GameScreens screen)
@@ -131,8 +132,9 @@ namespace Managers
 
         private void HandleOnPauseStateEnter()
         {
-            player.ResetMovementAndRotation();
+            inputManager.OnGamePaused(true);
             Time.timeScale = 0;
+            player.ResetMovementAndRotation();
         }
 
         private void HandleOnGameplayStateEnter()
@@ -156,6 +158,7 @@ namespace Managers
         private void HandleOnPauseStateExit()
         {
             Time.timeScale = 1;
+            inputManager.OnGamePaused(false);
         }
 
         private void HandleOnGameplayStateExit()

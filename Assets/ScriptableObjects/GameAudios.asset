@@ -41,3 +41,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 915c17d15f7393144aadf4cd780a7228, type: 3}
     audioMixerGroup: {fileID: -926543551160230852, guid: 200c146562430334f9b497e5fc3bf0da,
       type: 2}
+  - type: 1
+    clip: {fileID: 8300000, guid: 92a8c1cf67cc76f459f54d7b128bd554, type: 3}
+    audioMixerGroup: {fileID: 4862007646237125373, guid: 200c146562430334f9b497e5fc3bf0da,
+      type: 2}
