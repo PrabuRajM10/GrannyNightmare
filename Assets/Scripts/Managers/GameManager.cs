@@ -18,7 +18,7 @@ namespace Managers
         [SerializeField] private EnemyStateMachine enemy;
         [SerializeField] private PlayerStateMachine player;
 
-        [SerializeField]private GameState currentState;
+        private GameState currentState;
         
 
         private void Awake()
@@ -88,7 +88,7 @@ namespace Managers
                     HandleOnResultStateEnter();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Managers
                     HandleOnResultStateExit();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return;
             }
         }
 

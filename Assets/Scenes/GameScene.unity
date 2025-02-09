@@ -1157,7 +1157,7 @@ Transform:
   m_GameObject: {fileID: 354282121}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.02, y: 0, z: -3.69}
+  m_LocalPosition: {x: -0.3, y: 0, z: -10.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3715,9 +3715,12 @@ MonoBehaviour:
     type: 3}
   positionalAudio: {fileID: 1264290702919185565, guid: 4b9a2b4469e095b47929de5cb7a90190,
     type: 3}
+  muzzleFlash: {fileID: 8503959854364448880, guid: 1f58a1dea6bbd9347843e4935585e6a2,
+    type: 3}
   bulletSpawnParent: {fileID: 562279036}
   audioSpawnParent: {fileID: 1965869899}
   enemyProjectileSpawnParent: {fileID: 1777552193}
+  muzzleFlashSpawnParent: {fileID: 1625111174}
 --- !u!4 &953950580
 Transform:
   m_ObjectHideFlags: 0
@@ -4131,7 +4134,6 @@ MonoBehaviour:
   gameAudios: {fileID: 11400000, guid: 2ed6932142246854ea2d72655d142933, type: 2}
   enemy: {fileID: 1123053990}
   player: {fileID: 892112610}
-  currentState: 0
 --- !u!4 &1089724959
 Transform:
   m_ObjectHideFlags: 0
@@ -5548,6 +5550,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1625111173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1625111174}
+  m_Layer: 0
+  m_Name: MuzzleFlash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1625111174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625111173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1849481702}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1632887091
 GameObject:
   m_ObjectHideFlags: 0
@@ -6247,6 +6280,7 @@ Transform:
   - {fileID: 562279036}
   - {fileID: 1965869899}
   - {fileID: 1777552193}
+  - {fileID: 1625111174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1936145153
@@ -7150,6 +7184,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sporty Granny
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046700504545405216, guid: 4a769baae666f87448c571f2568bd5dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7341279668903149772, guid: 4a769baae666f87448c571f2568bd5dc,
         type: 3}

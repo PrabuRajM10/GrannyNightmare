@@ -49,12 +49,16 @@ namespace Gameplay
 
                 var bulletDir = (hitPoint - muzzle.position) .normalized;
                 
-                // Debug.DrawLine(muzzle.position, hitPoint, Color.red , 1000);
+                Debug.DrawLine(muzzle.position, hitPoint, Color.red , 1000);
                 Debug.Log("[Fire] hit name " + hit.collider.name);
                 
                 var bullet = poolManagerSo.GetPoolObject<Bullet>();
                 bullet.SetRotationAndPosition(muzzle , bulletDir);
                 bullet.Fire();
+                var muzzleFlash = poolManagerSo.GetPoolObject<MuzzleFlash>();
+                muzzleFlash.SetParent(muzzle);
+                muzzleFlash.ResetPositionAndRotation();
+                muzzleFlash.Play();
             }
             
         }

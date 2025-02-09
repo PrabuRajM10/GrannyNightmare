@@ -12,15 +12,29 @@ namespace ObjectPooling
         [SerializeField] private Bullet bullet;
         [SerializeField] private EnemyProjectile enemyProjectile;
         [SerializeField] private PositionalAudio positionalAudio;
+        [SerializeField] private MuzzleFlash muzzleFlash;
         [SerializeField] private Transform bulletSpawnParent;
         [SerializeField] private Transform audioSpawnParent;
         [SerializeField] private Transform enemyProjectileSpawnParent;
+        [SerializeField] private Transform muzzleFlashSpawnParent;
 
         private void Awake()
         {
             poolManagerSo.AddPool(BulletFactoryMethod, TurnOnBulletCallback, TurnOffBulletCallback, 100);
             poolManagerSo.AddPool(EProjectileFactory, TurnOnEnemyProjectileCallback, TurnOffEnemyProjectileCallback, 10);
             poolManagerSo.AddPool(PositionalAudioFactory, AudioTurnOnCallback, AudioTurnOffCallback, 20);
+            poolManagerSo.AddPool(MuzzleFlashFactory, MuzzleFlashTurnOnCallback, MuzzleFlashTurnOffCallback , 50);
+        }
+
+        private void MuzzleFlashTurnOffCallback(MuzzleFlash obj)
+        {
+            obj.SetParent(null);
+        }
+
+        private void MuzzleFlashTurnOnCallback(MuzzleFlash obj)
+        {
+            obj.gameObject.SetActive(false);
+            obj.SetParent(muzzleFlashSpawnParent);
         }
 
         private void AudioTurnOffCallback(PositionalAudio obj)
@@ -76,6 +90,13 @@ namespace ObjectPooling
         private PositionalAudio PositionalAudioFactory()
         {
             var obj = Instantiate(positionalAudio);
+            obj.Init(poolManagerSo);        
+            return obj;
+        }
+
+        MuzzleFlash MuzzleFlashFactory()
+        {
+            var obj = Instantiate(muzzleFlash); 
             obj.Init(poolManagerSo);        
             return obj;
         }
