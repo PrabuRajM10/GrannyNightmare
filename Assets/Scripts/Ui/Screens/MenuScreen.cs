@@ -1,8 +1,5 @@
-using System;
 using Helper;
-using UnityEditor.Playables;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Ui.Screens
