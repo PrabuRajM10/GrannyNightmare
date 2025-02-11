@@ -38,10 +38,9 @@ MonoBehaviour:
   m_Name: Global Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -2328969373883503909}
-  - {fileID: 8798435113790270070}
-  - {fileID: 994770816039690020}
-  - {fileID: 5023387287694193822}
+  - {fileID: 4842729584435861964}
+  - {fileID: 4067814685177764833}
+  - {fileID: 4443172481221355224}
 --- !u!114 &994770816039690020
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -88,6 +87,90 @@ MonoBehaviour:
   m_SampleCount:
     m_OverrideState: 1
     m_Value: 8
+--- !u!114 &4067814685177764833
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 0.6673826, b: 0.3066038, a: 1}
+  center:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.443
+  smoothness:
+    m_OverrideState: 1
+    m_Value: 0.115
+  rounded:
+    m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &4443172481221355224
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.243
+--- !u!114 &4842729584435861964
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
+  m_Name: ChannelMixer
+  m_EditorClassIdentifier: 
+  active: 1
+  redOutRedIn:
+    m_OverrideState: 1
+    m_Value: 131
+  redOutGreenIn:
+    m_OverrideState: 1
+    m_Value: 109
+  redOutBlueIn:
+    m_OverrideState: 1
+    m_Value: -91
+  greenOutRedIn:
+    m_OverrideState: 1
+    m_Value: 46
+  greenOutGreenIn:
+    m_OverrideState: 1
+    m_Value: 111
+  greenOutBlueIn:
+    m_OverrideState: 1
+    m_Value: -23
+  blueOutRedIn:
+    m_OverrideState: 1
+    m_Value: 17
+  blueOutGreenIn:
+    m_OverrideState: 1
+    m_Value: -19
+  blueOutBlueIn:
+    m_OverrideState: 1
+    m_Value: 94
 --- !u!114 &5023387287694193822
 MonoBehaviour:
   m_ObjectHideFlags: 3

@@ -42,6 +42,7 @@ namespace Managers
         {
             // SoundManager.PlaySound(AudioType.Bg ,default , true);
             SwitchState(GameState.Menu);
+            inputManager.OnGamePaused(false);
         }
 
         private void UpdateGameState(GameScreens screen)

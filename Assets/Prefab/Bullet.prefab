@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 231963126348991092}
   thrust: 10
+  damage: 5
 --- !u!1 &7866367597809332669
 GameObject:
   m_ObjectHideFlags: 0
