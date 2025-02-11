@@ -40,6 +40,7 @@ namespace Gameplay
         EnemyJumpAttack,
         EnemyRangedAttack,
         EnemyDeath,
-        BossFightMusic
+        BossFightMusic,
+        ButtonClick
     }
 }

@@ -1,3 +1,4 @@
+using Helper;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,16 +30,15 @@ namespace Ui.Screens
 
         private void OnClickQuitButton()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif  
+            Utils.OnQuitButtonPressed(quitButton);
         }
 
         private void OnClickRetryButton()
         {
-            uiManager.SwitchScreen(GameScreens.GameResult , GameScreens.GamePlayScreen);
+            Utils.ButtonOnClick(retryButton , () =>
+            {
+                uiManager.SwitchScreen(GameScreens.GameResult , GameScreens.GamePlayScreen);
+            });
         }
     }
 }

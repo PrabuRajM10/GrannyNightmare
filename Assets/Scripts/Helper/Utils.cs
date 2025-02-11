@@ -1,6 +1,10 @@
+using System;
+using Gameplay;
 using State_Machine.EnemyStateMachine;
 using State_Machine.PlayerStateMachine.PlayerStates;
 using UnityEngine;
+using UnityEngine.UI;
+using AudioType = Gameplay.AudioType;
 
 namespace Helper
 {
@@ -29,6 +33,32 @@ namespace Helper
             return null;
         }
         
-        
+        public static void ButtonOnClick(Button button , Action callBack, bool ignoreTimeScale = false)
+        {
+            button.interactable = false;
+            SoundManager.PlaySound(AudioType.ButtonClick);
+            var buttonTrans = button.transform;
+            var initialScale = buttonTrans.localScale;
+            buttonTrans.localScale = initialScale / 1.2f;
+            buttonTrans.LeanScale(initialScale, 0.25f).setEaseInOutBack().setOnComplete(() =>
+            {
+                callBack?.Invoke();
+                button.interactable = true;
+            }).setIgnoreTimeScale(ignoreTimeScale);
+        }
+
+
+        public static void OnQuitButtonPressed(Button quitButton, bool b = false)
+        {
+            ButtonOnClick(quitButton , () =>
+            {
+                
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif  
+            } , b);
+        }
     }
 }

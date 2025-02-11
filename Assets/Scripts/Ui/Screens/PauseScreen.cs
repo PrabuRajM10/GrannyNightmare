@@ -1,4 +1,5 @@
 using System;
+using Helper;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,16 +25,15 @@ namespace Ui.Screens
 
         private void OnClickQuitButton()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif  
+            Utils.OnQuitButtonPressed(quitButton,true);
         }
 
         private void OnClickResumeButton()
         {
-            uiManager.SwitchScreen(GameScreens.PauseScreen,GameScreens.GamePlayScreen);
+            Utils.ButtonOnClick(resumeButton , () =>
+            {
+                 uiManager.SwitchScreen(GameScreens.PauseScreen,GameScreens.GamePlayScreen);
+            } , true);
         }
     }
 }
